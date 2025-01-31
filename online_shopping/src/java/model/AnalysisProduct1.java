@@ -5,10 +5,7 @@
  */
 package model;
 
-/**
- *
- * @author T.V.H
- */
+
 public class AnalysisProduct1 {
     String name;
     int quantity;

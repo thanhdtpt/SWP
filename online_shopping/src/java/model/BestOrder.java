@@ -5,10 +5,7 @@
  */
 package model;
 
-/**
- *
- * @author T.V.H
- */
+
 public class BestOrder {
     String customername;
     int quantity;

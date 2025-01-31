@@ -5,10 +5,6 @@
  */
 package model;
 
-/**
- *
- * @author T.V.H
- */
 public class AnalysisCategory {
     String name;
     int quantity;

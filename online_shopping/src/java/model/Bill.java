@@ -5,10 +5,7 @@
  */
 package model;
 
-/**
- *
- * @author win
- */
+
 public class Bill {
     int id;
      int oid;

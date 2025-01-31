@@ -12,10 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author win
- */
+
 public class Customer {
    String username,name,address,city,dob,mail,phone;
    boolean gender;

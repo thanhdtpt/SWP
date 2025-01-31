@@ -5,10 +5,7 @@
  */
 package model;
 
-/**
- *
- * @author win
- */
+
 public class Categories {
     int id;
     String name,images;
