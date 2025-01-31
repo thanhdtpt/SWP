@@ -1,8 +1,4 @@
-<%-- 
-    Document   : login
-    Created on : Feb 22, 2022, 7:52:51 PM
-    Author     : win
---%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
