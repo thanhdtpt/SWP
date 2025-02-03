@@ -22,10 +22,6 @@ import model.Account;
 import model.Customer;
 import model.Shop;
 
-/**
- *
- * @author win
- */
 public class ProfileServlet extends HttpServlet {
 
     /**
