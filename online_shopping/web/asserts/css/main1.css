@@ -1,8 +1,8 @@
-.header {
-    height: 120px;
-    background-image: linear-gradient(0, #fe6433, #f53e2d);
-}
-footer {
+    .header {
+        height: 120px;
+        background-image: linear-gradient(0, #5981d1, #10218a);
+    }
+    footer {
     width: 100%;
     height: auto;
     display: block;

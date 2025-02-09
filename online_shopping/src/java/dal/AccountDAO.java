@@ -48,18 +48,24 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public boolean createAccount(String username, String pass) {
+    public boolean createAccount(String username, String pass, String email, int type) {
         boolean check = true;
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([UserName]\n"
-                + "           ,[Password])\n"
+                + "           ,[Password]\n"
+                + "           ,[Email]\n"
+                + "           ,[RoleId])\n"
                 + "     VALUES\n"
-                + "           (?\n"
+                + "           (?,\n"
+                + "           ?,\n"
+                + "           ?\n"
                 + "           ,?) ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(2, pass);
             st.setString(1, username);
+            st.setString(3, email);
+            st.setInt(4, type);
             st.executeUpdate();
             st.close();
         } catch (Exception e) {

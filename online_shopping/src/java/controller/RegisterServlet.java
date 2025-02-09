@@ -6,6 +6,8 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.CustomerDAO;
+import dal.ShopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,12 +18,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.Customer;
+import model.Shop;
 
 /**
  *
  * @author win
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = { "/RegisterServlet" })
 public class RegisterServlet extends HttpServlet {
 
     /**
@@ -79,13 +82,20 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         String u = request.getParameter("user");
         String p = request.getParameter("pass");
+        String phone = request.getParameter("phone");
+        String fullname = request.getParameter("fullname");
+        int type = Integer.parseInt(request.getParameter("type"));
         AccountDAO ad = new AccountDAO();
-        boolean x = ad.createAccount(u, p);
-        // if (x)
-        // request.getRequestDispatcher("login").forward(request, response);
-        // else
+        boolean x = ad.createAccount(u, p, u, type);
+        if(type == 1){
+            CustomerDAO cd = new CustomerDAO();
+            cd.createCustomer(new Customer(u, fullname, null, null, null, u, phone, false));
+        } else {
+            ShopDAO sd = new ShopDAO();
+            sd.createShop(new Shop(u, fullname, null, null, phone));
+        }
 
-        response.sendRedirect("login");
+        response.sendRedirect("login.jsp");
     }
 
     /**
