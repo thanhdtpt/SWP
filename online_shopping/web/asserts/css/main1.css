@@ -1,6 +1,6 @@
     .header {
         height: 120px;
-        background-image: linear-gradient(0, #fe6433, #f53e2d);
+        background-image: linear-gradient(0, #5981d1, #10218a);
     }
     footer {
     width: 100%;
@@ -733,7 +733,7 @@
         line-height: 1.4rem;
         top: -9px;
         right: -4px;
-        color: #f53e2d;
+        color: #10218a;
     }
     
     .header__cart-list-item {
@@ -1284,7 +1284,7 @@
     
     
     .home-product-item__sale-off-percent {
-        color:#EE4D2D;
+        color:#2d39ee;
         font-weight: 500;
         font-size: 1.3rem;
         line-height:1.3rem;
