@@ -13,17 +13,17 @@ import model.Shop;
 
 public class AccountDAO extends DBContext {
 
-    public Account getAdmin(String user, String pass) {
+    public Account getAdmin(String email, String pass) {
         String sql = "select * from account "
-                + "where username= ? and password=?";
+                + "where email= ? and password=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, user);
+            st.setString(1, email);
             st.setString(2, pass);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getString("username"),
-                        rs.getString("password"));
+                        rs.getString("password"), rs.getString("email"));
             }
         } catch (SQLException e) {
             System.out.println(e);

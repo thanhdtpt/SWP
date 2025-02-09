@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
     </head>
     <body>
-        <form action="login" method="post">
+        <form action="LoginServlet" method="post">
                     <div class="auth-form">
                 <div class="auth-form_header">
                     <h3 class="auth-form_heading">Đăng nhập</h3>
@@ -23,42 +23,82 @@
                     <h3 style="color: red">${requestScope.error}</h3>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" name="user" placeholder="Email của bạn "
+                        <input type="email" class="auth-form__input" name="user" placeholder="Email của bạn "
                                value="${cookie.user.value}">
                     </div>
                     <div class="auth-form__group">
                         <input type="password" class="auth-form__input" name="pass" placeholder="Mật khẩu của bạn"
                                value="${cookie.pass.value}">
                     </div>
-                    <input type="checkbox" name="rem" value="ON" ${cookie.rem.value eq 'ON' ?"checked":""}>Remember me
 
                 </div>
                 <div class="auth-form_aside">
                     <p class="auth-form__help">
 
-                        <a href="" class="auth-form__text-link">Quên mật khẩu</a>
-                        <span class="auth-form__help-separate"></span>
-                        <a href="" class="auth-form__text-link">Cần trợ giúp?</a>
+                        <a href="" class="auth-form__text-link">Quên mật khẩu?</a>
                     </p>
                 </div>
                 <div class="auth-form__controls">
-                    <button class="btn " type="button" onclick="window.location.href='home.jsp'">TRỞ LẠI</button>
+                    <button class="btn " type="button" onclick="window.location.href='home'">TRỞ LẠI</button>
                     <button class="btn btn--primary" type="submit">ĐĂNG NHẬP</button>
-                </div>
-                <div class="auth-form__socials">
-                    <a href="" class=" auth-form__socials--facebook btn btn--size-s btn--with-icon">
-                        <i
-                            class="auth-form__socials--icon fa-brands fa-facebook-square auth-form__socials--icon-facebook"></i>
-                        Đăng nhập với Facebook
-                    </a>
-                    <a href="" class="auth-form__socials--google btn btn--size-s btn--with-icon">
-                        <i class="auth-form__socials--icon fa-brands fa-google auth-form__socials--icon-google">
-
-                        </i> Kết nối với Google
-                    </a>
                 </div>
             </div>
         </div>
         </form>
     </body>
+    <style>
+        body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Nền xám nhạt */
+}
+
+.auth-form {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+.auth-form__group {
+    margin-bottom: 15px;
+}
+
+.auth-form__input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth-form__controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn--primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn--primary:hover {
+    background-color: #0056b3;
+}
+
+    </style>
 </html>

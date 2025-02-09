@@ -2,6 +2,12 @@
         height: 120px;
         background-image: linear-gradient(0, #fe6433, #f53e2d);
     }
+    footer {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
     
     .header__navbar {
         display: flex;

@@ -24,6 +24,14 @@
     </head>
    <body>
        <script src="asserts/js/form.js"></script>
+       <style>
+        .footer img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+    </style>
       <!-- header  -->
       <div class="app">
          <header class="header">

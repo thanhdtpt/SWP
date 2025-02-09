@@ -11,6 +11,12 @@
     --header-width-search-height:calc(var(--navbar-height)- var(--header-height));
     --stargold-color:#FFCE3E;
 }
+.footer img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 *{
 box-sizing: inherit;
 }

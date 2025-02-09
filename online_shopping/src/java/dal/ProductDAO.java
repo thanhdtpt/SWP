@@ -383,11 +383,4 @@ public class ProductDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        ProductDAO d = new ProductDAO();
-        List<AnalysisProduct1> list = d.getProductByAnalysis1("dung", 2021, 7, 5);
-        for (AnalysisProduct1 i : list) {
-            System.out.println(i);
-        }
-    }
 }
