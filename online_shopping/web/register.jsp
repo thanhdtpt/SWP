@@ -114,11 +114,16 @@
                 </div>
                 <div class="auth-form_aside">
                     <p class="auth-form__policy-text">
-                        Bằng việc đăng kí,bạn đã đồng ý với EZ Shop về
-                        <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
+                        Bằng việc đăng kí, bạn đã đồng ý với EZ Shop về
+                        <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> & 
                         <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
                     </p>
+                    <div class="auth-form__checkbox">
+                        <input type="checkbox" id="agree" name="agree" />
+                        <label for="agree">Tôi đồng ý với Điều khoản dịch vụ và Chính sách bảo mật.</label>
+                    </div>
                 </div>
+
                 <div class="auth-form__controls">
                     <button class="btn " type="button" onclick="window.location.href = 'home';">TRỞ LẠI</button>
                     <button class="btn btn--primary" type="submit">ĐĂNG KÝ</button>
@@ -136,16 +141,37 @@
                         repass: {
                             required: true,
                             equalTo: "#pass"
+                        },
+                        agree: {
+                            required: true
                         }
                     },
                     messages: {
                         pass: {
-                            required: "Enter your pass - Don't leave it empty"
+                            required: "Vui lòng nhập mật khẩu"
                         },
                         repass: {
-                            required: "Enter your repass - Don't leave it empty",
+                            required: "Vui lòng nhập lại mật khẩu",
                             equalTo: "Mật khẩu không khớp. Vui lòng nhập lại"
+                        },
+                        agree: {
+                            required: "Bạn phải đồng ý với các điều khoản trước khi đăng ký"
                         }
+                    },
+                    // Tùy chỉnh cách hiển thị lỗi cho checkbox "agree"
+                    errorPlacement: function (error, element) {
+                        if (element.attr("name") === "agree") {
+                            error.insertAfter(element.closest('div.auth-form_aside')); // Đặt lỗi ngay sau checkbox
+                        } else {
+                            error.insertAfter(element); // Đặt lỗi bình thường cho các trường còn lại
+                        }
+                    }
+                });
+
+                $('#validate-register').on('submit', function (e) {
+                    // Kiểm tra nếu checkbox chưa được tick
+                    if (!$('#agree').prop('checked')) {
+                        e.preventDefault(); // Ngừng gửi form
                     }
                 });
             });
