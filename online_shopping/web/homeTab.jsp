@@ -326,72 +326,81 @@
                     <div class="grid__column-10">
                         <div class="home-filter">
                             <span class="home-filter__label">Sắp xếp theo</span>
-                            <button class="home-filter-btn btn">Phổ biến</button>
-                            <button class="home-filter-btn btn btn--primary">Mới nhất</button>
-                            <button class="home-filter-btn btn">Bán chạy</button>
+                            <button class="home-filter-btn btn" onclick="setActive(this, 1)" data-fid="1">
+                                <input type="checkbox" value="1" style="opacity: 0;"> Phổ biến
+                            </button>
+                            <button class="home-filter-btn btn" onclick="setActive(this, 2)" data-fid="2">
+                                <input type="checkbox" value="2" style="opacity: 0;"> Mới nhất
+                            </button>
+                            <button class="home-filter-btn btn" onclick="setActive(this, 3)" data-fid="3">
+                                <input type="checkbox" value="3" style="opacity: 0;"> Bán chạy
+                            </button>
+
                             <div class="select-input">
                                 <span class="select-input__label">Giá</span>
                                 <i class='select-input__icon fa-solid fa-chevron-down'></i>
                                 <div class="select-input-option">
                                     <ul class="select-input___list">
                                         <li class="select-input__item">
-                                            <a href="" class="select-input__link">Giá thấp đến cao</a>
-                                            <a href="" class="select-input__link">Giá cao đến thấp</a>
+                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=4" class="select-input__link">
+                                                <input type="radio" value="4"style="opacity: 0;">Giá thấp đến cao</a>
+                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=5" class="select-input__link">
+                                                <input type="radio" value="5"style="opacity: 0;">Giá cao đến thấp</a>
                                         </li>
                                     </ul>
                                 </div>
 
                             </div>
-                            <div class="home-filter__page">
-                                <span class="home-filter__page-num">
-
-                                    <span class="home-filter__page-num-curent">
-                                        ${requestScope.page}
-                                    </span> /${requestScope.num}
-                                </span>
-                                <div class="home-filter__page-control">
-                                    <c:if test="${1==requestScope.page&&requestScope.num!=1}">
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right' 
-                                           onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                    </c:if>
-                                    <c:if test="${1==requestScope.page&&requestScope.num==1}">
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
-                                    </c:if>
-                                    <c:if test="${1<requestScope.page&&requestScope.page<num}">
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                           onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right'
-                                           onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                    </c:if>
-                                    <c:if test="${requestScope.page==num&&requestScope.num>1}">
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                           onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
-                                    </c:if>
-                                </div>
+                            <!--                            <div class="home-filter__page">
+                                                            <span class="home-filter__page-num">
+                            
+                                                                <span class="home-filter__page-num-curent">
+                            ${requestScope.page}
+                        </span> /${requestScope.num}
+                    </span>
+                    <div class="home-filter__page-control">
+                            <c:if test="${1==requestScope.page&&requestScope.num!=1}">
+                                <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
+                                <div class="pagination">
+                                <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                                    <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
+                                </c:forEach>
                             </div>
+                            <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right' 
+                               onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
+                            </c:if>
+                            <c:if test="${1==requestScope.page&&requestScope.num==1}">
+                                <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
+                                <div class="pagination">
+                                <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                                    <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
+                                </c:forEach>
+                            </div>
+                            <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
+                            </c:if>
+                            <c:if test="${1<requestScope.page&&requestScope.page<num}">
+                                <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
+                                   onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
+                                <div class="pagination">
+                                <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                                    <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
+                                </c:forEach>
+                            </div>
+                            <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right'
+                               onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
+                            </c:if>
+                            <c:if test="${requestScope.page==num&&requestScope.num>1}">
+                                <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
+                                   onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
+                                <div class="pagination">
+                                <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                                    <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
+                                </c:forEach>
+                            </div>
+                            <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
+                            </c:if>
+                        </div>
+                    </div>-->
 
                         </div>
                         <div class="home-product">
@@ -446,47 +455,24 @@
                             <c:set var="page" value="${requestScope.page}" />
 
                             <div class="page page-control">
-                                <c:if test="${1==requestScope.page&&requestScope.num!=1}">
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right' 
-                                       onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                </c:if>
-                                <c:if test="${1==requestScope.page&&requestScope.num==1}">
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
-                                </c:if>
-                                <c:if test="${1<requestScope.page&&requestScope.page<num}">
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                       onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right'
-                                       onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                </c:if>
-                                <c:if test="${requestScope.page==num&&requestScope.num>1}">
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                       onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
+                                <!-- Previous page button -->
+                                <c:if test="${page > 1}">
+                                    <i class="home-filter__page-control--icon fa-solid fa-chevron-left" 
+                                       onclick="window.location.href = 'home?page=${page-1}'"></i>
                                 </c:if>
 
+                                <!-- Pagination buttons -->
+                                <div class="pagination">
+                                    <c:forEach begin="1" end="${requestScope.num}" var="i">
+                                        <a class="pagination-item ${i == page ? 'active' : ''}" href="home?page=${i}">${i}</a>
+                                    </c:forEach>
+                                </div>
+
+                                <!-- Next page button -->
+                                <c:if test="${page < requestScope.num}">
+                                    <i class="home-filter__page-control--icon fa-solid fa-chevron-right" 
+                                       onclick="window.location.href = 'home?page=${page+1}'"></i>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -587,5 +573,20 @@
                 </div>
             </div>
         </div>-->
+    <script>
+        function setActive(button, fid) {
+            // Xóa lớp btn--primary khỏi tất cả các nút
+            let buttons = document.querySelectorAll('.home-filter-btn');
+            buttons.forEach(function (btn) {
+                btn.classList.remove('btn--primary');
+            });
+
+            // Thêm lớp btn--primary cho nút đang được nhấn
+            button.classList.add('btn--primary');
+
+            // Chuyển hướng tới URL
+            window.location.href = 'tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=' + fid;
+        }
+    </script>
 </body>
 </html>
