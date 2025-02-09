@@ -94,6 +94,9 @@
                         <input type="email" class="auth-form__input" placeholder="Email của bạn " name="user" id="user">
                     </div>
                     <div class="auth-form__group">
+                        <input type="text" class="auth-form__input" placeholder="Tên của bạn " name="fullname" id="user">
+                    </div>
+                    <div class="auth-form__group">
                         <input type="number" class="auth-form__input" placeholder="Sđt của bạn " name="phone" id="user">
                     </div>
                     <div class="auth-form__group">
@@ -104,8 +107,8 @@
                     </div>
                     <div class="auth-form__group">
                         <select class="auth-form__input" placeholder="Loại người dùng" name="type" id="repass">
-                            <option>Người mua</option>
-                            <option>Người bán</option>
+                            <option value="1">Người mua</option>
+                            <option value="2">Người bán</option>
                         </select>
                     </div>
                 </div>
@@ -141,7 +144,7 @@
                         },
                         repass: {
                             required: "Enter your repass - Don't leave it empty",
-                            equalTo: "The passwords do not match"
+                            equalTo: "Mật khẩu không khớp. Vui lòng nhập lại"
                         }
                     }
                 });
