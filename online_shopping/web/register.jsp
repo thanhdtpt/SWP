@@ -91,7 +91,10 @@
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" placeholder=" Tên tài khoản của bạn " name="user" id="user">
+                        <input type="email" class="auth-form__input" placeholder="Email của bạn " name="user" id="user">
+                    </div>
+                    <div class="auth-form__group">
+                        <input type="number" class="auth-form__input" placeholder="Sđt của bạn " name="phone" id="user">
                     </div>
                     <div class="auth-form__group">
                         <input type="password" class="auth-form__input" placeholder="Mật khẩu của bạn" name="pass" id="pass">
@@ -99,10 +102,16 @@
                     <div class="auth-form__group">
                         <input type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu" name="repass" id="repass">
                     </div>
+                    <div class="auth-form__group">
+                        <select class="auth-form__input" placeholder="Loại người dùng" name="type" id="repass">
+                            <option>Người mua</option>
+                            <option>Người bán</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="auth-form_aside">
                     <p class="auth-form__policy-text">
-                        Bằng việc đăng kí,bạn đã đồng ý với Shopee về
+                        Bằng việc đăng kí,bạn đã đồng ý với EZ Shop về
                         <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
                         <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
                     </p>

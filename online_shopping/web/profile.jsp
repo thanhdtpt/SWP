@@ -18,20 +18,12 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
-        <link rel="stylesheet" href="./asserts/css/main.css">
+        <link rel="stylesheet" href="./asserts/css/main1.css">
         <link rel="stylesheet" href="./asserts/css/profile.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
     </head>
     <body>
         <script src="asserts/js/form.js"></script>
-        <style>
-            .footer img {
-                width: 100%;
-                height: auto;
-                display: block;
-            }
-
-        </style>
         <!-- header  -->
         <div class="app">
             <header class="header">
@@ -549,11 +541,6 @@
         </form>
 
     </c:if>
-    <footer class="footer">
-        <div class="footer-main">
-            <img src="./asserts/img/footer-profile.jpg" alt="Qr code"/>
-        </div>
-    </footer>
 </div>
 </body>
 </html>
