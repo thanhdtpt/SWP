@@ -35,7 +35,7 @@
                 <div class="auth-form_aside">
                     <p class="auth-form__help">
 
-                        <a href="" class="auth-form__text-link">Quên mật khẩu?</a>
+                        <a href="forgot.jsp" class="auth-form__text-link">Quên mật khẩu?</a>
                     </p>
                 </div>
                 <div class="auth-form__controls">

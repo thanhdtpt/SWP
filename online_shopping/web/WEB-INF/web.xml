@@ -121,6 +121,10 @@
         <servlet-name>VerifyOTPServlet</servlet-name>
         <servlet-class>controller.VerifyOTPServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -236,6 +240,10 @@
     <servlet-mapping>
         <servlet-name>VerifyOTPServlet</servlet-name>
         <url-pattern>/verifyOTP</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgotPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
