@@ -174,8 +174,8 @@ svg:not(:root) {
     border-right: 1px solid rgba(0,0,0,.14);
 }
 .URjL1D {
-    color: #ee4d2d;
-    border-bottom-color: #ee4d2d;
+    color: #10218a;
+    border-bottom-color: #10218a;
 }
 ._3uBhVI {
     border-bottom: 1px solid #555;
@@ -226,8 +226,8 @@ svg:not(:root) {
     overflow: hidden;
 }
 .shopee-rating-stars__primary-star {
-    color: #ee4d2d;
-    stroke: #ee4d2d;
+    color: #10218a;
+    stroke: #10218a;
     display: block;
     position: absolute;
     left: 0;
@@ -248,7 +248,7 @@ svg:not(:root) {
     overflow: hidden;
 }
 .shopee-rating-stars__hollow-star {
-    color: #ee4d2d;
+    color: #10218a;
     display: block;
     stroke: currentColor;
 }
@@ -349,7 +349,7 @@ svg:not(:root) {
 ._2v0Hgx {
     font-size: 1.875rem;
     font-weight: 500;
-    color: #ee4d2d;
+    color: #10218a;
 }
 .nav__bar__price{
     font-size: 1.4rem;
@@ -362,7 +362,7 @@ svg:not(:root) {
     font-size: 1rem;
     color: #fff;
     text-transform: uppercase;
-    background: #ee4d2d;
+    background: #10218a;
     border-radius: 2px;
     padding: 4px 8px;
     font-weight: 500;
@@ -672,8 +672,8 @@ button, html input[type=button], input[type=reset], input[type=submit] {
 }
 .QcT1pP ._3t_iHy ._32Ho0Q {
     margin-right: 10px;
-    color: var(--brand-primary-color,#ee4d2d);
-    stroke: var(--brand-primary-color,#ee4d2d);
+    color: var(--brand-primary-color,#10218a);
+    stroke: var(--brand-primary-color,#10218a);
     font-size: 1.25rem;
 }
 .btn-solid-primary {
@@ -681,7 +681,7 @@ button, html input[type=button], input[type=reset], input[type=submit] {
     position: relative;
     overflow: visible;
     outline: 0;
-    background: #ee4d2d;
+    background: #10218a;
 }
 .btn--l, .btn--xl {
     min-width: 80px;
@@ -991,7 +991,7 @@ img {
 
 .shopee-product-rating__rating .icon-rating-solid {
     margin-right: 0.125rem;
-    color: #ee4d2d;
+    color: #10218a;
 }
 svg:not(:root) {
     overflow: hidden;
