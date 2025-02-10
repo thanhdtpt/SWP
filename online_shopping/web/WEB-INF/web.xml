@@ -117,6 +117,10 @@
         <servlet-name>BestOrder</servlet-name>
         <servlet-class>controller.BestOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VerifyOTPServlet</servlet-name>
+        <servlet-class>controller.VerifyOTPServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -228,6 +232,10 @@
     <servlet-mapping>
         <servlet-name>BestOrder</servlet-name>
         <url-pattern>/bestorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyOTPServlet</servlet-name>
+        <url-pattern>/verifyOTP</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
