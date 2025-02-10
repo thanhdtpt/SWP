@@ -329,77 +329,62 @@
                     <div class="grid__column-10">
                         <div class="home-filter">
                             <span class="home-filter__label">Sắp xếp theo</span>
-                            <button class="home-filter-btn btn" onclick="window.location.href = 'tab?id=${requestScope.id}&fid=1'">
-                                <input type="checkbox" value="1" style="opacity: 0;">  Phổ biến</button>
-                            <button class="home-filter-btn btn btn--primary" onclick="window.location.href = 'tab?id=${requestScope.id}&fid=2'">
-                                <input type="checkbox" value="2" style="opacity: 0;">Mới nhất</button>
-                            <button class="home-filter-btn btn"onclick="window.location.href = 'tab?id=${requestScope.id}&fid='3'">
-                                <input type="checkbox" value="3" style="opacity: 0;">Bán chạy</button>
+                            <button class="home-filter-btn btn" onclick="setActive(this, 1)" data-fid="1">
+                                <input type="checkbox" value="1" style="opacity: 0;"> Phổ biến
+                            </button>
+                            <button class="home-filter-btn btn" onclick="setActive(this, 2)" data-fid="2">
+                                <input type="checkbox" value="2" style="opacity: 0;"> Mới nhất
+                            </button>
+                            <button class="home-filter-btn btn" onclick="setActive(this, 3)" data-fid="3">
+                                <input type="checkbox" value="3" style="opacity: 0;"> Bán chạy
+                            </button>
+
                             <div class="select-input">
                                 <span class="select-input__label">Giá</span>
                                 <i class='select-input__icon fa-solid fa-chevron-down'></i>
                                 <div class="select-input-option">
                                     <ul class="select-input___list">
                                         <li class="select-input__item">
-                                            <a href="tab?id=${requestScope.id}&fid=4" class="select-input__link">
+                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=4" class="select-input__link">
                                                 <input type="radio" value="4"style="opacity: 0;">Giá thấp đến cao</a>
-                                            <a href="tab?id=${requestScope.id}&fid=5" class="select-input__link">
+                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=5" class="select-input__link">
                                                 <input type="radio" value="5"style="opacity: 0;">Giá cao đến thấp</a>
                                         </li>
                                     </ul>
                                 </div>
 
                             </div>
-                            <div class="home-filter__page">
-                                <span class="home-filter__page-num">
+                            <!--                            <div class="home-filter__page">
+                                                             Display current page and total pages 
+                                                            <span class="home-filter__page-num">
+                                                                <span class="home-filter__page-num-current">
+                            ${requestScope.page}
+                        </span> 
+                        / ${requestScope.num}
+                    </span>
 
-                                    <span class="home-filter__page-num-curent">
-                                        ${requestScope.page}
-                                    </span> /${requestScope.num}
-                                </span>
-                                <div class="home-filter__page-control">
-                                    <c:if test="${1==requestScope.page&&requestScope.num!=1}">
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right' 
-                                           onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                    </c:if>
-                                    <c:if test="${1==requestScope.page&&requestScope.num==1}">
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
-                                    </c:if>
-                                    <c:if test="${1<requestScope.page&&requestScope.page<num}">
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                           onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right'
-                                           onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                    </c:if>
-                                    <c:if test="${requestScope.page==num&&requestScope.num>1}">
-                                        <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                           onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                        <div class="pagination">
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                                <a class="pagination ${i==page?"active":"" }" href="home?page=${i}"></a>  
-                                            </c:forEach>
-                                        </div>
-                                        <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
-                                    </c:if>
-                                </div>
-                            </div>
+                    <div class="home-filter__page-control">
+                         Previous page button 
+                            <c:if test="${page > 1}">
+                                <i class="home-filter__page-control--icon fa-solid fa-chevron-left" 
+                                   onclick="window.location.href = 'home?page=${page-1}'"></i>
+                            </c:if>
+
+                             Pagination buttons 
+                            <div class="pagination">
+                            <c:forEach begin="1" end="${requestScope.num}" var="i">
+                                <a class="pagination-item ${i == page ? 'active' : ''}" href="home?page=${i}">${i}</a>
+                            </c:forEach>
+                        </div>
+
+                         Next page button 
+                            <c:if test="${page < requestScope.num}">
+                                <i class="home-filter__page-control--icon fa-solid fa-chevron-right" 
+                                   onclick="window.location.href = 'home?page=${page+1}'"></i>
+                            </c:if>
+                        </div>
+                    </div>-->
+
 
                         </div>
                         <div class="home-product">
@@ -449,54 +434,31 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <!--Pagging-->
                         <div class="page">
                             <c:set var="page" value="${requestScope.page}" />
 
                             <div class="page page-control">
-                                <c:if test="${1==requestScope.page&&requestScope.num!=1}">
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right' 
-                                       onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                </c:if>
-                                <c:if test="${1==requestScope.page&&requestScope.num==1}">
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-left'></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
-                                </c:if>
-                                <c:if test="${1<requestScope.page&&requestScope.page<num}">
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                       onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-right'
-                                       onclick="window.location.href = 'home?page=${requestScope.page+1}'"></i>
-                                </c:if>
-                                <c:if test="${requestScope.page==num&&requestScope.num>1}">
-                                    <i class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'
-                                       onclick="window.location.href = 'home?page=${requestScope.page-1}'"></i>
-                                    <div class="pagination">
-                                        <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <a class="pagination ${i==page?"active":"" }" href="home?page=${i}">${i}</a>  
-                                        </c:forEach>
-                                    </div>
-                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-right' ></i>
+                                <!-- Previous page button -->
+                                <c:if test="${page > 1}">
+                                    <i class="home-filter__page-control--icon fa-solid fa-chevron-left" 
+                                       onclick="window.location.href = 'home?page=${page-1}'"></i>
                                 </c:if>
 
+                                <!-- Pagination buttons -->
+                                <div class="pagination">
+                                    <c:forEach begin="1" end="${requestScope.num}" var="i">
+                                        <a class="pagination-item ${i == page ? 'active' : ''}" href="home?page=${i}">${i}</a>
+                                    </c:forEach>
+                                </div>
+
+                                <!-- Next page button -->
+                                <c:if test="${page < requestScope.num}">
+                                    <i class="home-filter__page-control--icon fa-solid fa-chevron-right" 
+                                       onclick="window.location.href = 'home?page=${page+1}'"></i>
+                                </c:if>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -506,94 +468,20 @@
             <img src="./asserts/img/footer-profile.jpg" alt="Qr code"/>
         </footer>
     </div>
-    <!--modal layout-->
-    <!--    <div class="modal" id="modal">
-            <div class="modal__overlay"></div>
-            <div class="modal__body">
-    
-                 Login form
-                <div class="auth-form">
-                    <div class="auth-form_header">
-                        <h3 class="auth-form_heading">Đăng ký</h3>
-                        <span class="auth-form_switch-btn">Đăng nhập</span>
-                    </div>
-                    <div class="auth-form__form">
-                        <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" placeholder="Email của bạn ">
-                        </div>
-                        <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
-                        </div>
-                        <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu">
-                        </div>
-                    </div>
-                    <div class="auth-form_aside">
-                        <p class="auth-form__policy-text">
-                            Bằng việc đăng kí,bạn đã đồng ý với Shopee về
-                            <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
-                            <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
-                        </p>
-                    </div>
-                    <div class="auth-form__controls">
-                        <button class="btn ">TRỞ LẠI</button>
-                        <button class="btn btn--primary">ĐĂNG KÝ</button>
-                    </div>
-                    <div class="auth-form__socials">
-                        <a href="" class=" auth-form__socials--facebook btn btn--size-s btn--with-icon">
-                            <i class="auth-form__socials--icon fa-brands fa-facebook-square"></i>
-                            Kết nối với Facebook
-                        </a>
-                        <a href="" class="auth-form__socials--google btn btn--size-s btn--with-icon">
-                            <i class="auth-form__socials--icon fa-brands fa-google">
-    
-                            </i>  
-                            Kết nối với Google
-                        </a>
-                    </div>
-                </div>
-    
-                Register  form
-                <div class="auth-form">
-                    <div class="auth-form_header">
-                        <h3 class="auth-form_heading">Đăng nhập</h3>
-                        <span class="auth-form_switch-btn">Đăng ký</span>
-                    </div>
-                    <div class="auth-form__form">
-                        <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" placeholder="Email của bạn ">
-                        </div>
-                        <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
-                        </div>
-    
-                    </div>
-                    <div class="auth-form_aside">
-                        <p class="auth-form__help">
-    
-                            <a href="" class="auth-form__text-link">Quên mật khẩu</a>
-                            <span class="auth-form__help-separate"></span>
-                            <a href="" class="auth-form__text-link">Cần trợ giúp?</a>
-                        </p>
-                    </div>
-                    <div class="auth-form__controls">
-                        <button class="btn ">TRỞ LẠI</button>
-                        <button class="btn btn--primary">ĐĂNG NHẬP</button>
-                    </div>
-                    <div class="auth-form__socials">
-                        <a href="" class=" auth-form__socials--facebook btn btn--size-s btn--with-icon">
-                            <i
-                                class="auth-form__socials--icon fa-brands fa-facebook-square auth-form__socials--icon-facebook"></i>
-                            Đăng nhập với Facebook
-                        </a>
-                        <a href="" class="auth-form__socials--google btn btn--size-s btn--with-icon">
-                            <i class="auth-form__socials--icon fa-brands fa-google auth-form__socials--icon-google">
-    
-                            </i> Kết nối với Google
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>-->
+    <script>
+        function setActive(button, fid) {
+            // Xóa lớp btn--primary khỏi tất cả các nút
+            let buttons = document.querySelectorAll('.home-filter-btn');
+            buttons.forEach(function (btn) {
+                btn.classList.remove('btn--primary');
+            });
+
+            // Thêm lớp btn--primary cho nút đang được nhấn
+            button.classList.add('btn--primary');
+
+            // Chuyển hướng tới URL
+            window.location.href = 'tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=' + fid;
+        }
+    </script>
 </body>
 </html>
