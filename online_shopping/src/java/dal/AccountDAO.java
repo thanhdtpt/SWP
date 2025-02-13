@@ -10,7 +10,6 @@ import model.Customer;
 import model.Discount;
 import model.Shop;
 
-
 public class AccountDAO extends DBContext {
 
     public Account getAdmin(String email, String pass) {
@@ -106,7 +105,7 @@ public class AccountDAO extends DBContext {
             st.setString(1, username);
             st.executeUpdate();
             return true;
-          //  st.close();
+            //  st.close();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -242,6 +241,24 @@ public class AccountDAO extends DBContext {
         } catch (Exception e) {
         }
         return list;
+    }
+
+    public String getRoleFromDatabase(String email, String pass) {
+        String sql = "SELECT r.name FROM Account a "
+                + "JOIN Role r ON a.RoleId = r.RoleId "
+                + "WHERE a.email = ? AND a.password = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, pass);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getString("name"); // Lấy tên vai trò (ADMIN, CUSTOMER, SELLER)
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
 }

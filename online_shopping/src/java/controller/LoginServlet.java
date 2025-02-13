@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -101,7 +101,24 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(cu);
             response.addCookie(cp);
             response.addCookie(cr);
-            response.sendRedirect("home");
+            String role = ad.getRoleFromDatabase(u, p);
+            if (role != null) {
+//                HttpSession session = request.getSession();
+                session.setAttribute("userRole", role);
+
+                // Điều hướng dựa trên vai trò
+                if ("ADMIN".equals(role)) {
+                    response.sendRedirect("admin/dashboard.jsp");
+                } else if ("CUSTOMER".equals(role)) {
+                    response.sendRedirect(request.getContextPath() + "/home");
+                } else if ("SELLER".equals(role)) {
+                    response.sendRedirect("seller/products.jsp");
+                }
+            } else {
+                String er = "account không có role!";
+                request.setAttribute("error", er);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
         }
     }
 
