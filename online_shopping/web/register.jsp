@@ -107,8 +107,8 @@
                     </div>
                     <div class="auth-form__group">
                         <select class="auth-form__input" placeholder="Loại người dùng" name="type" id="repass">
-                            <option value="1">Người mua</option>
-                            <option value="2">Người bán</option>
+                            <option value="2">Người mua</option>
+                            <option value="3">Người bán</option>
                         </select>
                     </div>
                 </div>
