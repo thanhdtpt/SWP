@@ -90,10 +90,6 @@
         <servlet-class>controller.BuyServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddressServlet</servlet-name>
-        <servlet-class>controller.AddressServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Buy1Servlet</servlet-name>
         <servlet-class>controller.Buy1Servlet</servlet-class>
     </servlet>
@@ -128,6 +124,10 @@
     <servlet>
         <servlet-name>AddToCartServlet</servlet-name>
         <servlet-class>controller.AddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddressServlet</servlet-name>
+        <servlet-class>controller.AddressServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -214,10 +214,6 @@
         <url-pattern>/buy</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddressServlet</servlet-name>
-        <url-pattern>/address</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Buy1Servlet</servlet-name>
         <url-pattern>/Buy1</url-pattern>
     </servlet-mapping>
@@ -262,6 +258,10 @@
     <servlet-mapping>
         <servlet-name>AddToCartServlet</servlet-name>
         <url-pattern>/addToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddressServlet</servlet-name>
+        <url-pattern>/address</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
