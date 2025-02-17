@@ -125,6 +125,10 @@
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <servlet-class>controller.ForgotPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>controller.AddToCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -249,14 +253,16 @@
         <filter-name>AuthFilter</filter-name>
         <filter-class>filters.AuthFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
         <url-pattern>/customer/*</url-pattern>
         <url-pattern>/seller/*</url-pattern>
     </filter-mapping>
-
+    <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/addToCart</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
