@@ -63,7 +63,7 @@ button{
  cursor: pointer;
 }
 .stardust-button--primary {
-             background-color: #ee4d2d;
+             background-color: #10218a;
              border-color: #cd3011;
              color: #fff;
              cursor: pointer;
@@ -81,7 +81,7 @@ button{
  font-family: inherit!important;
 }
 .stardust-button--primary {
- background-color: #ee4d2d;
+ background-color: #10218a;
  border-color: #cd3011;
  color: #fff;
 }
@@ -291,7 +291,7 @@ div{
  color: rgba(0,0,0,.8);
 }
 .order-item--total__price {
- color: #ee4d2d;
+ color: #10218a;
  font-size: 24px;
  line-height: 30px;
 }

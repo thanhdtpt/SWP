@@ -41,7 +41,7 @@
     transition: all 0.2s ease-in-out;
   
     &:hover {
-      border: 1px solid #ee4d2d;
+      border: 1px solid #10218a;
     }
   
     & .icon {
@@ -61,8 +61,8 @@
   }
   
   .input:checked + .indicator {
-    background-color: #ee4d2d;
-    border-color: #ee4d2d;
+    background-color: #10218a;
+    border-color: #10218a;
   
     & .icon {
       transform: scale(1);
