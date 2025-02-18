@@ -1,5 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,10 @@
             width: 100%;
             height: auto;
             display: block;
+        }
+        .select-input__link.selected {
+            font-weight: bold;
+            color: #10218a;
         }
 
     </style>
@@ -340,17 +345,32 @@
                             </button>
 
                             <div class="select-input">
-                                <span class="select-input__label">Giá</span>
+                                <c:set var="sortLabel" value="Giá" />
+                                <c:if test="${param.fid == '4'}">
+                                    <c:set var="sortLabel" value="Giá thấp đến cao" />
+                                </c:if>
+                                <c:if test="${param.fid == '5'}">
+                                    <c:set var="sortLabel" value="Giá cao đến thấp" />
+                                </c:if>
+
+                                <span class="select-input__label">${sortLabel}</span>
+
                                 <i class='select-input__icon fa-solid fa-chevron-down'></i>
                                 <div class="select-input-option">
                                     <ul class="select-input___list">
                                         <li class="select-input__item">
-                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=4" class="select-input__link">
-                                                <input type="radio" value="4"style="opacity: 0;">Giá thấp đến cao</a>
-                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=5" class="select-input__link">
-                                                <input type="radio" value="5"style="opacity: 0;">Giá cao đến thấp</a>
+                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=0" class="select-input__link ${param.fid == '0' || empty param.fid ? 'selected' : ''}">
+                                                <input type="radio" value="0" ${param.fid == '0' || empty param.fid ? 'checked' : ''} style="opacity: 0;"> Giá
+                                            </a>
+                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=4" class="select-input__link ${param.fid == '4' ? 'selected' : ''}">
+                                                <input type="radio" value="4" ${param.fid == '4' ? 'checked' : ''} style="opacity: 0;"> Giá thấp đến cao
+                                            </a>
+                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=5" class="select-input__link ${param.fid == '5' ? 'selected' : ''}">
+                                                <input type="radio" value="5" ${param.fid == '5' ? 'checked' : ''} style="opacity: 0;"> Giá cao đến thấp
+                                            </a>
                                         </li>
                                     </ul>
+
                                 </div>
 
                             </div>
@@ -397,8 +417,12 @@
                                             </div>
                                             <h4 class="home-product-item__img-name">${p.productname} </h4>
                                             <div class="home-product-item__price">
-                                                <span class="home-product-item__oldprice">${p.oldPrice} đ</span>
-                                                <span class="home-product-item__current">${p.currentPrice} đ </span>
+                                                <span class="home-product-item__oldprice">
+                                                    <fmt:formatNumber value="${p.oldPrice}" type="number" groupingUsed="true"/> đ
+                                                </span>
+                                                <span class="home-product-item__current">
+                                                    <fmt:formatNumber value="${p.currentPrice}" type="number" groupingUsed="true"/> đ
+                                                </span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 <span class="home-product-item__like home-product-item__like--liked">
@@ -475,13 +499,31 @@
             buttons.forEach(function (btn) {
                 btn.classList.remove('btn--primary');
             });
-
             // Thêm lớp btn--primary cho nút đang được nhấn
             button.classList.add('btn--primary');
-
             // Chuyển hướng tới URL
             window.location.href = 'tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=' + fid;
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy giá trị của fid từ URL
+            let urlParams = new URLSearchParams(window.location.search);
+            let fid = urlParams.get('fid');
+            // Tìm và active đúng button
+//            if (fid) {
+//                let selectedButton = document.querySelector(`.home-filter-btn[data-fid="${fid}"]`);
+//                if (selectedButton) {
+//                    selectedButton.classList.add('btn--primary');
+//                }
+//            }
+            if (fid === "4") {
+                labelElement.textContent = "Giá thấp đến cao";
+            } else if (fid === "5") {
+                labelElement.textContent = "Giá cao đến thấp";
+            } else {
+                labelElement.textContent = "Giá";
+            }
+        });
     </script>
 </body>
 </html>

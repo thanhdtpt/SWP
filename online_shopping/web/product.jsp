@@ -348,7 +348,7 @@
                                             <!--NavBar category-->
                                             <div class="flex items-center _3bDXqx page-product__breadcrumb category--navbar">
                                                 <a class=" category--navbar _2572CL" href="/">
-                                                    Shopee</a>
+                                                    EZshop</a>
                                                 <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0"
                                                      class=" category--navbar shopee-svg-icon _2m4lrt icon-arrow-right">
                                                 <path

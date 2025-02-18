@@ -281,8 +281,9 @@
                                 </div>
                                 <div class="profile__heading profile__heading-content">
                                     <div class="profile__heading profile__heading-content profile__heading-content-acount">
-                                        Dũng Bùi
+                                        ${sessionScope.cus.name}
                                     </div>
+
                                     <div class="profile__heading profile__heading-content profile__heading-content-title">
                                         <i class="fa-solid fa-pen profile__heading-content-fix profile__heading-content-fix-icon"></i>
                                         <a class=" profile__heading profile__heading-content profile__heading-content-fix">
