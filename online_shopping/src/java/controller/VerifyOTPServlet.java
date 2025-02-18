@@ -64,6 +64,8 @@ public class VerifyOTPServlet extends HttpServlet {
             session.removeAttribute("tempFullname");
             session.removeAttribute("tempType");
 
+            // Lưu thông báo vào session
+            session.setAttribute("successMessage", "Tài khoản đã đăng ký thành công! Vui lòng đăng nhập.");
             response.sendRedirect("login.jsp");
         } else {
             request.setAttribute("error", "OTP không đúng. Vui lòng thử lại.");

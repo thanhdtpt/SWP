@@ -135,7 +135,7 @@
                                     <img src="
                                          https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
                                          alt="" class="header__navbar-user-img">
-                                    <span class="header__navbar-user-name">Dũng Bùi</span>
+                                    <span class="header__navbar-user-name">${sessionScope.cus.name}</span>
                                     <ul class="header__navbar-user-menu">
                                         <li class="header__navbar-user-item">
                                             <a href="profile">Tài khoản của tôi</a>
@@ -275,7 +275,7 @@
                                 </div>
                                 <div class="profile__heading profile__heading-content">
                                     <div class="profile__heading profile__heading-content profile__heading-content-acount">
-                                        Dũng Bùi
+                                        ${sessionScope.cus.name}
                                     </div>
                                     <div class="profile__heading profile__heading-content profile__heading-content-title">
                                         <i class="fa-solid fa-pen profile__heading-content-fix profile__heading-content-fix-icon"></i>

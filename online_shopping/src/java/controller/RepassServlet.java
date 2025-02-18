@@ -29,7 +29,7 @@ public class RepassServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -99,22 +99,21 @@ public class RepassServlet extends HttpServlet {
             String oldpass = request.getParameter("oldpass");
             System.out.println("------------------------tessttttt" + newpass + "     " + renewpass + "    " + oldpass);
             if (!renewpass.equals(newpass)) {
-                request.setAttribute("error", "mật khẩu nhập lại không đúng");
+                request.setAttribute("error", "mật khẩu nhập lại không đúng!");
                 request.getRequestDispatcher("repass.jsp").forward(request, response);
             } else if (!a.getPassword().equals(oldpass)) {
-                request.setAttribute("error", "mật khẩu hiện tại không đúng");
+                request.setAttribute("error", "mật khẩu hiện tại không đúng!");
                 request.getRequestDispatcher("repass.jsp").forward(request, response);
             } else {
 
                 AccountDAO ad = new AccountDAO();
                 boolean ChangePassword = ad.ChangePassword(a.getUsername(), newpass);
                 if (ChangePassword) {
-                    request.setAttribute("error", "Bạn đã đổi mật khẩu thành công");
-                    request.getRequestDispatcher("repass.jsp").forward(request, response);
+                    request.setAttribute("success", "Bạn đã đổi mật khẩu thành công!"); // Thông báo thành công
                     request.getRequestDispatcher("repass.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("repass.jsp").forward(request, response);
-                    request.setAttribute("error", "Đổi mật khẩu thất bại");
+                    request.setAttribute("error", "Đổi mật khẩu thất bại!");
                     request.getRequestDispatcher("repass.jsp").forward(request, response);
                 }
             }

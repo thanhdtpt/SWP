@@ -1,7 +1,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="./asserts/css/base.css">
         <!--<link rel="stylesheet" href="./asserts/css/main.css">-->
         <link rel="stylesheet" href="./asserts/css/main1.css">
+        <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
     </head>
     <body
@@ -39,7 +40,7 @@
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
                         <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate" onclick="window.location.href = 'seller-product'" >
-                            kênh người bán
+                            Kênh người bán
                             <!-- head qr code -->
                             <div class="header_qr">
                                 <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">
@@ -305,8 +306,8 @@
                             <c:set var="cid" value="${requestScope.id}"/>
 
                             <ul class="category-list">
-                                <li class="category-item ">
-                                    <a href="home" class="category-item__link">Tất cả</a>
+                                <li class="category-item category-item--active">
+                                    <a href="home" class="category-item__link ">Tất cả</a>
                                 </li>
                                 <c:forEach items="${requestScope.listC}" var="c">
                                     <c:if test="${c.id!=0}">
@@ -488,9 +489,7 @@
             </div>
         </div>
 
-        <footer class="footer">
-            <img src="./asserts/img/footer-profile.jpg" alt="Qr code"/>
-        </footer>
+        <%@ include file="footer.jsp" %>
     </div>
     <script>
         function setActive(button, fid) {

@@ -31,7 +31,7 @@
                     <nav class="header__navbar">
                         <ul class="header__navbar-list">
                             <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-                                Vào cửa hàng Bùi Dũng shop
+                                Kênh người bán
                                 <!-- head qr code -->
                                 <div class="header_qr">
                                     <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">

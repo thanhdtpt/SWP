@@ -79,6 +79,7 @@ public class LoginServlet extends HttpServlet {
         if (a == null) {
             String er = "Sai tên đăng nhập hoặc mật khẩu, xin mời nhập lại";
             request.setAttribute("error", er);
+            request.setAttribute("enteredUser", u); // Giữ lại user nhập
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession(true);

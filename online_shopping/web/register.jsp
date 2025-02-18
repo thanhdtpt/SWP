@@ -77,7 +77,47 @@
             .btn--primary:hover {
                 background-color: #0056b3;
             }
+            .auth-form__group {
+                position: relative;
+                text-align: left; /* Căn lỗi về bên trái */
+            }
+            /* Đảm bảo chữ trong ô input luôn màu đen */
+            .auth-form__input {
+                color: black !important; /* Luôn giữ màu chữ là đen */
+            }
 
+            /* Chỉ đổi màu viền input khi có lỗi */
+            .auth-form__input.error {
+                border-color: red !important; /* Viền input đỏ khi có lỗi */
+            }
+
+            /* Định dạng lại vị trí lỗi */
+            .error {
+                color: red;
+                font-size: 12px;
+                margin-top: 5px;
+                display: block;
+                position: relative; /* Fix lỗi lỗi validation bị tràn */
+            }
+
+            /* Căn chỉnh lại ô nhập mật khẩu + icon */
+            .password-wrapper {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+
+            .toggle-password {
+                position: absolute;
+                right: 15px;
+                cursor: pointer;
+                font-size: 16px;
+                color: #555;
+            }
+            /* Căn giữa lỗi */
+            .error {
+                text-align: left;
+            }
         </style>
     </head>
     <body>     
@@ -97,14 +137,29 @@
                         <input type="text" class="auth-form__input" placeholder="Tên của bạn " name="fullname" id="user">
                     </div>
                     <div class="auth-form__group">
-                        <input type="number" class="auth-form__input" placeholder="Sđt của bạn " name="phone" id="user">
+                        <input type="text" class="auth-form__input" placeholder="Sđt của bạn " name="phone" id="phone">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" placeholder="Mật khẩu của bạn" name="pass" id="pass">
+                        <div class="password-wrapper">
+                            <input type="password" class="auth-form__input" placeholder="Mật khẩu của bạn" name="pass" id="pass">
+                            <span class="toggle-password" onclick="togglePassword('pass')">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
+                    <label id="pass-error" class="error" for="pass"></label>
+
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu" name="repass" id="repass">
+                        <div class="password-wrapper">
+                            <input type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu" name="repass" id="repass">
+                            <span class="toggle-password" onclick="togglePassword('repass')">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
+                    <label id="repass-error" class="error" for="repass"></label>
+
+
                     <div class="auth-form__group">
                         <select class="auth-form__input" placeholder="Loại người dùng" name="type" id="repass">
                             <option value="2">Người mua</option>
@@ -133,10 +188,26 @@
 
         <script>
             $(document).ready(function () {
+                // Thêm method kiểm tra mật khẩu mạnh
+                $.validator.addMethod("strongPassword", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value);
+                }, "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, số và ký tự đặc biệt.");
+
+                // Thêm method kiểm tra số điện thoại
+                $.validator.addMethod("validPhone", function (value, element) {
+                    return this.optional(element) || /^(0\d{9}|\+84\d{9})$/.test(value);
+                }, "Số điện thoại không hợp lệ. Phải bắt đầu bằng 0 hoặc +84 và có 10 số.");
+
+                // Validate form
                 $('#validate-register').validate({
                     rules: {
+                        phone: {
+                            required: true,
+                            validPhone: true
+                        },
                         pass: {
-                            required: true
+                            required: true,
+                            strongPassword: true
                         },
                         repass: {
                             required: true,
@@ -147,6 +218,9 @@
                         }
                     },
                     messages: {
+                        phone: {
+                            required: "Vui lòng nhập số điện thoại"
+                        },
                         pass: {
                             required: "Vui lòng nhập mật khẩu"
                         },
@@ -158,25 +232,30 @@
                             required: "Bạn phải đồng ý với các điều khoản trước khi đăng ký"
                         }
                     },
-                    // Tùy chỉnh cách hiển thị lỗi cho checkbox "agree"
                     errorPlacement: function (error, element) {
-                        if (element.attr("name") === "agree") {
-                            error.insertAfter(element.closest('div.auth-form_aside')); // Đặt lỗi ngay sau checkbox
-                        } else {
-                            error.insertAfter(element); // Đặt lỗi bình thường cho các trường còn lại
-                        }
+                        error.appendTo(element.closest('.auth-form__group'));
                     }
                 });
 
-                $('#validate-register').on('submit', function (e) {
-                    // Kiểm tra nếu checkbox chưa được tick
-                    if (!$('#agree').prop('checked')) {
-                        e.preventDefault(); // Ngừng gửi form
+                // Hiển thị hoặc ẩn mật khẩu
+                window.togglePassword = function (id) {
+                    var input = document.getElementById(id);
+                    var icon = input.nextElementSibling.querySelector("i");
+                    if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.remove("fa-eye");
+                        icon.classList.add("fa-eye-slash");
+                    } else {
+                        input.type = "password";
+                        icon.classList.remove("fa-eye-slash");
+                        icon.classList.add("fa-eye");
                     }
-                });
+                };
             });
-
         </script>
+
+
+
     </body>
 
 
