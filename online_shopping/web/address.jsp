@@ -312,7 +312,7 @@
                     </div>
                     <!-- /* Home Information  */ -->
                     <!-- /* Home Information  */ -->
-                    <div class="grid__column-7" style="background-color: #fff; box-shadow: 0 0 2px #ccc; position: relative ; height:550px">
+                    <div class="grid__column-7"  style="background-color: #fff; box-shadow: 0 0 2px #ccc; position: relative ; height:550px">
                         <div class="profile__form">
                             <!-- heading form-->
                             <div class="profile__form--heading">
@@ -327,57 +327,59 @@
                             <!--Bodyform-->
                             <c:set var="cus" value="${sessionScope.cus}"/>
                             <c:set var="shop" value="${sessionScope.shop}"/>
-                            <form action="address" method="post" style="width: 100%">
-                                <div class=" main-profile-form grid__column-7">
+                            <form action="address" method="post" style="width: 100%; margin-top: 3rem;">
+                                <div class="main-profile-form grid__column-7">
                                     <div class="body-base columns"></div>
-                                    <div class="form--body">
-                                    </div>
-                                    <div class="form-item" >
-                                        <div class="form-item  form-item__shopname-label">
-                                            <p>Tên </p>
-                                        </div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="text" placeholder="${cus.name}" value="${cus.name}" 
-                                                   name="name" maxlength="255"
-                                                   class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
-                                        </div>
-                                    </div>
-                                    <div class="form-item" >
-                                        <div class="form-item  form-item__shopname-label">
-                                            <p>Điện thoại </p>
-                                        </div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="text" placeholder="${cus.phone}" value="${cus.phone}" 
-                                                   name="phone" maxlength="255"
-                                                   class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
-                                        </div>
-                                    </div>
-                                    <div class="form-item" >
-                                        <div class="form-item  form-item__shopname-label">
-                                            <p>Địa chỉ </p>
-                                        </div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="text" placeholder="${cus.address}" value="${cus.address}" 
-                                                   name="address" maxlength="255"
-                                                   class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
-                                        </div>
-                                    </div>
+                                    <div class="form--body"></div>
 
+                                    <c:forEach var="addr" items="${addresses}">
+                                        <div class="form-item">
+                                            <input type="hidden" name="id" value="${addr.id}">
 
-
-
-                                    <div class="form-submit">
-                                        <div class="auth-form__control form-submit-control">
-                                            <button  type="submit"class="btn__small btn__small--primary form-submit-btn">Lưu</button>
+                                            <div class="form-item form-item__shopname-label">
+                                                <p>Tên</p>
+                                            </div>
+                                            <div class="form-item form-item__shopname-output">
+                                                <input type="text" placeholder="${addr.name}" value="${addr.name}" 
+                                                       name="name" maxlength="255"
+                                                       class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
+                                            </div>
                                         </div>
-                                    </div>
+
+                                        <div class="form-item">
+                                            <div class="form-item form-item__shopname-label">
+                                                <p>Điện thoại</p>
+                                            </div>
+                                            <div class="form-item form-item__shopname-output">
+                                                <input type="text" placeholder="${addr.phone}" value="${addr.phone}" 
+                                                       name="phone" maxlength="255"
+                                                       class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-item">
+                                            <div class="form-item form-item__shopname-label">
+                                                <p>Địa chỉ</p>
+                                            </div>
+                                            <div class="form-item form-item__shopname-output">
+                                                <input type="text" placeholder="${addr.address}" value="${addr.address}" 
+                                                       name="address" maxlength="255"
+                                                       class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-submit">
+                                            <div class="auth-form__control form-submit-control">
+                                                <button type="submit" class="btn__small btn__small--primary form-submit-btn">Lưu</button>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </form>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -433,6 +435,14 @@
     </form>
 
 </c:if>
+<style>
+    .profile__form {
+        max-height: 500px; /* Giới hạn chiều cao để kích hoạt cuộn */
+        overflow-y: auto; /* Cho phép cuộn theo chiều dọc */
+        padding-right: 10px;
+    }
+
+</style>
 
 </div>
 </body>

@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.AddressDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,7 +13,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import model.Account;
+import model.Address;
 import model.Customer;
 import model.Shop;
 
@@ -67,6 +71,10 @@ public class AddressServlet extends HttpServlet {
         if (a == null) {
             processRequest(request, response);
         } else {
+            AddressDAO d = new AddressDAO();
+            List<Address> addresses = new ArrayList<>();
+            addresses = d.getAddressesByCustomerId(a.getUsername());
+            request.setAttribute("addresses", addresses);
             request.getRequestDispatcher("address.jsp").forward(request, response);
         }
     }
