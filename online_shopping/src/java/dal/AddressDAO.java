@@ -7,11 +7,12 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 import model.Address;
 
-
 public class AddressDAO extends DBContext {
+
     public List<Address> getAddressesByCustomerId(String customerId) {
         List<Address> addresses = new ArrayList<>();
         String sql = "SELECT id, customer_id, address, name, phone FROM Address WHERE customer_id = ?";
@@ -36,4 +37,23 @@ public class AddressDAO extends DBContext {
         }
         return addresses;
     }
+
+    public boolean updateAddress(int id, String name, String phone, String address) {
+        String sql = "UPDATE Address SET name = ?, phone = ?, address = ? WHERE id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setString(2, phone);
+            st.setString(3, address);
+            st.setInt(4, id);
+
+            int rowsUpdated = st.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating address: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

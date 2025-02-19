@@ -100,22 +100,10 @@ public class AddressServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         Account a = (Account) session.getAttribute("account");
         AccountDAO ad = new AccountDAO();
-        Customer cus = ad.getCustomer(a.getUsername());
-        Shop s = ad.getShop(a.getUsername());
-        if (name != null) {
-            cus.setName(name);
-        }
-        if (address != null) {
-            cus.setAddress(address);
-        }
-        if (phone != null) {
-            cus.setPhone(phone);
-        }
-        ad.updateCustomerByID(cus);
-        ad.updateShopByID(s);
-        session.setAttribute("cus", cus);
-        session.setAttribute("shop", s);
-        request.getRequestDispatcher("address.jsp").forward(request, response);
+        AddressDAO d = new AddressDAO();
+        int id = Integer.parseInt(request.getParameter("id"));
+        d.updateAddress(id, name, phone, address);
+        response.sendRedirect("address");
     }
 
     /**
