@@ -227,10 +227,10 @@
                         <input type="email" class="auth-form__input" placeholder="Email của bạn " name="user" id="user" required>
                     </div>
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" placeholder="Sđt của bạn " name="phone" id="phone">
+                        <input type="text" class="auth-form__input" placeholder="Sđt của bạn " required name="phone" id="phone">
                     </div>
                     <div class="auth-form__group" style="display: flex; gap: 10px;">
-                        <input type="text" class="auth-form__input" placeholder="Tên của bạn" name="fullname" required style="width: 50%;">
+                        <input type="text" class="auth-form__input" placeholder="Tên của bạn" name="fullname" style="width: 50%;">
                         <select class="auth-form__input" name="type" required style="width: 50%;">
                             <option value="2">Người mua</option>
                             <option value="3">Người bán</option>
@@ -242,7 +242,7 @@
                             <option value="male">Nam</option>
                             <option value="female">Nữ</option>
                         </select>
-                        <input type="date" class="auth-form__input" name="dob" required style="width: 50%;">
+                        <input type="date" class="auth-form__input" name="dob" style="width: 50%;">
                     </div>
                     <div class="auth-form__group">
                         <div class="password-wrapper">
