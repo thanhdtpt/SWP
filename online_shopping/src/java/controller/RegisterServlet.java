@@ -83,11 +83,15 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String u = request.getParameter("user");
-        String p = request.getParameter("pass");
+        String email = request.getParameter("user");
+        String password = request.getParameter("pass");
         String phone = request.getParameter("phone");
         String fullname = request.getParameter("fullname");
-        int type = Integer.parseInt(request.getParameter("type"));
+        String address = request.getParameter("address");
+        String city = request.getParameter("city");
+        boolean gender = request.getParameter("gender").equals("male");
+        String dob = request.getParameter("dob");
+        int userType = Integer.parseInt(request.getParameter("type"));
 
         // Tạo mã OTP
         String otp = String.valueOf(new Random().nextInt(900000) + 100000);
@@ -95,15 +99,16 @@ public class RegisterServlet extends HttpServlet {
         // Lưu OTP vào session
         HttpSession session = request.getSession();
         session.setAttribute("otp", otp);
-        session.setAttribute("tempUser", u);
-        session.setAttribute("tempPass", p);
-        session.setAttribute("tempPhone", phone);
-        session.setAttribute("tempFullname", fullname);
-        session.setAttribute("tempType", type);
-
+//        session.setAttribute("tempUser", u);
+        session.setAttribute("tempPass", password);
+//        session.setAttribute("tempPhone", phone);
+//        session.setAttribute("tempFullname", fullname);
+        session.setAttribute("tempType", userType);
+        Customer cus = new Customer(email, fullname, address, city, dob, email, phone, gender);
+        session.setAttribute("cus", cus);
         try {
             // Gửi OTP qua email
-            EmailUtility.sendOTP(u, otp);
+            EmailUtility.sendOTP(email, otp);
             response.sendRedirect("verify.jsp"); // Chuyển đến trang nhập OTP
         } catch (MessagingException e) {
             e.printStackTrace();

@@ -211,7 +211,7 @@
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
 
-                                <c:if test="${sessionScope.size==0}">
+                                <c:if test="${sessionScope.size == null or sessionScope.size == 0}">
                                     <span class="header__cart-notice">0</span>
                                     <!--Has no cart-->
                                     <div class="header__cart-list header__cart-list--no-cart">
@@ -222,7 +222,7 @@
                                     </div> 
                                 </c:if>
 
-                                <c:if test="${sessionScope.size!=0}">
+                                <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
                                     <span class="header__cart-notice">${sessionScope.size}</span>
                                     <div class="header__cart-list header__cart-list--have-cart ">
                                         <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
@@ -334,10 +334,11 @@
                                 <div class="body-base columns"></div>
                                 <form action="profile" method="post" id="form-profile" style="width: 100%" onsubmit="return false">
                                     <div class="form--body">
-                                    </div>
-                                    <div class="form-item">
                                         <c:set var="cus" value="${sessionScope.cus}"/>
                                         <c:set var="shop" value="${sessionScope.shop}"/>
+                                    </div>
+<!--                                    <div class="form-item">
+
                                         <div class="form-item  form-item__email-label " name="username">
                                             <p>Username</p>
                                         </div>
@@ -345,7 +346,7 @@
                                             <div class="form-item__email-output form-item__email-output--content"  value="" >${cus.username}</div>
                                             <button  class=" form-item  form-item__email-output form-item__email-output--btn" ></button>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="form-item">
                                         <div class="form-item  form-item__shopname-label">
                                             <p>Tên </p>
@@ -376,15 +377,15 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-item">
+<!--                                    <div class="form-item">
                                         <div class="form-item  form-item__shopname-label">
                                             <p>Tên Shop</p>
                                         </div>
                                         <div class="form-item  form-item__shopname-output">
                                             <input type="text" value="${shop.name}" placeholder="${shop.name}" name="shopname"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                                             <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> 
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="form-item">
                                         <div class="form-item  form-gender-label">
                                             <p>Giới tính</p>
@@ -466,7 +467,7 @@
                                                     <c:if test="${cus.year}!=null">
                                                         <option value="${cus.year}">${cus.year}</option>
                                                     </c:if>  
-                                                    <c:forEach begin="${1960}" end="${2011}" var="y">
+                                                    <c:forEach begin="${1960}" end="${2100}" var="y">
                                                         <option 
                                                             <c:if test="${cus.year==y}">
                                                                 selected

@@ -25,6 +25,99 @@
         src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 
         <style>
+            /*            body {
+                            font-family: 'Roboto', sans-serif;
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            background-color: #f0f0f0;  Nền xám nhạt 
+                        }
+            
+                        .auth-form {
+                            background: white;
+                            padding: 30px;
+                            border-radius: 8px;
+                            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                            width: 350px;
+                            text-align: center;
+                        }
+            
+                        .auth-form__group {
+                            margin-bottom: 15px;
+                        }
+            
+                        .auth-form__input {
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                        }
+            
+                        .auth-form__controls {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 15px;
+                        }
+            
+                        .btn {
+                            padding: 10px 15px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+            
+                        .btn--primary {
+                            background-color: #007bff;
+                            color: white;
+                        }
+            
+                        .btn--primary:hover {
+                            background-color: #0056b3;
+                        }
+                        .auth-form__group {
+                            position: relative;
+                            text-align: left;  Căn lỗi về bên trái 
+                        }
+                         Đảm bảo chữ trong ô input luôn màu đen 
+                        .auth-form__input {
+                            color: black !important;  Luôn giữ màu chữ là đen 
+                        }
+            
+                         Chỉ đổi màu viền input khi có lỗi 
+                        .auth-form__input.error {
+                            border-color: red !important;  Viền input đỏ khi có lỗi 
+                        }
+            
+                         Định dạng lại vị trí lỗi 
+                        .error {
+                            color: red;
+                            font-size: 12px;
+                            margin-top: 5px;
+                            display: block;
+                            position: relative;  Fix lỗi lỗi validation bị tràn 
+                        }
+            
+                         Căn chỉnh lại ô nhập mật khẩu + icon 
+                        .password-wrapper {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                        }
+            
+                        .toggle-password {
+                            position: absolute;
+                            right: 15px;
+                            cursor: pointer;
+                            font-size: 16px;
+                            color: #555;
+                        }
+                         Căn giữa lỗi 
+                        .error {
+                            text-align: left;
+                        }*/
             body {
                 font-family: 'Roboto', sans-serif;
                 margin: 0;
@@ -131,13 +224,25 @@
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="email" class="auth-form__input" placeholder="Email của bạn " name="user" id="user">
-                    </div>
-                    <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" placeholder="Tên của bạn " name="fullname" id="user">
+                        <input type="email" class="auth-form__input" placeholder="Email của bạn " name="user" id="user" required>
                     </div>
                     <div class="auth-form__group">
                         <input type="text" class="auth-form__input" placeholder="Sđt của bạn " name="phone" id="phone">
+                    </div>
+                    <div class="auth-form__group" style="display: flex; gap: 10px;">
+                        <input type="text" class="auth-form__input" placeholder="Tên của bạn" name="fullname" required style="width: 50%;">
+                        <select class="auth-form__input" name="type" required style="width: 50%;">
+                            <option value="2">Người mua</option>
+                            <option value="3">Người bán</option>
+                        </select>
+                    </div>
+
+                    <div class="auth-form__group" style="display: flex; gap: 10px;">
+                        <select class="auth-form__input" name="gender" required style="width: 50%;">
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                        <input type="date" class="auth-form__input" name="dob" required style="width: 50%;">
                     </div>
                     <div class="auth-form__group">
                         <div class="password-wrapper">
@@ -160,12 +265,7 @@
                     <label id="repass-error" class="error" for="repass"></label>
 
 
-                    <div class="auth-form__group">
-                        <select class="auth-form__input" placeholder="Loại người dùng" name="type" id="repass">
-                            <option value="2">Người mua</option>
-                            <option value="3">Người bán</option>
-                        </select>
-                    </div>
+
                 </div>
                 <div class="auth-form_aside">
                     <p class="auth-form__policy-text">

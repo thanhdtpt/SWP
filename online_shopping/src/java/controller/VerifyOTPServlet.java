@@ -39,21 +39,22 @@ public class VerifyOTPServlet extends HttpServlet {
 
         if (enteredOTP.equals(generatedOTP)) {
             // Lấy thông tin đăng ký từ session
-            String u = (String) session.getAttribute("tempUser");
+//            String u = (String) session.getAttribute("tempUser");
             String p = (String) session.getAttribute("tempPass");
-            String phone = (String) session.getAttribute("tempPhone");
-            String fullname = (String) session.getAttribute("tempFullname");
+//            String phone = (String) session.getAttribute("tempPhone");
+//            String fullname = (String) session.getAttribute("tempFullname");
+            Customer cus = (Customer) session.getAttribute("cus");
             int type = (int) session.getAttribute("tempType");
 
             AccountDAO ad = new AccountDAO();
-            boolean x = ad.createAccount(u, p, u, type);
+            boolean x = ad.createAccount(cus.getMail(), p, cus.getMail(), type);
 
-            if (type == 1) {
+            if (type == 2) {
                 CustomerDAO cd = new CustomerDAO();
-                cd.createCustomer(new Customer(u, fullname, null, null, null, u, phone, false));
+                cd.createCustomer(cus);
             } else {
                 ShopDAO sd = new ShopDAO();
-                sd.createShop(new Shop(u, fullname, null, null, phone));
+                sd.createShop(new Shop(cus.getMail(), cus.getName(), cus.getCity(), cus.getAddress(), cus.getPhone()));
             }
 
             // Xóa session OTP

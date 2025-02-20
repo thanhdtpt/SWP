@@ -226,10 +226,10 @@
                         <div class="header__cart">
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
-                                <c:if test="${sessionScope.size==0}">
+                                <c:if test="${sessionScope.size == null or sessionScope.size==0}">
                                     <span class="header__cart-notice">0</span>
                                 </c:if>
-                                <c:if test="${sessionScope.size!=0}">
+                                <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
                                     <span class="header__cart-notice">${sessionScope.size}</span>
                                 </c:if>
                                 <!--Has no cart-->

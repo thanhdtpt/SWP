@@ -235,7 +235,8 @@
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
 
-                                <c:if test="${sessionScope.size==0}">
+                                <c:if test="${sessionScope.size == null or sessionScope.size==0}">
+                                    <span class="header__cart-notice">0</span>
                                     <!--Has no cart-->
                                     <div class="header__cart-list header__cart-list--no-cart">
                                         <img src="./asserts/img/nocart.png" alt=""class="header__cart-list--no-cart-img">
@@ -245,7 +246,8 @@
                                     </div> 
                                 </c:if>
 
-                                <c:if test="${sessionScope.size!=0}">
+                                <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
+                                    <span class="header__cart-notice">${sessionScope.size}</span>
                                     <div class="header__cart-list header__cart-list--have-cart ">
                                         <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
                                         <ul class="header__cart-list-item">

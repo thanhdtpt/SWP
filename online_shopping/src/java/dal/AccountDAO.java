@@ -70,10 +70,10 @@ public class AccountDAO extends DBContext {
         } catch (Exception e) {
             return false;
         }
-        check = createCustomer(username);
-        if (!check) {
-            return false;
-        }
+//        check = createCustomer(username);
+//        if (!check) {
+//            return false;
+//        }
 //        check=createShop(username);
 //        if(!check{
 //         return false   

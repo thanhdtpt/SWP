@@ -15,6 +15,77 @@
         <link rel="stylesheet" href="./asserts/css/main.css">
         <link rel="stylesheet" href="./asserts/css/profile.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
+        <style>
+            /* Căn chỉnh label và input */
+            .form-item {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+
+            .form-item label {
+                width: 150px;
+                text-align: left;
+                font-weight: bold;
+                margin-top: 10px; /* Giúp căn chỉnh label với input */
+            }
+
+            /* Chỉnh sửa ô input */
+            .input-group {
+                position: relative;
+                width: 100%;
+                max-width: 300px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .input-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+
+            /* Khi có lỗi, chỉ viền input màu đỏ */
+            .input-error {
+                border: 1px solid red !important;
+            }
+
+            /* Biểu tượng mắt nằm trong ô input */
+            .toggle-password {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                font-size: 16px;
+                color: gray;
+            }
+
+            /* Hiển thị lỗi ngay dưới input, đẩy input bên dưới xuống */
+            .error-message {
+                color: red;
+                font-size: 12px;
+                margin-top: 5px;
+                display: block;
+                position: relative;
+            }
+
+            /* Đẩy nút "Lưu" thẳng hàng với label */
+            .form-submit {
+                display: flex;
+                align-items: center;
+                margin-left: 150px; /* Căn lề ngang với label */
+            }
+            .err {
+                display: flex;
+                padding-top: 15px;
+                align-items: center;
+                margin-left: 150px; /* Căn lề ngang với label */
+            }
+
+        </style>
     </head>
     <body>
         <script src="./asserts/js/form.js"></script>
@@ -373,45 +444,50 @@
                                     <div class="body-base columns"></div>
                                     <div class="form--body">
                                     </div>
+                                    
+
+                                    <div class="form-item">
+                                        <label for="oldpass">Mật khẩu hiện tại</label>
+                                        <div class="input-group">
+                                            <input type="password" id="oldpass" name="oldpass" placeholder="Nhập mật khẩu hiện tại">
+                                            <i class="fa fa-eye toggle-password"></i>
+                                            <span class="error-message"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-item">
+                                        <label for="newpass">Mật khẩu mới</label>
+                                        <div class="input-group">
+                                            <input type="password" id="newpass" name="newpass" placeholder="Nhập mật khẩu mới">
+                                            <i class="fa fa-eye toggle-password"></i>
+                                            <span class="error-message"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-item">
+                                        <label for="renewpass">Nhập lại mật khẩu</label>
+                                        <div class="input-group">
+                                            <input type="password" id="renewpass" name="renewpass" placeholder="Nhập lại mật khẩu">
+                                            <i class="fa fa-eye toggle-password"></i>
+                                            <span class="error-message"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-submit">
+                                        <button type="submit" class="btn btn--primary">Lưu</button>
+                                    </div>
                                     <c:if test="${not empty requestScope.success}">
-                                        <p style="color: green; font-size: 1.3rem; font-weight: bold;">
+                                        <p class="err" style="color: green; font-size: 1.3rem; font-weight: bold;">
                                             ${requestScope.success}
                                         </p>
                                     </c:if>
 
                                     <c:if test="${not empty requestScope.error}">
-                                        <p style="color: red; font-size: 1.3rem; font-weight: bold;">
+                                        <p class="err" style="color: red; font-size: 1.3rem; font-weight: bold;">
                                             ${requestScope.error}
                                         </p>
                                     </c:if>
 
-                                    <div class="form-item">
-                                        <div class="form-item  form-item__shopname-label"><p>Mật khẩu hiện tại </p></div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="password" name="oldpass" placeholder="Nhập mật khẩu" name="oldpass" maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
-                                        </div>
-                                    </div>
-                                    <div class="form-item">
-                                        <div class="form-item  form-item__shopname-label" id="password"><p>Mật khẩu mới </p></div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="password" id="password"  name="newpass" placeholder="Nhập mật khẩu mới" maxlength="255" class="form-item__shopname-output form-item__shopname-output--input form-control">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
-                                        </div>
-                                    </div>
-                                    <div class="form-item">
-                                        <div class="form-item  form-item__shopname-label"><p>Nhập lại mật khẩu </p></div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="password" name="renewpass"  placeholder="Nhập lại mật khẩu" id="confirm" maxlength="255" onChange="ppd();" class="form-item__shopname-output form-item__shopname-output--input form-control">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
-                                        </div>
-                                    </div>
-
-                                    <div class="form-submit">
-                                        <div class="auth-form__control form-submit-control">
-                                            <button type="submit"class="btn__small btn__small--primary form-submit-btn">Lưu</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -421,5 +497,90 @@
             </div>
         </div>
     </c:if>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function showError(input, message) {
+                let errorSpan = input.parentNode.querySelector(".error-message");
+                if (!errorSpan) {
+                    errorSpan = document.createElement("span");
+                    errorSpan.classList.add("error-message");
+                    input.parentNode.appendChild(errorSpan);
+                }
+                input.classList.add("input-error");
+                errorSpan.innerText = message;
+                input.parentNode.style.marginBottom = "25px"; // Đẩy input bên dưới xuống
+            }
+
+            function clearError(input) {
+                let errorSpan = input.parentNode.querySelector(".error-message");
+                if (errorSpan) {
+                    errorSpan.innerText = "";
+                }
+                input.classList.remove("input-error");
+                input.parentNode.style.marginBottom = "10px"; // Reset khoảng cách khi không có lỗi
+            }
+
+            function validatePassword() {
+                let oldPass = document.querySelector('input[name="oldpass"]');
+                let newPass = document.querySelector('input[name="newpass"]');
+                let confirmPass = document.querySelector('input[name="renewpass"]');
+
+                let passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                let isValid = true;
+
+                if (!passwordRegex.test(newPass.value)) {
+                    showError(newPass, "Mật khẩu ít nhất 8 ký tự, gồm chữ hoa, số, ký tự đặc biệt.");
+                    isValid = false;
+                } else {
+                    clearError(newPass);
+                }
+
+                if (newPass.value === oldPass.value) {
+                    showError(newPass, "Mật khẩu mới không được trùng với mật khẩu cũ.");
+                    isValid = false;
+                } else if (passwordRegex.test(newPass.value)) {
+                    clearError(newPass);
+                }
+
+                if (newPass.value !== confirmPass.value) {
+                    showError(confirmPass, "Nhập lại mật khẩu không khớp.");
+                    isValid = false;
+                } else {
+                    clearError(confirmPass);
+                }
+
+                return isValid;
+            }
+
+            // Kiểm tra khi nhập xong và click ra ngoài ô input
+            document.querySelector('input[name="newpass"]').addEventListener("blur", validatePassword);
+            document.querySelector('input[name="renewpass"]').addEventListener("blur", validatePassword);
+
+            // Khi nhấn submit
+            document.querySelector("form").addEventListener("submit", function (event) {
+                if (!validatePassword()) {
+                    event.preventDefault(); // Ngăn form gửi nếu có lỗi
+                }
+            });
+
+            // Bật/tắt hiển thị mật khẩu
+            document.querySelectorAll(".toggle-password").forEach(function (icon) {
+                icon.addEventListener("click", function () {
+                    let input = this.previousElementSibling;
+                    if (input.type === "password") {
+                        input.type = "text";
+                        this.classList.remove("fa-eye");
+                        this.classList.add("fa-eye-slash");
+                    } else {
+                        input.type = "password";
+                        this.classList.remove("fa-eye-slash");
+                        this.classList.add("fa-eye");
+                    }
+                });
+            });
+        });
+
+    </script>
+
 </body>
 </html>
