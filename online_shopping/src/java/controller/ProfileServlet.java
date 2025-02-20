@@ -6,18 +6,31 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import model.Account;
 import model.Customer;
 import model.Shop;
+
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50 // 50MB
+)
 
 public class ProfileServlet extends HttpServlet {
 
@@ -85,9 +98,9 @@ public class ProfileServlet extends HttpServlet {
                 AccountDAO ad = new AccountDAO();
                 Customer c = ad.getCustomer(a.getUsername());
                 Shop s = ad.getShop(a.getUsername());
-                session.setAttribute("cus", c);
                 session.setAttribute("shop", s);
                 request.setAttribute("date", now);
+                request.setAttribute("profile", c);
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
             }
         } catch (Exception e) {
@@ -109,92 +122,68 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
+
         HttpSession session = request.getSession(true);
         Account a = (Account) session.getAttribute("account");
-        Customer c = (Customer) session.getAttribute("cus");
-        Shop s = (Shop) session.getAttribute("shop");
-        if (a == null) {
-            PrintWriter out = response.getWriter();
-            out.println("access denied");
-            request.getRequestDispatcher("login").forward(request, response);
-        } else {
-            String username, name, address, city, day, month, year, dob = "", mail = null, phone = null, shopname = null;
-            boolean gender = false;
-            String gender_raw;
-            try {
-                username = request.getParameter("username");
-                name = request.getParameter("name");
-                address = request.getParameter("address");
-                city = request.getParameter("city");
-                day = request.getParameter("day");
-                month = request.getParameter("month");
-                year = request.getParameter("year");
-                mail = request.getParameter("newmail");
-                phone = request.getParameter("newphone");
-                shopname = request.getParameter("shopname");
-                c.setGender(gender);
-                dob += year;
-                dob += "-";
-                dob += month;
-                dob += "-";
-                dob += day;
-                System.out.println("thong tin get duoc");
-                System.out.println("PHONE:" + phone);
-                System.out.println("SHOP NAME" + shopname);
-                System.out.println("NAME" + name);
-                System.out.println("date of birth" + dob);
-                gender_raw = request.getParameter("gender");
-                System.out.println("-----------------------gender:" + request.getParameter("gender"));
-                if (Integer.parseInt(gender_raw) == 1) {
-                    gender = true;
-                }
-                if (dob != null || dob != "") {
-                    c.setDob(dob);
-                }
-                if (Integer.parseInt(gender_raw) == 0) {
-                    gender = false;
-                }
-                if (name != null || name != "") {
-                    c.setName(name);
-                }
-                if (address != null) {
-                    s.setAddress(address);
-                    c.setAddress(address);
-                }
-                if (city != null) {
-                    s.setCity(city);
-                    c.setCity(city);
-                }
-                if (mail != null) {
-                    c.setMail(mail);
-                }
-                if (phone != null) {
-                    s.setPhone(phone);
-                    c.setPhone(phone);
-                }
-                if (shopname != null) {
-                    s.setName(shopname);
-                }
-                c.setGender(gender);
-                AccountDAO ad = new AccountDAO();
-                System.out.println(s);
-                System.out.println(c);
-                ad.updateCustomerByID(c);
-                ad.updateShopByID(s);
+        AccountDAO ad = new AccountDAO();
 
-//                session.removeAttribute("cus");
-//                session.removeAttribute("shop");
-                session.setAttribute("cus", c);
-                session.setAttribute("shop", s);
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
-            } catch (Exception e) {
-                System.out.println(e);
+        Customer c = ad.getCustomer(a.getUsername());
+
+        try {
+            // Nhận các thông tin từ form
+            String fullName = request.getParameter("fullName");
+            String phone = request.getParameter("phone");
+            String dob = request.getParameter("dob");
+            String gender = request.getParameter("gender");
+            String email = request.getParameter("email");
+
+            // Xử lý ảnh đại diện
+            Part filePart = request.getPart("avatar");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String imagePath = "img/" + fileName;
+
+            if (fileName != null && !fileName.isEmpty()) {
+                // Lưu file vào thư mục img trong Web Pages
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "img";
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+
+                File file = new File(uploadPath + File.separator + fileName);
+                try (InputStream fileContent = filePart.getInputStream(); FileOutputStream fos = new FileOutputStream(file)) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = fileContent.read(buffer)) != -1) {
+                        fos.write(buffer, 0, bytesRead);
+                    }
+                }
+            } else {
+                imagePath = c.getImage();
             }
+
+            // Cập nhật đối tượng Customer
+            c.setName(fullName);
+            c.setPhone(phone);
+            c.setDob(dob);
+            c.setGender(gender.equals("male"));
+            c.setImage(imagePath);
+            c.setMail(email);
+
+            // Cập nhật vào database
+            CustomerDAO d = new CustomerDAO();
+            d.updateCustomerByID(c);
+
+            // Cập nhật session
+            session.setAttribute("cus", c);
+            request.setAttribute("profile", c);
+
+            request.getRequestDispatcher("profile.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Lỗi cập nhật thông tin");
+            request.getRequestDispatcher("profile.jsp").forward(request, response);
         }
-
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
-
-//        processRequest(request, response);
     }
 
     /**

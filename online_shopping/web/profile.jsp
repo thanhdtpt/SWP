@@ -327,168 +327,135 @@
                                         Hồ sơ của tôi
                                     </h1>
                                 </div>
-                                <div class="profile__form--heading profile__form--heading-title-description">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
+                                <div class="profile__form--heading profile__form--heading-title-description">
+                                    Quản lý thông tin hồ sơ để bảo mật tài khoản
+                                </div>
                             </div>
-                            <!--Bodyform-->
-                            <div class=" main-profile-form grid__column-8">
-                                <div class="body-base columns"></div>
-                                <form action="profile" method="post" id="form-profile" style="width: 100%" onsubmit="return false">
-                                    <div class="form--body">
-                                        <c:set var="cus" value="${sessionScope.cus}"/>
-                                        <c:set var="shop" value="${sessionScope.shop}"/>
-                                    </div>
-<!--                                    <div class="form-item">
 
-                                        <div class="form-item  form-item__email-label " name="username">
-                                            <p>Username</p>
-                                        </div>
-                                        <div class="form-item  form-item__email-output">
-                                            <div class="form-item__email-output form-item__email-output--content"  value="" >${cus.username}</div>
-                                            <button  class=" form-item  form-item__email-output form-item__email-output--btn" ></button>
-                                        </div>
-                                    </div>-->
-                                    <div class="form-item">
-                                        <div class="form-item  form-item__shopname-label">
-                                            <p>Tên </p>
-                                        </div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="text" placeholder="${cus.name}" value="${cus.name}" name="name" maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
-                                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                            <!-- Body form -->
+                            <div class="main-profile-form grid__column-8">
+                                <div class="body-base columns">
+                                    <form action="profile" method="POST" enctype="multipart/form-data" class="profile-update-form">
+                                        <div class="avatar-section">
+                                            <label for="avatarUpload" class="avatar-label">
+                                                <img id="avatarPreview" src="./${profile.image}" alt="Avatar" class="avatar-img">
+                                            </label>
+                                            <input type="file" id="avatarUpload" name="avatar" accept="image/*">
                                         </div>
 
-                                    </div>
+                                        <!-- Các thông tin khác -->
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" readonly id="email" name="email" value="${profile.username}" placeholder="Nhập email">
+                                        </div>
 
-                                    <div class="form-item">
-                                        <div class="form-item  form-item__email-label">
-                                            <p>Email</p>
+                                        <div class="form-group">
+                                            <label for="fullName">Họ và tên</label>
+                                            <input type="text" id="fullName" name="fullName" value="${profile.name}" placeholder="Nhập họ và tên">
                                         </div>
-                                        <div class="form-item  form-item__email-output">
-                                            <div class="form-item__email-output form-item__email-output--content" id="mail" value="${cus.mail}">${cus.mail}</div>
-                                            <button  class=" form-item  form-item__email-output form-item__email-output--btn" onclick="ChangeProfile('mail',${cus.mail})">Thay Đổi</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-item">
-                                        <div class="form-item  form-item__email-label">
-                                            <p>Điện thoại</p>
-                                        </div>
-                                        <div class="form-item  form-item__email-output">
-                                            <div class="form-item__email-output form-item__email-output--content" id='phone' name="phone" value="${cus.phone}">${cus.phone}</div>
-                                            <button  class=" form-item  form-item__email-output form-item__email-output--btn" onclick="ChangeProfile('phone',${cus.phone})">Thay Đổi</button>
-                                        </div>
-                                    </div>
 
-<!--                                    <div class="form-item">
-                                        <div class="form-item  form-item__shopname-label">
-                                            <p>Tên Shop</p>
+                                        <div class="form-group">
+                                            <label for="phone">Số điện thoại</label>
+                                            <input type="text" id="phone" name="phone" value="${profile.phone}" placeholder="Nhập số điện thoại">
                                         </div>
-                                        <div class="form-item  form-item__shopname-output">
-                                            <input type="text" value="${shop.name}" placeholder="${shop.name}" name="shopname"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
-                                             <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> 
+
+                                        <div class="form-group">
+                                            <label for="dob">Ngày sinh</label>
+                                            <input type="date" id="dob" name="dob" value="${profile.dob}">
                                         </div>
-                                    </div>-->
-                                    <div class="form-item">
-                                        <div class="form-item  form-gender-label">
-                                            <p>Giới tính</p>
+
+                                        <div class="form-group">
+                                            <label for="gender">Giới tính</label>
+                                            <select id="gender" name="gender">
+                                                <option value="male" ${profile.gender == "male" ? "selected" : ""}>Nam</option>
+                                                <option value="female" ${profile.gender == "female" ? "selected" : ""}>Nữ</option>
+                                                <option value="other" ${profile.gender == "other" ? "selected" : ""}>Khác</option>
+                                            </select>
                                         </div>
-                                        <div class="form-item  form-gender-output">
-                                            <div class="form-gender-output form-gender-output--option">
-                                                <c:if test="${cus.gender}">
-                                                    <div class="form-gender-output--option-male">
-                                                        <input type="radio" id="male" name="gender" value="1" checked>
-                                                        <label for="male" >Nam</label><br>
-                                                    </div>
-                                                    <div class="form-gender-output--option-female">
-                                                        <input type="radio" id="female" name="gender" value="0">
-                                                        <label for="female">Nữ</label><br>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${!cus.gender}">
-                                                    <div class="form-gender-output--option-male">
-                                                        <input type="radio" id="male" name="gender" value="1">
-                                                        <label for="male" >Nam</label><br>
-                                                    </div>
-                                                    <div class="form-gender-output--option-female">
-                                                        <input type="radio" id="female" name="gender" value="0" checked>
-                                                        <label for="female">Nữ</label><br>
-                                                    </div>
-                                                </c:if>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-item">
-                                        <div class="form-item  form-item__date-label">
-                                            <p>Ngày Sinh</p>
-                                        </div>
-                                        <div class="form-item form-item__date-output">
-                                            <!--NGÀY-->
-                                            <div class="form-item form-item__date-output form-item__date-output--day">
-                                                <select name="day"class="form-item form-item__date-output form-item__date-output--day form-item--select" >
-                                                    <option value="null">Ngày</option>
-                                                    <c:if test="${cus.day}!=null">
-                                                        <option value="${cus.day}">${cus.day}</option>
-                                                    </c:if>  
-                                                    <c:forEach begin="${1}" end="${31}" var="d">
-                                                        <option 
-                                                            <c:if test="${cus.day==d}">
-                                                                selected
-                                                            </c:if>
-                                                            value="${d}">
-                                                            ${d}
-                                                        </option>
-                                                    </c:forEach>
-                                                    <!--                                 <option value="1">1</option>
-                                                                                     <option value="2">2</option>
-                                                                                     <option value="3">3</option>
-                                                                                     <option value="4">4</option>-->
-                                                </select>
-                                            </div>
-                                            <!--Tháng-->
-                                            <div class="form-item form-item__date-output form-item__date-output--month">
-                                                <select name="month" class="form-item form-item__date-output form-item__date-output--month form-item--select">
-                                                    <option value="null">tháng</option>
-                                                    <c:if test="${cus.month}!=null">
-                                                        <option value="${cus.month}">${cus.month}</option>
-                                                    </c:if>  
-                                                    <c:forEach begin="${1}" end="${31}" var="m">
-                                                        <option 
-                                                            <c:if test="${cus.month==m}">
-                                                                selected
-                                                            </c:if>
-                                                            value="${m}">
-                                                            ${m}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <!--năm-->
-                                            <div class="form-item form-item__date-output form-item__date-output--year">
-                                                <select name="year"class="form-item form-item__date-output form-item__date-output--year form-item--select">
-                                                    <option value="null">Năm</option>
-                                                    <c:if test="${cus.year}!=null">
-                                                        <option value="${cus.year}">${cus.year}</option>
-                                                    </c:if>  
-                                                    <c:forEach begin="${1960}" end="${2100}" var="y">
-                                                        <option 
-                                                            <c:if test="${cus.year==y}">
-                                                                selected
-                                                            </c:if>
-                                                            value="${y}">
-                                                            ${y}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-submit">
-                                        <div class="auth-form__control form-submit-control">
-                                            <button class="btn__small btn__small--primary form-submit-btn" type="button" onclick="document.getElementById('form-profile').submit();">Lưu</button>
-                                        </div>
-                                    </div>
-                                </form>
+
+                                        <button type="submit" class="update-btn">Cập nhật</button>
+                                    </form>
+
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- CSS -->
+                    <style>
+                        .profile-update-form {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 15px;
+                            padding: 20px;
+                        }
+
+                        .avatar-section {
+                            display: flex;
+                            justify-content: center;
+                            margin-bottom: 15px;
+                        }
+
+                        .avatar-label {
+                            cursor: pointer;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        }
+
+                        .avatar-img {
+                            width: 120px;
+                            height: 120px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            border: 2px solid #ccc;
+                        }
+
+                        .form-group {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        .form-group label {
+                            font-weight: bold;
+                            margin-bottom: 5px;
+                        }
+
+                        .form-group input,
+                        .form-group select {
+                            padding: 8px;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                        }
+
+                        .update-btn {
+                            background-color: #007bff;
+                            color: white;
+                            padding: 10px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            font-size: 16px;
+                        }
+
+                        .update-btn:hover {
+                            background-color: #0056b3;
+                        }
+                    </style>
+
+                    <!-- JavaScript -->
+                    <script>
+                        document.getElementById('avatarUpload').addEventListener('change', function (event) {
+                            const file = event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    document.getElementById('avatarPreview').src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    </script>
                 </div>
             </div>
         </c:if>

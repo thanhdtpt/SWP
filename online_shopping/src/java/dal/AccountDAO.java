@@ -127,7 +127,7 @@ public class AccountDAO extends DBContext {
     }
 
     public Customer getCustomer(String user) {
-        String sql = "select c.*from Customers c inner join Account a \n"
+        String sql = "select c.* from Customers c inner join Account a \n"
                 + "on c.UserName=a.UserName\n"
                 + "where c.UserName=?";
         try {
@@ -143,7 +143,8 @@ public class AccountDAO extends DBContext {
                 String dob = rs.getString("dob");
                 String mail = rs.getString("mail");
                 String phone = rs.getString("phone");
-                return new Customer(username, name, address, city, dob, mail, phone, gender);
+                String image = rs.getString("phone");
+                return new Customer(username, name, address, city, dob, mail, phone, image, gender);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -160,7 +161,7 @@ public class AccountDAO extends DBContext {
         }
         String sql = "update Customers 	\n"
                 + "set customername=?,Address=?,Phone=?,City=?\n"
-                + ",Mail=?,Gender=?,dob=? \n"
+                + ",Mail=?,Gender=?,dob=?\n"
                 + "where UserName=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);

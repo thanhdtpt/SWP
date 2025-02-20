@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 
 public class Customer {
-   String username,name,address,city,dob,mail,phone;
+   String username,name,address,city,dob,mail,phone, image;
    boolean gender;
     public Customer() {
     }
@@ -30,6 +30,26 @@ public class Customer {
         this.gender = gender;
     }
 
+    public Customer(String username, String name, String address, String city, String dob, String mail, String phone, String image, boolean gender) {
+        this.username = username;
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.dob = dob;
+        this.mail = mail;
+        this.phone = phone;
+        this.image = image;
+        this.gender = gender;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     public String getUsername() {
         return username;
     }
