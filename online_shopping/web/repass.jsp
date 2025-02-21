@@ -406,13 +406,13 @@
                                     <a href="#" class="profile-item__link profile-item__link-main">Tài khoản của tôi</a>
                                 </li> -->
                                 <li class="profile-item ">
-                                    <a href="profile.jsp" class="profile-item__link">Hồ Sơ</a>
+                                    <a href="profile" class="profile-item__link">Hồ Sơ</a>
                                 </li>
                                 <li class="profile-item">
-                                    <a href="address.jsp" class="profile-item__link">Địa chỉ</a>
+                                    <a href="address" class="profile-item__link">Địa chỉ</a>
                                 </li>
                                 <li class="profile-item profile-item--active">
-                                    <a href="repass.jsp" class="profile-item__link">Đổi mật khẩu</a>
+                                    <a href="repass" class="profile-item__link">Đổi mật khẩu</a>
                                 </li>
                                 <div class="profile-item__link-group">
                                     <img src="https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078" alt="" class="profile-item profile-item-img">

@@ -143,7 +143,7 @@ public class AccountDAO extends DBContext {
                 String dob = rs.getString("dob");
                 String mail = rs.getString("mail");
                 String phone = rs.getString("phone");
-                String image = rs.getString("phone");
+                String image = rs.getString("image");
                 return new Customer(username, name, address, city, dob, mail, phone, image, gender);
             }
         } catch (SQLException e) {

@@ -160,13 +160,13 @@
                                 <span class="header__navbar-user-name">${sessionScope.account.cusname}</span>
                                 <ul class="header__navbar-user-menu">
                                     <li class="header__navbar-user-item">
-                                        <a href="">Tài khoản của tôi</a>
+                                        <a href="profile">Tài khoản của tôi</a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="">Địa chỉ của tôi</a>
+                                        <a href="address">Địa chỉ của tôi</a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="cart1">Đơn mua </a>
+                                        <a href="order">Đơn mua </a>
                                     </li>
 
                                     <li class="header__navbar-user-item">
