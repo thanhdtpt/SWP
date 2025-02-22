@@ -298,6 +298,7 @@
 
             </header>
             <div class="app__container">
+                <form action="buy" method="POST">
                 <div class="grid">
                     <div class="grid__row " style="font-size: 1.4rem;">
                         <div class="grid__column-2">
@@ -532,6 +533,7 @@
                                                     </button
                                                </div>-->
                 </div>
+            </form>
             </div>
         </div>
     </div>
