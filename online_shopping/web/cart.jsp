@@ -488,7 +488,7 @@
                                         </ul>
 
                                     </c:forEach>
-                                    <form action="buy" method="POST">
+                                    <form action="buy" method="GET">
 
                                         <div class="_1UHCH_ shop__item--voucher">
 

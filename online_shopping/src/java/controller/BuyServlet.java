@@ -6,6 +6,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.AddressDAO;
 import dal.OrderDAO;
 import dal.ProductDAO;
 import dal.ShippingDAO;
@@ -19,7 +20,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import model.Account;
+import model.Address;
+import model.Cart;
 import model.Customer;
 import model.OrderDetail;
 import model.Orders;
@@ -88,38 +92,53 @@ public class BuyServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Account a = (Account) session.getAttribute("account");
+
         if (a == null) {
             processRequest(request, response);
         } else {
-            String id_raw = request.getParameter("id");
-            String quantity_raw = request.getParameter("quantity");
             AccountDAO ac = new AccountDAO();
             ShippingDAO sp = new ShippingDAO();
-            ProductDAO pd = new ProductDAO();
+
             try {
-                int quantity = Integer.parseInt(quantity_raw);
-                int id = Integer.parseInt(id_raw);
+                // Lấy giỏ hàng từ session
+                Cart cart = (Cart) session.getAttribute("cart");
+                if (cart == null || cart.getItems().isEmpty()) {
+                    response.sendRedirect("cart.jsp"); // Chuyển hướng nếu giỏ hàng rỗng
+                    return;
+                }
+
+                // Lấy thông tin khách hàng
                 Customer cus = ac.getCustomer(a.getUsername());
                 List<ShippingCompany> company = sp.getAllShippingCompany();
-                Product p = pd.getProductById(id);
+
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
-                Shop shop = p.getShops();
-                float total = quantity * p.getCurrentPrice();
-                float freight = 10000;
-                float discount = 20000;
+
+                // Tính tổng giá trị giỏ hàng
+                float total = cart.getTotalMoney(); // Gọi hàm getTotalMoney() trong Cart
+                float freight = 10000; // Phí vận chuyển
+                float discount = 20000; // Giảm giá
+
+                // Lấy cửa hàng từ sản phẩm đầu tiên trong giỏ hàng (giả định tất cả sản phẩm cùng shop)
+                Shop shop = cart.getItems().get(0).getProduct().getShops();
+
+                // Gửi dữ liệu qua JSP
+                request.setAttribute("cart", cart);
                 request.setAttribute("freight", freight);
                 request.setAttribute("discount", discount);
                 request.setAttribute("total", total);
-                request.setAttribute("quantity", quantity);
                 request.setAttribute("cus", cus);
-                request.setAttribute("p", p);
                 request.setAttribute("ship", company);
                 request.setAttribute("date", dtf.format(now));
                 request.setAttribute("shop", shop);
+                AddressDAO d = new AddressDAO();
+                List<Address> addresses = new ArrayList<>();
+                addresses = d.getAddressesByCustomerId(cus.getUsername());
+                request.setAttribute("addresses", addresses);
+
                 request.getRequestDispatcher("buy.jsp").forward(request, response);
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
