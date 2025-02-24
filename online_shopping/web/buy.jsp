@@ -269,7 +269,7 @@
                     <div class="grid__row">
 
                         <!--                   <form method="post" action="buy" id="order-product">-->
-                        <form method="post" action="buy1" id="order-product">
+                        <form method="post" action="checkout" id="order-product">
                             <!-- /* Home sort+filter  */ -->
                             <div  style="margin-bottom:20px">
                                 <div class="orderdetail--navbar">
@@ -551,8 +551,8 @@
                                                         <span>Tổng số tiền</span>
                                                     </div>
                                                     <div class="_2aXD4G">
-                                                        <div class="_1gMI9H">₫${(requestScope.total)+requestScope.freight-10000-requestScope.discount}
-                                                            <input type="text" value="${(requestScope.total)+requestScope.freight-10000-requestScope.discount}"  name="total" readonly style="display: none">
+                                                        <div class="_1gMI9H">₫${totalPtice+requestScope.freight-10000-requestScope.discount}
+                                                            <input type="text" value="${totalPtice+requestScope.freight-10000-requestScope.discount}"  name="total" readonly style="display: none">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -560,7 +560,7 @@
                                     </li>
                                 </ul>
                                 <div class="_2iv7q8">
-                                    <button class="stardust-button stardust-button--primary _2x5SvJ" onclick="document.getElementById('order-product').submit();" >Đặt Hàng</button>
+                                    <button class="stardust-button stardust-button--primary _2x5SvJ" type="submit" >Đặt Hàng</button>
                                 </div>
                             </div>
                         </form>
