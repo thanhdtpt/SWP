@@ -149,20 +149,20 @@
                                      alt="" class="header__navbar-user-img">
                                 <span class="header__navbar-user-name">${sessionScope.account.cusname}</span>
                                 <ul class="header__navbar-user-menu">
-                                        <li class="header__navbar-user-item">
-                                            <a href="profile">Tài khoản của tôi</a>
-                                        </li>
-                                        <li class="header__navbar-user-item">
-                                            <a href="address">Địa chỉ của tôi</a>
-                                        </li>
-                                        <li class="header__navbar-user-item">
-                                            <a href="order">Đơn mua </a>
-                                        </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="profile">Tài khoản của tôi</a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="address">Địa chỉ của tôi</a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="order">Đơn mua </a>
+                                    </li>
 
-                                        <li class="header__navbar-user-item">
-                                            <a href="logout">Đăng xuất</a>
-                                        </li>
-                                    </ul>
+                                    <li class="header__navbar-user-item">
+                                        <a href="logout">Đăng xuất</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </nav>
@@ -216,89 +216,63 @@
                         <div class="header__cart">
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
-                                <c:if test="${sessionScope.cart==null}">
+
+                                <c:if test="${sessionScope.size == null or sessionScope.size==0}">
                                     <span class="header__cart-notice">0</span>
+                                    <!--Has no cart-->
+                                    <div class="header__cart-list header__cart-list--no-cart">
+                                        <img src="./asserts/img/nocart.png" alt=""class="header__cart-list--no-cart-img">
+                                        <p class="header__cart-list-no-cart-msg">
+                                            Chưa có sản phẩm
+                                        </p>
+                                    </div> 
                                 </c:if>
-                                <c:if test="${sessionScope.cart!=null}">
+
+                                <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
                                     <span class="header__cart-notice">${sessionScope.size}</span>
-                                </c:if>
-                                <!--Has no cart-->
-                                <!-- <div class="header__cart-list header__cart-list--no-cart">
-                                    <img src="./asserts/img/nocart.png" alt=""class="header__cart-list--no-cart-img">
-                                    <p class="header__cart-list-no-cart-msg">
-                                        Chưa có sản phẩm
-                                    </p>
-                                
-    
-                                </div> -->
-                                <div class="header__cart-list header__cart-list--have-cart ">
-                                    <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
-                                    <ul class="header__cart-list-item">
+                                    <div class="header__cart-list header__cart-list--have-cart ">
+                                        <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
+                                        <ul class="header__cart-list-item">
+                                            <c:set var="o" value="${sessionScope.cart}"/>
+                                            <c:forEach items="${o.items}" var="i">
+                                                <li id="demo" class="header__cart-item" style="margin-bottom:20px ; cursor: pointer">
+                                                    <img class="header__cart-item-img"
+                                                         src="${i.product.images1}"
+                                                         alt="">
+                                                    <div class="header__cart-item-info">
+                                                        <div class="header__cart-item-head">
+                                                            <h5 class="header__cart-item-name">${i.product.productname}</h5>
+                                                            <div class="header__cart-item-atributes-list">
+                                                                <span
+                                                                    class="header__cart-item-atribute header__cart-item-price">${i.product.currentPrice}</span>
+                                                                <span
+                                                                    class="header__cart-item-atribute header__cart-item-multiply">x</span>
+                                                                <span
+                                                                    class="header__cart-item-atribute header__cart-item-qnt">${i.quantity}</span>
+                                                            </div>
 
-                                        <li class="header__cart-item">
-                                            <img class="header__cart-item-img"
-                                                 src="https://prooffice.vn/wp-content/uploads/2020/05/Chu%E1%BB%99t-Logitech-G102.jpg"
-                                                 alt="Bàn phím cơ Fuhlen">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name">Chuột không dây cao cấp 1</h5>
-                                                    <div class="header__cart-item-atributes-list">
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-price">1.269.000đ</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-multiply">x</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-qnt">1</span>
+                                                        </div>
+                                                        <div class="header__cart-item-body ">
+                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                        </div>
                                                     </div>
+                                                </li>
+                                            </c:forEach>
 
-                                                </div>
-                                                <div class="header__cart-item-body ">
-                                                    <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                    <span class="header__cart-item-delete">Xóa </span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="header__cart-item">
-                                            <img class="header__cart-item-img"
-                                                 src="https://img.websosanh.vn/v2/users/dclimg/images/rrrez1bs7mmr1.jpg?compress=85"
-                                                 alt="Bàn phím cơ Fuhlen">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name"> Loa sony XB32 cá tính</h5>
-                                                    <div class="header__cart-item-atributes-list">
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-price">1.269.000đ</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-multiply">x</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-qnt">1</span>
-                                                    </div>
+                                        </ul>
+                                        <div class="auth-form__cart-btn" onclick="window.location.href = 'cart.jsp">
+                                            <button type="button" class="btn btn--primary btn--primary--viewcart" onclick="document.location.href = 'cart.jsp'">Xem giỏ hàng</button>
+                                        </div>
 
-                                                </div>
-                                                <div class="header__cart-item-body ">
-                                                    <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                    <span class="header__cart-item-delete">Xóa </span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="auth-form__cart-btn">
-                                        <button class="btn btn--primary btn--primary--viewcart" onclick="window.location.href = 'cart.jsp'">Xem giỏ hàng</button>
                                     </div>
-
-                                </div>
+                                </c:if>
                             </div>
-
                         </div>
-
-
-
                     </nav>
                 </div>
 
             </header>
             <div class="app__container">
-                <form action="buy" method="POST">
                 <div class="grid">
                     <div class="grid__row " style="font-size: 1.4rem;">
                         <div class="grid__column-2">
@@ -362,7 +336,10 @@
 
                                     <!--Item-->
                                     <c:set var="o" value="${sessionScope.cart}"/>
+                                    <c:set var="totalPrice" value="0" />
                                     <c:forEach items="${o.items}" var="i">
+                                        <c:set var="totalPrice" value="${totalPrice + (i.product.currentPrice * i.quantity)}" />
+
                                         <ul class="list__shop">
                                             <li class="st__shop list___shop--item">
                                                 <div class="_1K9yK1 shop__item">
@@ -468,28 +445,22 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="_2vZsK0">
-                                                                            <div class="_1knJ1D shopee-input-quantity">
-                                                                                <button class="_2rGMck " id="creament" onclick="window.location.href = 'process?num=-1&id=${i.product.id}'">
-                                                                                    <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10"
-                                                                                         x="0" y="0" class="shopee-svg-icon">
-                                                                                    <polygon
-                                                                                        points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5">
-
-                                                                                    </polygon>
-                                                                                    </svg>
-                                                                                </button>
-                                                                                <input class="_2rGMck _8rdz59" type="text" role="spinbutton"
-                                                                                       value="${i.quantity}" name="quantity" id="text">
-                                                                                <button class="_2rGMck " id="uncreament"  onclick="window.location.href = 'process?num=1&id=${i.product.id}'">
-                                                                                    <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10"
-                                                                                         x="0" y="0" class="shopee-svg-icon icon-plus-sign">
-                                                                                    <polygon
-                                                                                        points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5">
-
-                                                                                    </polygon>
-                                                                                    </svg>
-                                                                                </button>
+                                                                            <div class="_2vZsK0">
+                                                                                <div class="_1knJ1D shopee-input-quantity">
+                                                                                    <a href="process?num=-1&id=${i.product.id}" class="_2rGMck" id="creament">
+                                                                                        <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="shopee-svg-icon">
+                                                                                        <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
+                                                                                        </svg>
+                                                                                    </a>
+                                                                                    <input class="_2rGMck _8rdz59" type="text" role="spinbutton" value="${i.quantity}" name="quantity" id="text">
+                                                                                    <a href="process?num=1&id=${i.product.id}" class="_2rGMck" id="uncreament">
+                                                                                        <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="shopee-svg-icon icon-plus-sign">
+                                                                                        <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
+                                                                                        </svg>
+                                                                                    </a>
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
                                                                         <div class="_2S6DJl">
                                                                             <div id="tien" class="ZxTZV3"></div><span style="color: black;">₫</span></div>
@@ -501,9 +472,9 @@
                                                                                 <button class="Lur7Ey" type="submit">
                                                                                     Xóa
                                                                                 </button>
-                                                                                <input type="hidden" value="${i.product.id}"/>
+                                                                                <input type="hidden" name="id" value="${i.product.id}"/>
                                                                             </form>   
-                                                        
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -518,23 +489,22 @@
                                         </ul>
 
                                     </c:forEach>
-                                    <div class="_1UHCH_ shop__item--voucher">
+                                    <form action="buy" method="GET">
 
-                                        
-                                    <button class="shopee-button" type="submit" >
-                                        <span class="_3zK-FN">Mua hàng</span>
-                                    </button
+                                        <div class="_1UHCH_ shop__item--voucher">
+
+                                            <div id="tien" class="ZxTZV3"></div><span style="color: #ee4d2d;">Tổng: ${totalPrice} ₫</span></div>
+                                        <button class="shopee-button" type="submit" >
+                                            <span class="_3zK-FN">Mua hàng</span>
+                                        </button
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--                           <div class="total-price">
-                                                   <button class="shopee-button" type="button" onclick=" window.window.location.href='checkout'">
-                                                                 <span class="_3zK-FN">Mua tất cả hàng</span>
-                                                    </button
-                                               </div>-->
+
                 </div>
-            </form>
             </div>
         </div>
     </div>
@@ -547,36 +517,36 @@
 
 </html>
 <script>
-                                                                                    let creament = document.getElementById("creament")
-                                                                                    let uncreament = document.getElementById("uncreament")
-                                                                                    let text = document.getElementById("text")
-                                                                                    let click = document.getElementById("click")
-                                                                                    let tien = document.getElementById("tien")
-                                                                                    let tienok = document.getElementById("tienok")
+                                                let creament = document.getElementById("creament")
+                                                let uncreament = document.getElementById("uncreament")
+                                                let text = document.getElementById("text")
+                                                let click = document.getElementById("click")
+                                                let tien = document.getElementById("tien")
+                                                let tienok = document.getElementById("tienok")
 
-                                                                                    let count = 1;
+                                                let count = 1;
 
-                                                                                    uncreament.addEventListener("click", () => {
-                                                                                        text.value++;
-                                                                                    })
+                                                uncreament.addEventListener("click", () => {
+                                                    text.value++;
+                                                })
 
-                                                                                    creament.addEventListener("click", () => {
+                                                creament.addEventListener("click", () => {
 
 
-                                                                                        if (text.value > 1) {
-                                                                                            text.value--;
-                                                                                        }
+                                                    if (text.value > 1) {
+                                                        text.value--;
+                                                    }
 
-                                                                                    })
+                                                })
 
-                                                                                    click.addEventListener("change", (e) => {
-                                                                                        if (e.target.checked === true) {
-                                                                                            tien.innerHTML = parseInt(text.value) * parseInt(tienok.textContent)
-                                                                                        }
-                                                                                        if (e.target.checked === false) {
-                                                                                            tien.innerHTML = '₫0'
-                                                                                        }
-                                                                                    })
+                                                click.addEventListener("change", (e) => {
+                                                    if (e.target.checked === true) {
+                                                        tien.innerHTML = parseInt(text.value) * parseInt(tienok.textContent)
+                                                    }
+                                                    if (e.target.checked === false) {
+                                                        tien.innerHTML = '₫0'
+                                                    }
+                                                })
 
 
 </script>

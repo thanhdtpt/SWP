@@ -226,105 +226,60 @@
                         <div class="header__cart">
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
+
                                 <c:if test="${sessionScope.size == null or sessionScope.size==0}">
                                     <span class="header__cart-notice">0</span>
+                                    <!--Has no cart-->
+                                    <div class="header__cart-list header__cart-list--no-cart">
+                                        <img src="./asserts/img/nocart.png" alt=""class="header__cart-list--no-cart-img">
+                                        <p class="header__cart-list-no-cart-msg">
+                                            Chưa có sản phẩm
+                                        </p>
+                                    </div> 
                                 </c:if>
+
                                 <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
                                     <span class="header__cart-notice">${sessionScope.size}</span>
-                                </c:if>
-                                <!--Has no cart-->
-                                <!-- <div class="header__cart-list header__cart-list--no-cart">
-                                    <img src="./asserts/img/nocart.png" alt=""class="header__cart-list--no-cart-img">
-                                    <p class="header__cart-list-no-cart-msg">
-                                        Chưa có sản phẩm
-                                    </p>
-                                
-    
-                                </div> -->
-                                <div class="header__cart-list header__cart-list--have-cart ">
-                                    <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
-                                    <ul class="header__cart-list-item">
-                                        <li class="header__cart-item">
-                                            <img class="header__cart-item-img"
-                                                 src="https://vn-live-05.slatic.net/shop/828c4f87798f23cdef55058a30ed0a14.jpeg_2200x2200q80.jpg_.webp"
-                                                 alt="Bàn phím cơ Fuhlen">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name">KHÔ CÁ DỨA LOẠI 1 ĐẶC SẢN MINH TRIẾT
-                                                    </h5>
-                                                    <div class="header__cart-item-atributes-list">
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-price">1.000.000đ</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-multiply">x</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-qnt">1</span>
-                                                    </div>
+                                    <div class="header__cart-list header__cart-list--have-cart ">
+                                        <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
+                                        <ul class="header__cart-list-item">
+                                            <c:set var="o" value="${sessionScope.cart}"/>
+                                            <c:forEach items="${o.items}" var="i">
+                                                <li id="demo" class="header__cart-item" style="margin-bottom:20px ; cursor: pointer">
+                                                    <img class="header__cart-item-img"
+                                                         src="${i.product.images1}"
+                                                         alt="">
+                                                    <div class="header__cart-item-info">
+                                                        <div class="header__cart-item-head">
+                                                            <h5 class="header__cart-item-name">${i.product.productname}</h5>
+                                                            <div class="header__cart-item-atributes-list">
+                                                                <span
+                                                                    class="header__cart-item-atribute header__cart-item-price">${i.product.currentPrice}</span>
+                                                                <span
+                                                                    class="header__cart-item-atribute header__cart-item-multiply">x</span>
+                                                                <span
+                                                                    class="header__cart-item-atribute header__cart-item-qnt">${i.quantity}</span>
+                                                            </div>
 
-                                                </div>
-                                                <div class="header__cart-item-body ">
-                                                    <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                    <span class="header__cart-item-delete">Xóa </span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="header__cart-item">
-                                            <img class="header__cart-item-img"
-                                                 src="https://prooffice.vn/wp-content/uploads/2020/05/Chu%E1%BB%99t-Logitech-G102.jpg"
-                                                 alt="Bàn phím cơ Fuhlen">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name">Chuột không dây cao cấp 1</h5>
-                                                    <div class="header__cart-item-atributes-list">
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-price">1.269.000đ</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-multiply">x</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-qnt">1</span>
+                                                        </div>
+                                                        <div class="header__cart-item-body ">
+                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                        </div>
                                                     </div>
+                                                </li>
+                                            </c:forEach>
 
-                                                </div>
-                                                <div class="header__cart-item-body ">
-                                                    <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                    <span class="header__cart-item-delete">Xóa </span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="header__cart-item">
-                                            <img class="header__cart-item-img"
-                                                 src="https://img.websosanh.vn/v2/users/dclimg/images/rrrez1bs7mmr1.jpg?compress=85"
-                                                 alt="Bàn phím cơ Fuhlen">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name"> Loa sony XB32 cá tính</h5>
-                                                    <div class="header__cart-item-atributes-list">
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-price">1.269.000đ</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-multiply">x</span>
-                                                        <span
-                                                            class="header__cart-item-atribute header__cart-item-qnt">1</span>
-                                                    </div>
+                                        </ul>
+                                        <div class="auth-form__cart-btn" onclick="window.location.href = 'cart.jsp">
+                                            <button type="button" class="btn btn--primary btn--primary--viewcart" onclick="document.location.href = 'cart.jsp'">Xem giỏ hàng</button>
+                                        </div>
 
-                                                </div>
-                                                <div class="header__cart-item-body ">
-                                                    <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                    <span class="header__cart-item-delete">Xóa </span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="auth-form__cart-btn" onclick="window.location.href = 'cart.jsp'">
-                                        <button class="btn btn--primary btn--primary--viewcart" >Xem giỏ hàng</button>
                                     </div>
+                                </c:if>
 
-                                </div>
                             </div>
 
                         </div>
-
-
 
                     </nav>
                 </div>

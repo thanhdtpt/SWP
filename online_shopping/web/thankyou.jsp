@@ -1,48 +1,53 @@
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
 
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Basic -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Site Metas -->
+        <title>Shop</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="author" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
         <!--<link rel="stylesheet" href="./asserts/css/main.css">-->
         <link rel="stylesheet" href="./asserts/css/main1.css">
         <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
-    </head>
-    <body
-    <script src="./asserts/js/form.js"></script>
-    <style>
-        .footer img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .select-input__link.selected {
-            font-weight: bold;
-            color: #10218a;
-        }
+        <!-- Site Icons -->
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
-    </style>
-    <!-- Block Element Modifier -->
-    <div class="app">
-        
-        <header class="header">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Site CSS -->
+        <link rel="stylesheet" href="css/style.css">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="css/responsive.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/custom.css">
+
+    </head>
+    <body>
+
+
+ <header class="header">
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
                         <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate" onclick="window.location.href = 'seller-product'" >
                             Kênh người bán
-
                             <!-- head qr code -->
                             <div class="header_qr">
                                 <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">
@@ -297,235 +302,235 @@
             </div>
 
         </header>
-        <div class="app__container">
-            <div class="grid">
-                <div class="grid__row">
-                    <div class="grid__column-2">
-                        <div class="category">
-                            <h3 class="category__heading">
-                                <i class="category__heading-icon fas fa-list"></i> Danh mục
-                            </h3>
-                            <!--filter-->
-                            <c:set var="cid" value="${requestScope.id}"/>
+        <main>
+            <div class="mb-4 pb-4"></div>
+            <section class="cd-position-relative cd-z-index-1 cd-padding-y-2xl">
+                <div class="cd-container cd-max-width-adaptive-sm cd-text-center">
+                    <svg class="cd-icon thank-you__icon cd-margin-bottom-sm" viewBox="0 0 96 96" aria-hidden="true">
+                    <g fill="currentColor">
+                    <circle cx="48" cy="48" r="48" opacity=".1"></circle>
+                    <circle cx="48" cy="48" r="31" opacity=".2"></circle>
+                    <circle cx="48" cy="48" r="15" opacity=".3"></circle>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M40 48.5l5 5 11-11"></path>
+                    <path transform="rotate(25.474 70.507 8.373)" opacity=".5" d="M68.926 4.12h3.159v8.506h-3.159z"></path>
+                    <path transform="rotate(-52.869 17.081 41.485)" opacity=".5" d="M16.097 36.336h1.969v10.298h-1.969z"></path>
+                    <path transform="rotate(82.271 75.128 61.041)" opacity=".5" d="M74.144 57.268h1.969v7.547h-1.969z"></path>
+                    <circle cx="86.321" cy="41.45" r="2.946" opacity=".5"></circle>
+                    <circle cx="26.171" cy="78.611" r="1.473" opacity=".5"></circle>
+                    <circle cx="49.473" cy="9.847" r="1.473" opacity=".5"></circle>
+                    <circle cx="10.283" cy="63" r="2.946" opacity=".2"></circle>
+                    <path opacity=".4" d="M59.948 88.142l10.558-3.603-4.888-4.455-5.67 8.058z"></path>
+                    <path opacity=".3" d="M18.512 19.236l5.667 1.456.519-8.738-6.186 7.282z"></path>
+                    </g>
+                    </svg>
 
-                            <ul class="category-list">
-                                <li class="category-item category-item--active">
-                                    <a href="home" class="category-item__link ">Tất cả</a>
-                                </li>
-                                <c:forEach items="${requestScope.listC}" var="c">
-                                    <c:if test="${c.id!=0}">
-                                        <c:if test="${c.id==cid}">
-                                            <li class="category-item category-item--active">
-                                                <a href="tab?id=${c.id}" class="category-item__link " value="${c.id}">${c.name}</a>
-                                            </li>
-                                        </c:if>
-                                        <c:if test="${c.id!=cid}">
-                                            <li class="category-item ">
-                                                <a href="tab?id=${c.id}" class="category-item__link" value="${c.id}">${c.name}</a>
-                                            </li>
-                                        </c:if>  
+                    <div>
+                        <h1 class="cd-margin-bottom-xs">Thank you!</h1>
+                        <p class="thank-you__paragraph cd-margin-bottom-xs">Cảm ơn đã ủng hộ</p>
 
-                                    </c:if>
-                                </c:forEach>
-                                <li class="category-item category-item">
-                                    <a href="tab?id=0" class="category-item__link">${requestScope.listC[0].name}</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /* Home sort+filter  */ -->
-                    <div class="grid__column-10">
-                        <div class="home-filter">
-                            <span class="home-filter__label">Sắp xếp theo</span>
-                            <button class="home-filter-btn btn" onclick="setActive(this, 1)" data-fid="1">
-                                <input type="checkbox" value="1" style="opacity: 0;"> Phổ biến
-                            </button>
-                            <button class="home-filter-btn btn" onclick="setActive(this, 2)" data-fid="2">
-                                <input type="checkbox" value="2" style="opacity: 0;"> Mới nhất
-                            </button>
-                            <button class="home-filter-btn btn" onclick="setActive(this, 3)" data-fid="3">
-                                <input type="checkbox" value="3" style="opacity: 0;"> Bán chạy
-                            </button>
-
-                            <div class="select-input">
-                                <c:set var="sortLabel" value="Giá" />
-                                <c:if test="${param.fid == '4'}">
-                                    <c:set var="sortLabel" value="Giá thấp đến cao" />
-                                </c:if>
-                                <c:if test="${param.fid == '5'}">
-                                    <c:set var="sortLabel" value="Giá cao đến thấp" />
-                                </c:if>
-
-                                <span class="select-input__label">${sortLabel}</span>
-
-                                <i class='select-input__icon fa-solid fa-chevron-down'></i>
-                                <div class="select-input-option">
-                                    <ul class="select-input___list">
-                                        <li class="select-input__item">
-                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=0" class="select-input__link ${param.fid == '0' || empty param.fid ? 'selected' : ''}">
-                                                <input type="radio" value="0" ${param.fid == '0' || empty param.fid ? 'checked' : ''} style="opacity: 0;"> Giá
-                                            </a>
-                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=4" class="select-input__link ${param.fid == '4' ? 'selected' : ''}">
-                                                <input type="radio" value="4" ${param.fid == '4' ? 'checked' : ''} style="opacity: 0;"> Giá thấp đến cao
-                                            </a>
-                                            <a href="tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=5" class="select-input__link ${param.fid == '5' ? 'selected' : ''}">
-                                                <input type="radio" value="5" ${param.fid == '5' ? 'checked' : ''} style="opacity: 0;"> Giá cao đến thấp
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-
-                            </div>
-                            <!--                            <div class="home-filter__page">
-                                                             Display current page and total pages 
-                                                            <span class="home-filter__page-num">
-                                                                <span class="home-filter__page-num-current">
-                            ${requestScope.page}
-                        </span> 
-                        / ${requestScope.num}
-                    </span>
-
-                    <div class="home-filter__page-control">
-                         Previous page button 
-                            <c:if test="${page > 1}">
-                                <i class="home-filter__page-control--icon fa-solid fa-chevron-left" 
-                                   onclick="window.location.href = 'home?page=${page-1}'"></i>
-                            </c:if>
-
-                             Pagination buttons 
-                            <div class="pagination">
-                            <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                <a class="pagination-item ${i == page ? 'active' : ''}" href="home?page=${i}">${i}</a>
-                            </c:forEach>
-                        </div>
-
-                         Next page button 
-                            <c:if test="${page < requestScope.num}">
-                                <i class="home-filter__page-control--icon fa-solid fa-chevron-right" 
-                                   onclick="window.location.href = 'home?page=${page+1}'"></i>
-                            </c:if>
-                        </div>
-                    </div>-->
-
-
-                        </div>
-                        <div class="home-product">
-                            <div class="grid__row">
-                                <c:forEach items="${requestScope.data}" var="p">
-                                    <div class="grid__column-2-4">
-                                        <a class="home-product-item" href="product?id=${p.id}">
-                                            <div class="home-product-item__img"
-                                                 style="background-image: url(${p.images1});">
-                                            </div>
-                                            <h4 class="home-product-item__img-name">${p.productname} </h4>
-                                            <div class="home-product-item__price">
-                                                <span class="home-product-item__oldprice">
-                                                    <fmt:formatNumber value="${p.oldPrice}" type="number" groupingUsed="true"/> đ
-                                                </span>
-                                                <span class="home-product-item__current">
-                                                    <fmt:formatNumber value="${p.currentPrice}" type="number" groupingUsed="true"/> đ
-                                                </span>
-                                            </div>
-                                            <div class="home-product-item__action">
-                                                <span class="home-product-item__like home-product-item__like--liked">
-                                                    <i class="home-product-item__like-icon-empty far fa-heart"></i>
-                                                    <i class="home-product-item__like-icon-fill fas fa-heart"></i>
-                                                </span>
-
-
-                                                <div class="home-product-item__rating">
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                </div>
-                                                <span class="home-product-item__sold">${p.unitOnOrder}</span>
-                                            </div>
-                                            <div class="home-product-item__origin">
-                                                <span class="home-product-item__brand">${p.brand}</span>
-                                                <span class="home-product-item__origin-name">${p.origin}</span>
-                                            </div>
-                                            <div class="home-product-item__favourite">
-                                                <span>
-                                                    <i class="fas fa-check"></i> Yêu thích
-                                                </span>
-                                            </div>
-                                            <div class="home-product-item__sale-off">
-                                                <span class="home-product-item__sale-off-percent">${p.discount}%</span>
-                                                <span class="home-product-item__sale-off-label">Giảm</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                        <div class="page">
-                            <c:set var="page" value="${requestScope.page}" />
-
-                            <div class="page page-control">
-                                <!-- Previous page button -->
-                                <c:if test="${page > 1}">
-                                    <i class="home-filter__page-control--icon fa-solid fa-chevron-left" 
-                                       onclick="window.location.href = 'home?page=${page-1}'"></i>
-                                </c:if>
-
-                                <!-- Pagination buttons -->
-                                <div class="pagination">
-                                    <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                        <a class="pagination-item ${i == page ? 'active' : ''}" href="home?page=${i}">${i}</a>
-                                    </c:forEach>
-                                </div>
-
-                                <!-- Next page button -->
-                                <c:if test="${page < requestScope.num}">
-                                    <i class="home-filter__page-control--icon fa-solid fa-chevron-right" 
-                                       onclick="window.location.href = 'home?page=${page+1}'"></i>
-                                </c:if>
-                            </div>
-                        </div>
-
+                        <p><a class="cd-link" href="home">Tiếp tục shopping →</a></p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <%@ include file="footer.jsp" %>
-    </div>
-    <script>
-        function setActive(button, fid) {
-            // Xóa lớp btn--primary khỏi tất cả các nút
-            let buttons = document.querySelectorAll('.home-filter-btn');
-            buttons.forEach(function (btn) {
-                btn.classList.remove('btn--primary');
-            });
-            // Thêm lớp btn--primary cho nút đang được nhấn
-            button.classList.add('btn--primary');
-            // Chuyển hướng tới URL
-            window.location.href = 'tab?id=${not empty requestScope.id ? requestScope.id : 0}&fid=' + fid;
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // Lấy giá trị của fid từ URL
-            let urlParams = new URLSearchParams(window.location.search);
-            let fid = urlParams.get('fid');
-            // Tìm và active đúng button
-//            if (fid) {
-//                let selectedButton = document.querySelector(`.home-filter-btn[data-fid="${fid}"]`);
-//                if (selectedButton) {
-//                    selectedButton.classList.add('btn--primary');
-//                }
-//            }
-            if (fid === "4") {
-                labelElement.textContent = "Giá thấp đến cao";
-            } else if (fid === "5") {
-                labelElement.textContent = "Giá cao đến thấp";
-            } else {
-                labelElement.textContent = "Giá";
+            </section>
+        </main>
+        <style>
+            /* reset */
+            *, *::after, *::before {
+                box-sizing: border-box;
             }
-        });
-    </script>
-</body>
+
+            * {
+                font: inherit;
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+
+            html {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            body {
+                background-color: hsl(0, 0%, 100%);
+                font-family: system-ui, sans-serif;
+                color: hsl(230, 7%, 23%);
+                font-size: 1.125rem; /* 18px */
+                line-height: 1.4;
+            }
+
+            h1, h2, h3, h4 {
+                line-height: 1.2;
+                color: hsl(230, 13%, 9%);
+                font-weight: 700;
+            }
+
+            h1 {
+                font-size: 2.5rem; /* 40px */
+            }
+
+            h2 {
+                font-size: 2.125rem; /* 34px */
+            }
+
+            h3 {
+                font-size: 1.75rem; /* 28px */
+            }
+
+            h4 {
+                font-size: 1.375rem; /* 22px */
+            }
+
+            ol, ul, menu {
+                list-style: none;
+            }
+
+            button, input, textarea, select {
+                background-color: transparent;
+                border-radius: 0;
+                color: inherit;
+                line-height: inherit;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+
+            textarea {
+                resize: vertical;
+                overflow: auto;
+                vertical-align: top;
+            }
+
+            a {
+                color: hsl(250, 84%, 54%);
+            }
+
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+
+            img, video, svg {
+                display: block;
+                max-width: 100%;
+            }
+
+            /* -------------------------------- 
+            
+            Icons 
+            
+            -------------------------------- */
+
+            .cd-icon {
+                --size: 1em;
+                font-size: var(--size);
+                height: 1em;
+                width: 1em;
+                display: inline-block;
+                color: inherit;
+                fill: currentColor;
+                line-height: 1;
+                flex-shrink: 0;
+                max-width: initial;
+            }
+
+            /* --------------------------------
+            
+            Component 
+            
+            -------------------------------- */
+
+            .thank-you__icon {
+                --size: 96px;
+                color: hsl(170, 78%, 36%);
+            }
+
+            .thank-you__paragraph {
+                line-height: 1.4;
+                color: hsl(225, 4%, 47%);
+            }
+
+            /* -------------------------------- 
+            
+            Utilities 
+            
+            -------------------------------- */
+
+            .cd-position-relative {
+                position: relative;
+            }
+
+            .cd-z-index-1 {
+                z-index: 1;
+            }
+
+            .cd-margin-bottom-xs {
+                margin-bottom: 1rem;
+            }
+
+            .cd-padding-y-2xl {
+                padding-top: 7rem;
+                padding-bottom: 7rem;
+            }
+
+            .cd-container {
+                width: calc(100% - 3rem);
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cd-max-width-adaptive-sm {
+                max-width: 32rem;
+            }
+
+            @media (min-width: 48rem) {
+                .cd-max-width-adaptive-sm {
+                    max-width: 48rem;
+                }
+            }
+
+            .cd-text-center {
+                text-align: center;
+            }
+
+            /* link */
+            .cd-link {
+                color: hsl(250, 84%, 54%);
+                text-decoration: none;
+                background-image: linear-gradient(to right, hsl(250, 84%, 54%) 50%, hsla(250, 84%, 54%, 0.2) 50%);
+                background-size: 200% 1px;
+                background-repeat: no-repeat;
+                background-position: 100% 100%;
+                transition: background-position 0.2s;
+            }
+
+            .cd-link:hover {
+                background-position: 0% 100%;
+            }
+
+        </style>
+        <div class="mb-5 pb-xl-5"></div>
+
+
+
+       <!-- ALL JS FILES -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- ALL PLUGINS -->
+        <script src="js/jquery.superslides.min.js"></script>
+        <script src="js/bootstrap-select.js"></script>
+        <script src="js/inewsticker.js"></script>
+        <script src="js/bootsnav.js."></script>
+        <script src="js/images-loded.min.js"></script>
+        <script src="js/isotope.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/baguetteBox.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/form-validator.min.js"></script>
+        <script src="js/contact-form-script.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
+
 </html>
+
