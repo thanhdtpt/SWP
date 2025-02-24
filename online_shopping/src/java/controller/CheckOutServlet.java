@@ -261,7 +261,7 @@ public class CheckOutServlet extends HttpServlet {
 
             session.removeAttribute("cart");
             session.setAttribute("size", 0);
-            response.sendRedirect("home");
+            request.getRequestDispatcher("thankyou.jsp").forward(request, response);
         }
     }
 
