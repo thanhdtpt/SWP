@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.ShopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.Shop;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -113,7 +115,10 @@ public class LoginServlet extends HttpServlet {
                 } else if ("CUSTOMER".equals(role)) {
                     response.sendRedirect(request.getContextPath() + "/home");
                 } else if ("SELLER".equals(role)) {
-                    response.sendRedirect("seller/products.jsp");
+                    ShopDAO shopDao = new ShopDAO();
+                    Shop shop = shopDao.getShop(u);
+                    session.setAttribute("shop", shop);
+                    response.sendRedirect("seller/home.jsp");
                 }
             } else {
                 String er = "account không có role!";

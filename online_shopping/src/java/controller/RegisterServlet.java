@@ -104,8 +104,14 @@ public class RegisterServlet extends HttpServlet {
 //        session.setAttribute("tempPhone", phone);
 //        session.setAttribute("tempFullname", fullname);
         session.setAttribute("tempType", userType);
-        Customer cus = new Customer(email, fullname, address, city, dob, email, phone, gender);
-        session.setAttribute("cus", cus);
+        if(userType == 2){
+            Customer cus = new Customer(email, fullname, address, city, dob, email, phone, gender);
+            session.setAttribute("cus", cus);
+        }else if(userType == 3){
+            Shop shop = new Shop(email, fullname, city, address, phone);
+            session.setAttribute("shop", shop);
+        }
+        
         try {
             // Gửi OTP qua email
             EmailUtility.sendOTP(email, otp);

@@ -492,6 +492,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="_2S6DJl">
+                                                                            <div id="tien" class="ZxTZV3"></div><span style="color: black;">₫</span></div>
                                                                             <span id="tienok">
                                                                                 ${(i.product.currentPrice)*(i.quantity)}</span>
                                                                         </div>
@@ -519,7 +520,7 @@
                                     </c:forEach>
                                     <div class="_1UHCH_ shop__item--voucher">
 
-                                        <div id="tien" class="ZxTZV3"></div><span style="color: #ee4d2d;">₫</span></div>
+                                        
                                     <button class="shopee-button" type="submit" >
                                         <span class="_3zK-FN">Mua hàng</span>
                                     </button

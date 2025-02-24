@@ -35,12 +35,14 @@
     </style>
     <!-- Block Element Modifier -->
     <div class="app">
+        
         <header class="header">
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
                         <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate" onclick="window.location.href = 'seller-product'" >
                             Kênh người bán
+
                             <!-- head qr code -->
                             <div class="header_qr">
                                 <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">
@@ -235,7 +237,7 @@
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
 
-                                <c:if test="${sessionScope.cart.size == null or sessionScope.cart.size==0}">
+                                <c:if test="${sessionScope.size == null or sessionScope.size==0}">
                                     <span class="header__cart-notice">0</span>
                                     <!--Has no cart-->
                                     <div class="header__cart-list header__cart-list--no-cart">
@@ -246,7 +248,7 @@
                                     </div> 
                                 </c:if>
 
-                                <c:if test="${sessionScope.cart.size != null && sessionScope.cart.size!=0}">
+                                <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
                                     <span class="header__cart-notice">${sessionScope.size}</span>
                                     <div class="header__cart-list header__cart-list--have-cart ">
                                         <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>

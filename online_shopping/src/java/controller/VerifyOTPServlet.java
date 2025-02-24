@@ -44,17 +44,24 @@ public class VerifyOTPServlet extends HttpServlet {
 //            String phone = (String) session.getAttribute("tempPhone");
 //            String fullname = (String) session.getAttribute("tempFullname");
             Customer cus = (Customer) session.getAttribute("cus");
+            Shop shop = (Shop) session.getAttribute("shop");
             int type = (int) session.getAttribute("tempType");
 
             AccountDAO ad = new AccountDAO();
-            boolean x = ad.createAccount(cus.getMail(), p, cus.getMail(), type);
+            if(type==2){
+                boolean x = ad.createAccount(cus.getMail(), p, cus.getMail(), type);
+            }
+            else if(type==3){
+                session.setAttribute("shop", shop);
+                boolean x = ad.createAccount(shop.getUsername(), p, shop.getUsername(), type);   
+            }
 
             if (type == 2) {
                 CustomerDAO cd = new CustomerDAO();
                 cd.createCustomer(cus);
             } else {
                 ShopDAO sd = new ShopDAO();
-                sd.createShop(new Shop(cus.getMail(), cus.getName(), cus.getCity(), cus.getAddress(), cus.getPhone()));
+                sd.createShop(new Shop(shop.getUsername(), shop.getName(), shop.getCity(), shop.getAddress(), shop.getPhone()));
             }
 
             // Xóa session OTP

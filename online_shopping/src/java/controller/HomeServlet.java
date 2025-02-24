@@ -14,6 +14,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Cart;
 import model.Categories;
 import model.Product;
 
@@ -68,6 +70,8 @@ public class HomeServlet extends HttpServlet {
         List<Product> listP = pdb.getAllProduct();
         request.setAttribute("listC", listC);
         request.setAttribute("listP", listP);
+        HttpSession session = request.getSession(true);
+        Cart cart = (Cart) session.getAttribute("cart");
         // pagging
         int page = 0, numperpage = 15;
         String xpage = request.getParameter("page");
@@ -86,6 +90,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("data", list);
         request.setAttribute("page", page);
         request.setAttribute("num", num);
+        session.setAttribute("cart", cart);
         request.getRequestDispatcher("home.jsp").forward(request, response);
         // processRequest(request, response);
     }
