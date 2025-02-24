@@ -18,7 +18,6 @@ import model.Cart;
 import model.Item;
 import model.Product;
 
-
 public class ProcessServlet extends HttpServlet {
 
     /**
@@ -38,7 +37,7 @@ public class ProcessServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProcessServlet</title>");            
+            out.println("<title>Servlet ProcessServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ProcessServlet at " + request.getContextPath() + "</h1>");
@@ -59,43 +58,42 @@ public class ProcessServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session=request.getSession(true);
-        Cart cart=null;
+        HttpSession session = request.getSession(true);
+        Cart cart = null;
         Object o = session.getAttribute("cart");
-        if(o!=null){
-            cart=(Cart)o;
-        }else{
-            cart=new Cart();
+        if (o != null) {
+            cart = (Cart) o;
+        } else {
+            cart = new Cart();
         }
-        
-        String num_raw=request.getParameter("num");
+
+        String num_raw = request.getParameter("num");
         int num;
-        String tid=request.getParameter("id");
-        ProductDAO pd=new ProductDAO();
-        int quantity,id;
+        String tid = request.getParameter("id");
+        ProductDAO pd = new ProductDAO();
+        int quantity, id;
         try {
-            id=Integer.parseInt(tid);
-            num=Integer.parseInt(num_raw);
-            if(num==-1&&cart.getQuantityByID(id)<=1){
+            id = Integer.parseInt(tid);
+            num = Integer.parseInt(num_raw);
+            if (num == -1 && cart.getQuantityByID(id) <= 1) {
                 cart.removeItem(id);
-            }else{
+            } else {
                 Product p = pd.getProductById(id);
-                float price=p.getOldPrice();
-                Item t=new Item(p, num, price);
+                float price = p.getOldPrice();
+                Item t = new Item(p, num, price);
                 cart.addItem(t);
             }
-            
+
         } catch (Exception e) {
-            quantity=1;
+            quantity = 1;
         }
         List<Item> list = cart.getItems();
-        System.out.println("List-size:"+list.size());
+        System.out.println("List-size:" + list.size());
         session.setAttribute("cart", cart);
         session.setAttribute("size", list.size());
-        
+
         request.getRequestDispatcher("cart.jsp").forward(request, response);
-        
-        
+
 //        processRequest(request, response);
     }
 
@@ -110,19 +108,19 @@ public class ProcessServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session=request.getSession(true);
-        Cart cart=null;
+        HttpSession session = request.getSession(true);
+        Cart cart = null;
         Object o = session.getAttribute("cart");
-        if(o!=null){
-            cart=(Cart)o;
-        }else{
-            cart=new Cart();
+        if (o != null) {
+            cart = (Cart) o;
+        } else {
+            cart = new Cart();
         }
-        String tid=request.getParameter("id");
-        ProductDAO pd=new ProductDAO();
-        int quantity,id;
+        String tid = request.getParameter("id");
+        ProductDAO pd = new ProductDAO();
+        int quantity, id;
         try {
-            id=Integer.parseInt(tid);
+            id = Integer.parseInt(tid);
             cart.removeItem(id);
         } catch (Exception e) {
             System.out.println(e);
@@ -130,8 +128,8 @@ public class ProcessServlet extends HttpServlet {
         List<Item> list = cart.getItems();
         session.setAttribute("cart", cart);
         session.setAttribute("size", list.size());
-        
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+
+        request.getRequestDispatcher("cart.jsp").forward(request, response);
 //        processRequest(request, response);
     }
 
