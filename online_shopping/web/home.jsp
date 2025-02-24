@@ -235,7 +235,7 @@
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
 
-                                <c:if test="${sessionScope.cart.size == null or sessionScope.cart.size==0}">
+                                <c:if test="${sessionScope.size == null or sessionScope.size==0}">
                                     <span class="header__cart-notice">0</span>
                                     <!--Has no cart-->
                                     <div class="header__cart-list header__cart-list--no-cart">
@@ -246,7 +246,7 @@
                                     </div> 
                                 </c:if>
 
-                                <c:if test="${sessionScope.cart.size != null && sessionScope.cart.size!=0}">
+                                <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
                                     <span class="header__cart-notice">${sessionScope.size}</span>
                                     <div class="header__cart-list header__cart-list--have-cart ">
                                         <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
@@ -271,7 +271,6 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            <span class="header__cart-item-description">Phân loại : Bạc </span>
                                                             <span class="header__cart-item-delete">Xóa </span>
                                                         </div>
                                                     </div>
