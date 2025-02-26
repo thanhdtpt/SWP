@@ -54,5 +54,19 @@ public class ShopDAO extends DBContext {
 
         return null;
     }
+    
+    public int getTotalShops() {
+        String sql = "SELECT COUNT(*) FROM Shops";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1); // Returns total number of products
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 }

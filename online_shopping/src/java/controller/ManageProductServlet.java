@@ -67,18 +67,37 @@ public class ManageProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Shop shop = (Shop) session.getAttribute("shop");  // Get shop from session
-        if (shop != null) {
-            String shopId = shop.getUsername();  // Assuming shop username is the shop ID
-            ProductDAO productDAO = new ProductDAO();
-            List<Product> productList = productDAO.getProductByShopId(shopId);  // Fetch products by shop ID
-            request.setAttribute("productList", productList);  // Set the list to request attribute
-        } else {
-            // Handle case where shop is not found in session (optional)
-            request.setAttribute("errorMessage", "Shop not found.");
+        Shop shop = (Shop) session.getAttribute("shop");
+
+        String searchQuery = request.getParameter("search");  // Retrieve the search query
+        ProductDAO productDAO = new ProductDAO();
+
+        // Handle pagination
+        int page = 1;  // Default to page 1
+        int recordsPerPage = 10;  // Number of records per page
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
         }
 
-        request.getRequestDispatcher("seller/manage_product.jsp").forward(request, response);  // Forward to JSP
+        List<Product> productList;
+        int totalRecords;
+
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            productList = productDAO.getProductByName(searchQuery);  // Filter by product name
+            totalRecords = productList.size();  // Total records for the search query
+        } else {
+            productList = productDAO.getProductByShopId(shop.getUsername());  // Get all products of the shop
+            totalRecords = productList.size();  // Total records for the shop
+        }
+
+        int start = (page - 1) * recordsPerPage;
+        int end = Math.min(start + recordsPerPage, totalRecords);
+        List<Product> paginatedProductList = productDAO.getListPerPage(productList, start, end);  // Paginate the product list
+
+        request.setAttribute("productList", paginatedProductList);
+        request.setAttribute("totalPages", (int) Math.ceil(totalRecords * 1.0 / recordsPerPage));  // Calculate total pages
+        request.setAttribute("currentPage", page);  // Current page number
+        request.getRequestDispatcher("seller/manage_product.jsp").forward(request, response);
     }
 
     /**

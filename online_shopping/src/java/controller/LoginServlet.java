@@ -5,7 +5,9 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.ProductDAO;
 import dal.ShopDAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +17,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Account;
+import model.Product;
 import model.Shop;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
@@ -111,7 +115,34 @@ public class LoginServlet extends HttpServlet {
 
                 // Điều hướng dựa trên vai trò
                 if ("ADMIN".equals(role)) {
-                    response.sendRedirect("admin/dashboard.jsp");
+                    AccountDAO accountDAO = new AccountDAO();
+                    int totalUsers = accountDAO.getTotalUsers();  // Assuming you have a method to get total users
+                    ShopDAO shopDAO = new ShopDAO();
+                    int totalShops = shopDAO.getTotalShops();  // Assuming you have a method to get total shops
+                    ProductDAO productDAO = new ProductDAO();
+                    int totalProducts = productDAO.getTotalProducts();  // Assuming you have a method to get total products
+
+                    // Retrieve top 8 products with status 'pending' ordered by updatedDate
+                    List<Product> topProducts = productDAO.getTopProductsByStatus("pending");
+
+                    // Set attributes for the JSP
+                    request.setAttribute("totalUsers", totalUsers);
+                    request.setAttribute("totalShops", totalShops);
+                    request.setAttribute("totalProducts", totalProducts);
+                    request.setAttribute("topProducts", topProducts);
+//                    response.sendRedirect("admin/home.jsp");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("admin/home.jsp");
+                    dispatcher.forward(request, response);
+//// Assuming the necessary data is fetched as shown in your code
+//                    session = request.getSession();
+//                    session.setAttribute("totalUsers", totalUsers);
+//                    session.setAttribute("totalShops", totalShops);
+//                    session.setAttribute("totalProducts", totalProducts);
+//                    session.setAttribute("topProducts", topProducts);
+//
+//// Redirecting to the target page
+//                    response.sendRedirect("admin/home.jsp");
+
                 } else if ("CUSTOMER".equals(role)) {
                     response.sendRedirect(request.getContextPath() + "/home");
                 } else if ("SELLER".equals(role)) {

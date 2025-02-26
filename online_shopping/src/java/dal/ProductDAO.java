@@ -164,7 +164,7 @@ public class ProductDAO extends DBContext {
 
     public boolean createProduct(Product product) {
         try {
-            String sql = "INSERT INTO products (ProductName, ShopID, CategoryID, origin, brand, images1, Describe, OldPrice, CurrentPrice, QuantityPerUnit, UnitInstock, UnitOnOrder, IsContinued, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO products (ProductName, ShopID, CategoryID, origin, brand, images1, Describe, OldPrice, CurrentPrice, QuantityPerUnit, UnitInstock, UnitOnOrder, IsContinued, status, CreatedDate, UpdatedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, product.getProductname());
@@ -410,42 +410,117 @@ public class ProductDAO extends DBContext {
             System.out.println(ex);
         }
     }
-    public List<Product> getProductByShopId(String shopId) {
-    List<Product> list = new ArrayList<>();
-    String sql = "SELECT * FROM Products WHERE ShopID = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, shopId);  // Set the shop ID to the query parameter
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            int id = rs.getInt("ProductID");
-            String shopIdFromDB = rs.getString("ShopID");
-            Shop shop = new Shop();  // You may want to fetch the shop details using the ShopID
-            shop.setUsername(shopIdFromDB);
-            int categoryID = rs.getInt("CategoryID");
-            CategoryDAO cd = new CategoryDAO();
-            Categories categories = cd.getCategoryById(categoryID);
-            String productname = rs.getString("ProductName");
-            String origin = rs.getString("Origin");
-            String brand = rs.getString("Brand");
-            String images1 = rs.getString("Images1");
-            String describe = rs.getString("Describe");
-            float oldPrice = rs.getFloat("OldPrice");
-            float currentPrice = rs.getFloat("CurrentPrice");
-            int quantityPerUnit = rs.getInt("QuantityPerUnit");
-            int unitInstock = rs.getInt("UnitInstock");
-            int unitOnOrder = rs.getInt("UnitOnOrder");
-            boolean isContinued = rs.getBoolean("IsContinued");
-            String status = rs.getString("status");
 
-            // Add the product to the list
-            list.add(new Product(id, shop, categories, productname, origin, brand, images1, describe,
-                    oldPrice, currentPrice, quantityPerUnit, unitInstock, unitOnOrder, isContinued, status));
+    public List<Product> getProductByShopId(String shopId) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Products WHERE ShopID = ? ORDER BY UpdatedDate DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, shopId);  // Set the shop ID to the query parameter
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("ProductID");
+                String shopIdFromDB = rs.getString("ShopID");
+                Shop shop = new Shop();  // You may want to fetch the shop details using the ShopID
+                shop.setUsername(shopIdFromDB);
+                int categoryID = rs.getInt("CategoryID");
+                CategoryDAO cd = new CategoryDAO();
+                Categories categories = cd.getCategoryById(categoryID);
+                String productname = rs.getString("ProductName");
+                String origin = rs.getString("Origin");
+                String brand = rs.getString("Brand");
+                String images1 = rs.getString("Images1");
+                String describe = rs.getString("Describe");
+                float oldPrice = rs.getFloat("OldPrice");
+                float currentPrice = rs.getFloat("CurrentPrice");
+                int quantityPerUnit = rs.getInt("QuantityPerUnit");
+                int unitInstock = rs.getInt("UnitInstock");
+                int unitOnOrder = rs.getInt("UnitOnOrder");
+                boolean isContinued = rs.getBoolean("IsContinued");
+                String status = rs.getString("status");
+                String createdDate = rs.getString("CreatedDate");
+                String updatedDate = rs.getString("UpdatedDate");
+
+                // Add the product to the list
+                list.add(new Product(id, shop, categories, productname, origin, brand, images1, describe,
+                        oldPrice, currentPrice, quantityPerUnit, unitInstock, unitOnOrder, isContinued, status, createdDate, updatedDate));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
+        return list;
     }
-    return list;
+
+    public int getTotalProducts() {
+        String sql = "SELECT COUNT(*) FROM Products";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1); // Returns total number of products
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public List<Product> getTopProductsByStatus(String status) {
+        List<Product> list = new ArrayList<>();
+//        String sql = "SELECT TOP 8 * FROM Products \n"
+//                + "WHERE status = ? \n"
+//                + "ORDER BY UpdatedDate DESC;";  // Fetch top 8 products with 'pending' status
+        String sql = "SELECT TOP 8 * FROM Products \n"
+                + "ORDER BY CASE WHEN status = 'pending' THEN 0 ELSE 1 END, UpdatedDate DESC;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setString(1, status);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("ProductID");
+                String shopIdFromDB = rs.getString("ShopID");
+                Shop shop = new Shop();
+                shop.setUsername(shopIdFromDB);
+                int categoryID = rs.getInt("CategoryID");
+                CategoryDAO cd = new CategoryDAO();
+                Categories categories = cd.getCategoryById(categoryID);
+                String productname = rs.getString("ProductName");
+                String origin = rs.getString("Origin");
+                String brand = rs.getString("Brand");
+                String images1 = rs.getString("Images1");
+                String describe = rs.getString("Describe");
+                float oldPrice = rs.getFloat("OldPrice");
+                float currentPrice = rs.getFloat("CurrentPrice");
+                int quantityPerUnit = rs.getInt("QuantityPerUnit");
+                int unitInstock = rs.getInt("UnitInstock");
+                int unitOnOrder = rs.getInt("UnitOnOrder");
+                boolean isContinued = rs.getBoolean("IsContinued");
+                String status1 = rs.getString("status");
+                String createdDate = rs.getString("CreatedDate");
+                String updatedDate = rs.getString("UpdatedDate");
+
+                // Add the product to the list
+                list.add(new Product(id, shop, categories, productname, origin, brand, images1, describe,
+                        oldPrice, currentPrice, quantityPerUnit, unitInstock, unitOnOrder, isContinued, status1, createdDate, updatedDate));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public Product updateProductInformationN(Product p) {
+    try {
+        String sql = "UPDATE Products SET status=?, UpdatedDate=GETDATE() WHERE ProductID=?";
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, p.getStatus());
+        st.setInt(2, p.getId());
+        st.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return getProductById(p.getId());
 }
 
 

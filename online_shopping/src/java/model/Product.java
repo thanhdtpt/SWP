@@ -28,6 +28,8 @@ public class Product {
     private int unitOnOrder;
     private boolean isContinued;
     private String status;
+    private String createdDate;
+    private String updatedDate;
 
     public Product() {
     }
@@ -47,6 +49,26 @@ public class Product {
         this.unitInstock = unitInstock;
         this.unitOnOrder = unitOnOrder;
         this.isContinued = isContinued;
+    }
+    
+    public Product(int id, Shop shops, Categories categories, String productname, String origin, String brand, String images1, String describe, float oldPrice, float currentPrice, int quantityPerUnit, int unitInstock, int unitOnOrder, boolean isContinued, String status, String createdDate, String updatedDate) {
+        this.id = id;
+        this.shops = shops;
+        this.categories = categories;
+        this.productname = productname;
+        this.origin = origin;
+        this.brand = brand;
+        this.images1 = images1;
+        this.describe = describe;
+        this.oldPrice = oldPrice;
+        this.currentPrice = currentPrice;
+        this.quantityPerUnit = quantityPerUnit;
+        this.unitInstock = unitInstock;
+        this.unitOnOrder = unitOnOrder;
+        this.isContinued = isContinued;
+        this.status = status;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
     }
 
     public Product(int id, Shop shops, Categories categories, String productname, String origin, String brand, String images1, String describe, float oldPrice, float currentPrice, int quantityPerUnit, int unitInstock, int unitOnOrder, boolean isContinued,
@@ -155,6 +177,22 @@ public class Product {
     public void setOldPrice(float oldPrice) {
         this.oldPrice = oldPrice;
     }
+    
+        public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
     public float getCurrentPrice() {
         return currentPrice;
@@ -215,12 +253,25 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", shops=" + shops + ", categories=" + categories
-                + ", productname=" + productname + ", origin=" + origin + ", brand=" + brand
-                + ", images1=" + images1 + ", describe=" + describe + ", oldPrice=" + oldPrice
-                + ", currentPrice=" + currentPrice + ", quantityPerUnit=" + quantityPerUnit
-                + ", unitInstock=" + unitInstock + ", unitOnOrder=" + unitOnOrder + ", isContinued="
-                + isContinued + ", status=" + status + '}';  // Added status to toString
+        return "Product{" +
+               "id=" + id +
+               ", shops=" + shops +
+               ", categories=" + categories +
+               ", productname='" + productname + '\'' +
+               ", origin='" + origin + '\'' +
+               ", brand='" + brand + '\'' +
+               ", images1='" + images1 + '\'' +
+               ", describe='" + describe + '\'' +
+               ", oldPrice=" + oldPrice +
+               ", currentPrice=" + currentPrice +
+               ", quantityPerUnit=" + quantityPerUnit +
+               ", unitInstock=" + unitInstock +
+               ", unitOnOrder=" + unitOnOrder +
+               ", isContinued=" + isContinued +
+               ", status='" + status + '\'' +
+               ", createdDate='" + createdDate + '\'' +  // Added createdDate to toString
+               ", updatedDate='" + updatedDate + '\'' +  // Added updatedDate to toString
+               '}';
     }
 
 }
