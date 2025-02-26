@@ -38,7 +38,7 @@ public class Orders {
         this.discount = discount;
     }
 
-    public Orders(String customerID, int shipvia, String orderDate, String requiredDate, String shippedDate, float freight, String shipaddress, String shipCity, String postalCode, float total, float discount) {
+    public Orders(String customerID, int shipvia, String orderDate, String requiredDate, String shippedDate, float freight, String shipaddress, String postalCode, float total, float discount) {
         this.customerID = customerID;
         this.shipvia = shipvia;
         this.orderDate = orderDate;
@@ -46,7 +46,6 @@ public class Orders {
         this.shippedDate = shippedDate;
         this.freight = freight;
         this.shipaddress = shipaddress;
-        this.shipCity = shipCity;
         this.postalCode = postalCode;
         this.total = total;
         this.discount = discount;

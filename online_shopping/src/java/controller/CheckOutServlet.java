@@ -175,14 +175,13 @@ public class CheckOutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         int shipvia;
-        String orderDate;
         String requiredDate;
         String shippedDate = null;
         float freight;
         String shipaddress;
         String shipCity;
         String postalCode;
-        float discount = 0;
+        float discount = 10;
         float total;
         int quantity;
         int pid;
@@ -207,17 +206,13 @@ public class CheckOutServlet extends HttpServlet {
             try {
 
                 customerID = a.getUsername();
-                shipvia = Integer.parseInt(request.getParameter("Shippervia"));
-                orderDate = request.getParameter("orderdate");
+                shipvia = Integer.parseInt(request.getParameter("shipper"));
                 requiredDate = "2021/03/25";
                 freight = Float.parseFloat(request.getParameter("freight"));
-                shipaddress = request.getParameter("shipaddress");
-                shipCity = request.getParameter("shipcity");
+                shipaddress = request.getParameter("address");
                 postalCode = "16";
                 total = Float.parseFloat(request.getParameter("total"));
-                if (request.getParameter("discount") != null) {
-                    discount = Float.parseFloat(request.getParameter("discount"));
-                }
+             
                 //list username
                 List<Shop> s = new ArrayList<>();
                 List<String> lid = new ArrayList<>();
@@ -236,14 +231,13 @@ public class CheckOutServlet extends HttpServlet {
                         }
                     }
                 }
-                System.out.println("-------------------ID ORDER DETAIL servlet-------------" + orderDate);
 
                 for (String j : collect) {
                     int count = 0;
                     for (Item i : cart.getItems()) {
                         if ((i.getProduct().getShops().getUsername().equalsIgnoreCase(j))) {
                             float m = i.getQuantity() * i.getProduct().getCurrentPrice() + freight;
-                            Orders k = new Orders(customerID, shipvia, orderDate, requiredDate, shippedDate, freight, shipaddress, shipCity, postalCode, m, discount);
+                            Orders k = new Orders(customerID, shipvia, null, requiredDate, shippedDate, freight, shipaddress, postalCode, m, discount);
                             Orders newo = od.insertOrder(k);
                             if (count == 0) {
                                 od.InsertOrderDetail(newo.getId(), i.getProduct().getId(), i.getQuantity());
