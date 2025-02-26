@@ -172,61 +172,59 @@ public class OrderDAO extends DBContext {
     }
 
     public Orders insertOrder(Orders o) {
-        String sql = "insert into Orders (CustomerID,Shippervia,OrderDate,RequiredDate,Freight,ShipAddress,ShipCity,PostalCode,total,discount)\n"
-                + "values(?,?,?,?,?,?,?,?,?,?)";
-        int maxID = 0;
-        System.out.println("----ORDER GET COMFIRM" + o);
-        try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String insertSQL = "INSERT INTO Orders (CustomerID, Shippervia, OrderDate, RequiredDate, Freight, AddressId, PostalCode, total, discount) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String getIdSQL = "SELECT MAX(OrderID) FROM Orders"; // Lấy ID mới nhất
+
+        int generatedID = -1; // ID của đơn hàng vừa tạo
+
+        try (PreparedStatement stInsert = connection.prepareStatement(insertSQL); PreparedStatement stGetId = connection.prepareStatement(getIdSQL)) {
+
+            // Lấy thời gian hiện tại cho OrderDate
             LocalDateTime now = LocalDateTime.now();
-            String orderdate = dtf.format(now);
-            System.out.println("----------------------------ORDERR DATE:" + o.getOrderDate());
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, o.getCustomerID());
-            st.setInt(2, o.getShipvia());
-            st.setString(3, orderdate);
-            st.setString(4, o.getRequiredDate());
-            st.setFloat(5, o.getFreight());
-            st.setString(6, o.getShipaddress());
-            st.setString(7, o.getShipCity());
-            st.setString(8, o.getPostalCode());
-            st.setFloat(9, o.getTotal());
-            st.setFloat(10, o.getDiscount());
-            st.executeUpdate();
-            List<Orders> listOD = getAllOrder();
-            for (Orders i : listOD) {
-                System.out.println(i);
-                if (i.getId() >= maxID) {
-                    maxID = i.getId();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String orderDate = dtf.format(now);
+
+            // Set giá trị vào câu INSERT
+            stInsert.setString(1, o.getCustomerID());
+            stInsert.setInt(2, o.getShipvia());
+            stInsert.setString(3, orderDate);
+            stInsert.setString(4, o.getRequiredDate());
+            stInsert.setFloat(5, o.getFreight());
+            stInsert.setString(6, o.getShipaddress());
+            stInsert.setString(7, o.getPostalCode());
+            stInsert.setFloat(8, o.getTotal());
+            stInsert.setFloat(9, o.getDiscount());
+
+            int affectedRows = stInsert.executeUpdate();
+
+            if (affectedRows > 0) {
+                // Lấy OrderID mới nhất
+                try (ResultSet rs = stGetId.executeQuery()) {
+                    if (rs.next()) {
+                        generatedID = rs.getInt(1);
+                    }
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace(); // Log lỗi chi tiết
         }
-        return getOrderByOrderID(maxID);
+
+        // Nếu chèn thành công, trả về đơn hàng mới, ngược lại trả về null
+        return generatedID != -1 ? getOrderByOrderID(generatedID) : null;
     }
 
     public void InsertOrderDetail(int orderID, int productID, int quantity) {
-        String sql = "insert into [Order Details] (ID,OrderID,ProductID,Quantity,status)\n"
-                + "values(?,?,?,?,?)";
+        String sql = "insert into [Order Details] (OrderID,ProductID,Quantity,status)\n"
+                + "values(?,?,?,?)";
         int id = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            List<OrderDetail> listOD = GetAllOrderDetail();
-            for (OrderDetail o : listOD) {
-                if (o.getId() >= id) {
-                    id = o.getId();
-                }
-            }
-            System.out.println("-------------------ID ORDER DETAIL-------------");
 
-            id += 1;
-
-            st.setInt(1, id);
-            st.setInt(2, orderID);
-            st.setInt(3, productID);
-            st.setInt(4, quantity);
-            st.setBoolean(5, false);
+            st.setInt(1, orderID);
+            st.setInt(2, productID);
+            st.setInt(3, quantity);
+            st.setBoolean(4, false);
             st.executeUpdate();
             ProductDAO pd = new ProductDAO();
             ///up date lai so luong

@@ -269,7 +269,7 @@
                     <div class="grid__row">
 
                         <!--                   <form method="post" action="buy" id="order-product">-->
-                        <form method="post" action="checkout" id="order-product">
+                        <form method="post" action="checkout">
                             <!-- /* Home sort+filter  */ -->
                             <div  style="margin-bottom:20px">
                                 <div class="orderdetail--navbar">
@@ -560,8 +560,12 @@
                                     </li>
                                 </ul>
                                 <div class="_2iv7q8">
+                                    <a href="your-payment-link" style="background-color: #428bca; text-decoration: none; padding: 13px 40px; color: white; display: inline-block; text-align: center;" class="stardust-button stardust-button--secondary">
+                                        Thanh toán ngay
+                                    </a>
                                     <button class="stardust-button stardust-button--primary _2x5SvJ" type="submit" >Đặt Hàng</button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
