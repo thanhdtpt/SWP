@@ -56,4 +56,22 @@ public class AddressDAO extends DBContext {
         }
     }
 
+    public boolean addAddress(String name, String phone, String address, String customerId) {
+        String sql = "INSERT INTO Address (customer_id,name, phone, address) VALUES (?, ?, ?, ?)";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, customerId);
+            st.setString(2, name);
+            st.setString(3, phone);
+            st.setString(4, address);
+
+            int rowsInserted = st.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            System.out.println("Error adding address: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

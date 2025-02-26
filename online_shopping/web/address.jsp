@@ -327,10 +327,56 @@
                             <!--Bodyform-->
                             <c:set var="cus" value="${sessionScope.cus}"/>
                             <c:set var="shop" value="${sessionScope.shop}"/>
+                            <!-- Form tạo mới địa chỉ -->
+                            <form action="address?action=add" method="POST" style="width: 100%; margin-bottom: 2rem;">
+                                <div class="main-profile-form grid__column-7">
+                                    <h3>Thêm địa chỉ mới</h3>
+
+                                    <div class="form-item">
+                                        <div class="form-item form-item__shopname-label">
+                                            <p>Tên</p>
+                                        </div>
+                                        <div class="form-item form-item__shopname-output">
+                                            <input type="text" name="name" maxlength="255"
+                                                   class="form-item__shopname-output form-item__shopname-output--input" 
+                                                   placeholder="Nhập tên người nhận" style="width: 100%" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-item">
+                                        <div class="form-item form-item__shopname-label">
+                                            <p>Điện thoại</p>
+                                        </div>
+                                        <div class="form-item form-item__shopname-output">
+                                            <input type="text" name="phone" maxlength="255"
+                                                   class="form-item__shopname-output form-item__shopname-output--input" 
+                                                   placeholder="Nhập số điện thoại" style="width: 100%" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-item">
+                                        <div class="form-item form-item__shopname-label">
+                                            <p>Địa chỉ</p>
+                                        </div>
+                                        <div class="form-item form-item__shopname-output">
+                                            <input type="text" name="address" maxlength="255"
+                                                   class="form-item__shopname-output form-item__shopname-output--input" 
+                                                   placeholder="Nhập địa chỉ" style="width: 100%" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-submit">
+                                        <div class="auth-form__control form-submit-control">
+                                            <button type="submit" class="btn__small btn__small--primary form-submit-btn">Thêm mới</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Form chỉnh sửa địa chỉ hiện có -->
                             <form action="address" method="post" style="width: 100%; margin-top: 3rem;">
                                 <div class="main-profile-form grid__column-7">
-                                    <div class="body-base columns"></div>
-                                    <div class="form--body"></div>
+                                    <h3>Danh sách địa chỉ</h3>
 
                                     <c:forEach var="addr" items="${addresses}">
                                         <div class="form-item">
@@ -376,7 +422,6 @@
                                     </c:forEach>
                                 </div>
                             </form>
-
                         </div>
                     </div>
 
