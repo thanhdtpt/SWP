@@ -88,9 +88,9 @@ public class ProductDAO extends DBContext {
 
     public List<Product> getProductByCatID(int cid) {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.* from Products p inner join Categories c\n" +
-                "on p.CategoryID=c.CategoryID\n" +
-                "where p.CategoryID=?";
+        String sql = "select p.* from Products p inner join Categories c\n"
+                + "on p.CategoryID=c.CategoryID\n"
+                + "where p.CategoryID=?";
         int id;
         Shop shop;
         String shopid;
@@ -162,11 +162,39 @@ public class ProductDAO extends DBContext {
         return null;
     }
 
+    public boolean createProduct(Product product) {
+        try {
+            String sql = "INSERT INTO products (ProductName, ShopID, CategoryID, origin, brand, images1, Describe, OldPrice, CurrentPrice, QuantityPerUnit, UnitInstock, UnitOnOrder, IsContinued, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, product.getProductname());
+            ps.setString(2, product.getShops().getUsername());
+            ps.setInt(3, product.getCategories().getId());
+            ps.setString(4, product.getOrigin());
+            ps.setString(5, product.getBrand());
+            ps.setString(6, product.getImages1());
+            ps.setString(7, product.getDescribe());
+            ps.setFloat(8, product.getOldPrice());
+            ps.setFloat(9, product.getCurrentPrice());
+            ps.setInt(10, product.getQuantityPerUnit());
+            ps.setInt(11, product.getUnitInstock());
+            ps.setInt(12, product.getUnitOnOrder());
+            ps.setBoolean(13, product.isIsContinued());
+            ps.setString(14, product.getStatus());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;  // Return true if the product was successfully created
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;  // Return false if there's an error
+        }
+    }
+
     public List<Product> getProductByName(String key) {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.* from Products p inner join Categories c\n" +
-                "on p.CategoryID=c.CategoryID\n" +
-                "where p.ProductName like ?";
+        String sql = "select p.* from Products p inner join Categories c\n"
+                + "on p.CategoryID=c.CategoryID\n"
+                + "where p.ProductName like ?";
         int id;
         Shop shop;
         String shopid;
@@ -218,8 +246,8 @@ public class ProductDAO extends DBContext {
 
     public List<Product> getProductByOption(int cid, int fid) {
         List<Product> list = new ArrayList<>();
-        String sql = "select * from Products p\n" +
-                "where 1=1";
+        String sql = "select * from Products p\n"
+                + "where 1=1";
         int id;
         Shop shop;
         String shopid;
@@ -308,10 +336,10 @@ public class ProductDAO extends DBContext {
         int unitOnOrder;
         boolean isContinued;
         try {
-            String sql = "update  Products \n" +
-                    "set CategoryID=?,productname=?,brand=?\n" +
-                    " ,origin=?,describe=?,oldprice=?,currentprice=?,unitinstock=?,unitOnOrder=?\n" +
-                    " where productID=?";
+            String sql = "update  Products \n"
+                    + "set CategoryID=?,productname=?,brand=?\n"
+                    + " ,origin=?,describe=?,oldprice=?,currentprice=?,unitinstock=?,unitOnOrder=?\n"
+                    + " where productID=?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, p.getCategories().getId());
             st.setString(2, p.getProductname());
@@ -331,9 +359,9 @@ public class ProductDAO extends DBContext {
     }
 
     public Product insertProduct(Product p) {
-        String sql = "insert into Products (ShopID,CategoryID,ProductName,Brand,Origin,Images1,Describe,OldPrice\n" +
-                ",CurrentPrice,QuantityPerUnit,UnitInstock,UnitOnOrder,IsContinued)\n" +
-                "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into Products (ShopID,CategoryID,ProductName,Brand,Origin,Images1,Describe,OldPrice\n"
+                + ",CurrentPrice,QuantityPerUnit,UnitInstock,UnitOnOrder,IsContinued)\n"
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         int id;
         Shop shop;
         String shopid;
@@ -382,5 +410,43 @@ public class ProductDAO extends DBContext {
             System.out.println(ex);
         }
     }
+    public List<Product> getProductByShopId(String shopId) {
+    List<Product> list = new ArrayList<>();
+    String sql = "SELECT * FROM Products WHERE ShopID = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, shopId);  // Set the shop ID to the query parameter
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt("ProductID");
+            String shopIdFromDB = rs.getString("ShopID");
+            Shop shop = new Shop();  // You may want to fetch the shop details using the ShopID
+            shop.setUsername(shopIdFromDB);
+            int categoryID = rs.getInt("CategoryID");
+            CategoryDAO cd = new CategoryDAO();
+            Categories categories = cd.getCategoryById(categoryID);
+            String productname = rs.getString("ProductName");
+            String origin = rs.getString("Origin");
+            String brand = rs.getString("Brand");
+            String images1 = rs.getString("Images1");
+            String describe = rs.getString("Describe");
+            float oldPrice = rs.getFloat("OldPrice");
+            float currentPrice = rs.getFloat("CurrentPrice");
+            int quantityPerUnit = rs.getInt("QuantityPerUnit");
+            int unitInstock = rs.getInt("UnitInstock");
+            int unitOnOrder = rs.getInt("UnitOnOrder");
+            boolean isContinued = rs.getBoolean("IsContinued");
+            String status = rs.getString("status");
+
+            // Add the product to the list
+            list.add(new Product(id, shop, categories, productname, origin, brand, images1, describe,
+                    oldPrice, currentPrice, quantityPerUnit, unitInstock, unitOnOrder, isContinued, status));
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return list;
+}
+
 
 }

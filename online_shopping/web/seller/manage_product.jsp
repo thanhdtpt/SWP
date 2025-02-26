@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -155,7 +158,7 @@
                                     <div class="box-tools m-b-15">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-default pull-left" onclick="location.href = '<%= request.getContextPath() %>/seller/create_product.jsp';">
+                                                <button class="btn btn-sm btn-default pull-left" onclick="location.href = '<%= request.getContextPath() %>/create-product';">
                                                     Create Product
                                                 </button>
                                             </div>
@@ -167,111 +170,80 @@
                                         </div>
                                     </div>
                                     <table class="table table-hover">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Category</th>
-                                            <th>Name</th>
-                                            <th>Origin</th>
-                                            <th>Brand</th>
-                                            <th>Images</th>
-                                            <th>Old_Price</th>
-                                            <th>Current_Price</th>
-                                            <th>quantity_Per_Unit</th>
-                                            <th>Unit_In_Stock</th>
-                                            <th>Unit_On_Order</th>
-                                            <th>Is_Continued</th>
-                                            <th colspan="2">Actions</th>
-                                        </tr>
-                                        <tr>
-                                            <td>183</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="label label-success">Approved</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                            <td>update</td>
-                                            <td>delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>219</td>
-                                            <td>Jane Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="label label-warning">Pending</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                            <td>update</td>
-                                            <td>delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>657</td>
-                                            <td>Bob Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="label label-primary">Approved</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                            <td>update</td>
-                                            <td>delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>175</td>
-                                            <td>Mike Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>John Doe</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="label label-danger">Denied</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                            <td>update</td>
-                                            <td>delete</td>
-                                        </tr>
-                                    </table>
-                                    <div class="table-foot">
-                                        <ul class="pagination pagination-sm no-margin pull-right">
-                                            <li><a href="#">&laquo;</a></li>
-                                            <li><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">&raquo;</a></li>
-                                        </ul>
-                                    </div>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Category</th>
+                                                <th>Origin</th>
+                                                <th>Brand</th>
+                                                <th>Images</th>
+                                                <th>Old Price</th>
+                                                <th>Current Price</th>
+                                                <th>Quantity per Unit</th>
+                                                <th>Unit in Stock</th>
+                                                <th>Unit on Order</th>
+                                                <th>describe</th>
+                                                <th>Status</th>
+                                                <th colspan="2">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="product" items="${productList}">
+                                                <tr>
+                                                    <td>${product.id}</td>
+                                                    <td>${product.productname}</td>
+                                                    <td>${product.categories.name}</td>
+                                                    <td>${product.origin}</td>
+                                                    <td>${product.brand}</td>
+                                                    <td><img src="${product.images1}" alt="product image" width="50" height="50"></td>
+                                                    <td>${product.oldPrice}</td>
+                                                    <td>${product.currentPrice}</td>
+                                                    <td>${product.quantityPerUnit}</td>
+                                                    <td>${product.unitInstock}</td>
+                                                    <td>${product.unitOnOrder}</td>
+                                                    <td>${product.describe}</td>
+                                                    <td>
+                                                        <span class="label
+                                                              ${product.status == 'approved' ? 'label-success' 
+                                                                : (product.status == 'pending' ? 'label-warning' 
+                                                                : (product.status == 'created' ? 'label-info' : 'label-default'))}">
+                                                                  ${product.status}
+                                                              </span>
+                                                        </td>
+
+                                                        <td><a href="<%= request.getContextPath() %>/update-product?id=${product.id}">Update</a></td>
+                                                        <td><a href="<%= request.getContextPath() %>/delete-product?id=${product.id}">Delete</a></td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="table-foot">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- /.box-body -->
+                                </div><!-- /.box -->
+                            </div>
                         </div>
-                    </div>
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+                    </section><!-- /.content -->
+                </aside><!-- /.right-side -->
+            </div><!-- ./wrapper -->
 
 
-        <!-- jQuery 2.0.2 -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-        <script src="js/jquery.min.js" type="text/javascript"></script>
+            <!-- jQuery 2.0.2 -->
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+            <script src="js/jquery.min.js" type="text/javascript"></script>
 
-        <!-- Bootstrap -->
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <!-- Director App -->
-        <script src="js/Director/app.js" type="text/javascript"></script>
-    </body>
-</html>
+            <!-- Bootstrap -->
+            <script src="js/bootstrap.min.js" type="text/javascript"></script>
+            <!-- Director App -->
+            <script src="js/Director/app.js" type="text/javascript"></script>
+        </body>
+    </html>

@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,15 +10,15 @@
         <meta name="description" content="Developed By M Abdur Rokib Promy">
         <meta name="keywords" content="Admin, Bootstrap 3, Template, Theme, Responsive">
         <!-- bootstrap 3.0.2 -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="seller/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- font Awesome -->
-        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="seller/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Ionicons -->
-        <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <link href="seller/css/ionicons.min.css" rel="stylesheet" type="text/css" />
 
         <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
         <!-- Theme style -->
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="seller/css/style.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,13 +28,13 @@
         <![endif]-->
         <style>
             .form-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-left: 210px;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin-left: 210px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
         </style>
     </head>
     <body class="skin-black">
@@ -94,7 +97,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="img/26115.jpg" class="img-circle" alt="User Image" />
+                            <img src="seller/img/26115.jpg" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Hi, </p> <span>${sessionScope.shop.name}</span>
@@ -118,7 +121,7 @@
                             </a>
                         </li>
                         <li class="active">
-                            <a href="manage_product.jsp">
+                            <a href="<%= request.getContextPath() %>/manage-product">
                                 <i class="fa fa-gavel"></i> <span>Manage Product</span>
                             </a>
                         </li>
@@ -159,79 +162,86 @@
                                     Form Elements
                                 </header>
                                 <div class="panel-body">
-                                    <form class="form-horizontal tasi-form" method="get">
+                                    <form class="form-horizontal tasi-form" method="POST" action="create-product">
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Name</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="productname">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Category</label>
                                             <div class="col-lg-4">
-                                                <select class="form-control m-b-4">
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                    <option>Option 3</option>
+                                                <select class="form-control m-b-4" name="category">
+                                                    <c:forEach var="category" items="${listC}">
+                                                        <option value="${category.id}" >${category.name}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Origin</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control round-input">
+                                                <input type="text" class="form-control round-input" name="origin">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Brand</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="focusedInput" type="text" value="This is focused...">
+                                                <input class="form-control" id="focusedInput" type="text" name="brand">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-2 col-sm-2 control-label" for="exampleInputFile">Images</label>
                                             <div class="col-lg-4">
-                                                <input type="file" id="exampleInputFile"> 
+                                                <input type="file" id="exampleInputFile" name="images1"> 
                                                 <p class="help-block">Example block-level help text here.</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Describe</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" placeholder="describe" name="describe" >
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Old_Price</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1000" min="0">
+                                                <input type="number" class="form-control" placeholder="0" name="oldPrice">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Current_Price</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1000" min="0">
+                                                <input type="number" class="form-control" placeholder="0" step="1000" min="0" name="currentPrice">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-2 col-sm-2 control-label">quantity_Per_Unit</label>
                                             <div class="col-lg-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0">
+                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="quantityPerUnit">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Unit_In_Stock</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0">
+                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitInStock">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Unit_On_Order</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0">
+                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitOnOrder">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 col-sm-3 control-label">
-                                                <input type="checkbox"> Is_Continued
+                                                <input type="checkbox" name="isContinued"> Is_Continued
                                             </label>
                                         </div>
                                         <div class="form-actions">
-                                            <button type="submit" class="btn btn-info" style="margin-left: 10px;">Submit</button>
+                                            <button type="submit" class="btn btn-info" style="margin-left: 10px;">Tạo</button>
                                         </div>
 
                                         <!--                                      <div class="checkbox">
@@ -241,6 +251,11 @@
                                                                               </div>
                                                                               <button type="submit" class="btn btn-info">Submit</button>-->
                                     </form>
+                                    <c:if test="${not empty message}">
+                                        <div class="alert alert-info" style="margin-top: 5px; width: 50%">
+                                            <strong>${message}</strong>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </section
                         </div>

@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Account;
 import model.Cart;
 import model.Categories;
 import model.Product;
@@ -25,7 +26,7 @@ import model.Shop;
  *
  * @author win
  */
-public class ManageProductServlet extends HttpServlet {
+public class CreateProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,19 +67,11 @@ public class ManageProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Shop shop = (Shop) session.getAttribute("shop");  // Get shop from session
-        if (shop != null) {
-            String shopId = shop.getUsername();  // Assuming shop username is the shop ID
-            ProductDAO productDAO = new ProductDAO();
-            List<Product> productList = productDAO.getProductByShopId(shopId);  // Fetch products by shop ID
-            request.setAttribute("productList", productList);  // Set the list to request attribute
-        } else {
-            // Handle case where shop is not found in session (optional)
-            request.setAttribute("errorMessage", "Shop not found.");
-        }
-
-        request.getRequestDispatcher("seller/manage_product.jsp").forward(request, response);  // Forward to JSP
+        CategoryDAO cd = new CategoryDAO();
+        List<Categories> listC = cd.getAllCategory();
+        request.setAttribute("listC", listC);
+        request.getRequestDispatcher("seller/create_product.jsp").forward(request, response);
+        // processRequest(request, response);
     }
 
     /**
@@ -92,7 +85,59 @@ public class ManageProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+
+        // Retrieve form data
+        String productName = request.getParameter("productname");
+        String categoryId = request.getParameter("category");
+        String origin = request.getParameter("origin");
+        String brand = request.getParameter("brand");
+        String images1 = request.getParameter("images1"); // Assuming it's the file name
+        String describe = request.getParameter("describe");
+        float oldPrice = Float.parseFloat(request.getParameter("oldPrice"));
+        float currentPrice = Float.parseFloat(request.getParameter("currentPrice"));
+        int quantityPerUnit = Integer.parseInt(request.getParameter("quantityPerUnit"));
+        int unitInStock = Integer.parseInt(request.getParameter("unitInStock"));
+        int unitOnOrder = Integer.parseInt(request.getParameter("unitOnOrder"));
+        boolean isContinued = request.getParameter("isContinued") != null;
+
+        // Retrieve the category object by its ID
+        CategoryDAO categoryDAO = new CategoryDAO();
+        Categories category = categoryDAO.getCategoryById(Integer.parseInt(categoryId));
+        HttpSession session = request.getSession();
+        Shop shop = (Shop) session.getAttribute("shop");
+
+        // Create a product object
+        Product product = new Product();
+        product.setShops(shop);
+        product.setProductname(productName);
+        product.setCategories(category);
+        product.setOrigin(origin);
+        product.setBrand(brand);
+        product.setImages1(images1);
+        product.setDescribe(describe);
+        product.setOldPrice(oldPrice);
+        product.setCurrentPrice(currentPrice);
+        product.setQuantityPerUnit(quantityPerUnit);
+        product.setUnitInstock(unitInStock);
+        product.setUnitOnOrder(unitOnOrder);
+        product.setIsContinued(isContinued);
+
+        // Set the product status to 'pending'
+        product.setStatus("pending");
+
+        // Save the product to the database
+        ProductDAO productDAO = new ProductDAO();
+        boolean isSuccess = productDAO.createProduct(product);
+
+        // Set a success or failure message
+        if (isSuccess) {
+            request.setAttribute("message", "Product created successfully!");
+        } else {
+            request.setAttribute("message", "Failed to create product. Please try again.");
+        }
+
+        // Forward back to the form page
+        request.getRequestDispatcher("seller/create_product.jsp").forward(request, response);
     }
 
     /**

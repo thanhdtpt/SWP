@@ -14,6 +14,10 @@
         <servlet-class>controller.ManageProductServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <servlet-class>controller.CreateProductServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
@@ -232,6 +236,10 @@
     <servlet-mapping>
         <servlet-name>CheckOutServlet</servlet-name>
         <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <url-pattern>/create-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderDetailServlet</servlet-name>
