@@ -101,8 +101,13 @@ public class AddressServlet extends HttpServlet {
         Account a = (Account) session.getAttribute("account");
         AccountDAO ad = new AccountDAO();
         AddressDAO d = new AddressDAO();
-        int id = Integer.parseInt(request.getParameter("id"));
-        d.updateAddress(id, name, phone, address);
+        String action = request.getParameter("action");
+        if (action.equals("add")) {
+            d.addAddress(name, phone, address, a.getUsername());
+        } else {
+            int id = Integer.parseInt(request.getParameter("id"));
+            d.updateAddress(id, name, phone, address);
+        }
         response.sendRedirect("address");
     }
 
