@@ -414,11 +414,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-submit">
+<!--                                        <div class="form-submit">
                                             <div class="auth-form__control form-submit-control">
                                                 <button type="submit" class="btn__small btn__small--primary form-submit-btn">Lưu</button>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </c:forEach>
                                 </div>
                             </form>

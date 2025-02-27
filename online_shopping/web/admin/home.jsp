@@ -228,6 +228,7 @@
                                                 <th>Category</th>
                                                 <th>Quantity</th>
                                                 <th>Price</th> 
+                                                <th>Status</th> 
                                                 <th>Created Date</th>
                                                 <th>Action</th>
                                             </tr>
@@ -238,6 +239,7 @@
                                                     <td>${product.id}</td>
                                                     <td>${product.productname}${product.status == 'pending' ? "<span style='color:red;font-size: 15px;'>* </span>" : ""}</td>
                                                     <td>${product.categories.name}</td>
+                                                    <td>${product.quantityPerUnit}</td>
                                                     <td>${product.currentPrice}</td>
                                                     <td>
                                                         <span class="label
@@ -249,13 +251,26 @@
                                                         </td>
                                                         <td>${product.createdDate}</td> 
                                                         <td>
-                                                            <button class="btn btn-xs btn-success" onclick="changeStatus(${product.id}, 'approve')">
-                                                                <i class="fa fa-check" style="color: white;"></i>
-                                                            </button>
-                                                            <button class="btn btn-xs btn-danger" onclick="changeStatus(${product.id}, 'cancel')">
-                                                                <i class="fa fa-times" style="color: white;"></i>
-                                                            </button>
+                                                            <!-- Hiển thị nút "tick xanh" khi trạng thái là "created" -->
+                                                            <c:if test="${product.status == 'created'}">
+                                                                <button class="btn btn-xs btn-success" onclick="changeStatus(${product.id}, 'approve')">
+                                                                    <i class="fa fa-check" style="color: white;"></i>
+                                                                </button>
+                                                            </c:if>
+
+                                                            <!-- Hiển thị cả nút "tick xanh" và "hủy" khi trạng thái là "pending" -->
+                                                            <c:if test="${product.status == 'pending'}">
+                                                                <button class="btn btn-xs btn-success" onclick="changeStatus(${product.id}, 'approve')">
+                                                                    <i class="fa fa-check" style="color: white;"></i>
+                                                                </button>
+                                                                <button class="btn btn-xs btn-danger" onclick="changeStatus(${product.id}, 'cancel')">
+                                                                    <i class="fa fa-times" style="color: white;"></i>
+                                                                </button>
+                                                            </c:if>
                                                         </td>
+
+
+
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -469,18 +484,18 @@
 
             <!-- Director for demo purposes -->
             <script type="text/javascript">
-                                                                $('input').on('ifChecked', function (event) {
-                                                                    // var element = $(this).parent().find('input:checkbox:first');
-                                                                    // element.parent().parent().parent().addClass('highlight');
-                                                                    $(this).parents('li').addClass("task-done");
-                                                                    console.log('ok');
-                                                                });
-                                                                $('input').on('ifUnchecked', function (event) {
-                                                                    // var element = $(this).parent().find('input:checkbox:first');
-                                                                    // element.parent().parent().parent().removeClass('highlight');
-                                                                    $(this).parents('li').removeClass("task-done");
-                                                                    console.log('not');
-                                                                });
+                                                                    $('input').on('ifChecked', function (event) {
+                                                                        // var element = $(this).parent().find('input:checkbox:first');
+                                                                        // element.parent().parent().parent().addClass('highlight');
+                                                                        $(this).parents('li').addClass("task-done");
+                                                                        console.log('ok');
+                                                                    });
+                                                                    $('input').on('ifUnchecked', function (event) {
+                                                                        // var element = $(this).parent().find('input:checkbox:first');
+                                                                        // element.parent().parent().parent().removeClass('highlight');
+                                                                        $(this).parents('li').removeClass("task-done");
+                                                                        console.log('not');
+                                                                    });
 
             </script>
             <script>
@@ -556,7 +571,7 @@
                                     document.getElementById('product-status-' + productId).innerText = 'created';
                                     // Optionally, change color or add classes as needed
                                 }
-                                 window.location.reload();
+                                window.location.reload();
                             }
                         };
                         // Send productId and action (approve or cancel) to the servlet

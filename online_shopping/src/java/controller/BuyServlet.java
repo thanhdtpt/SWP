@@ -193,7 +193,6 @@ public class BuyServlet extends HttpServlet {
             pid = Integer.parseInt(request.getParameter("pid"));
             quantity = Integer.parseInt(request.getParameter("quantity"));
             Orders o = new Orders(customerID, shipvia, orderDate, requiredDate, shippedDate, freight, shipaddress, shipCity, postalCode, total, discount);
-            System.out.println("----------------Order get" + o);
             Orders newO = od.insertOrder(o);
             od.InsertOrderDetail(newO.getId(), pid, quantity);
             response.sendRedirect("home");

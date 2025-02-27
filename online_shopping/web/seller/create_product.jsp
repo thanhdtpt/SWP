@@ -235,11 +235,11 @@
                                                 <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitOnOrder">
                                             </div>
                                         </div>
-                                        <div class="form-group">
+<!--                                        <div class="form-group">
                                             <label class="col-sm-3 col-sm-3 control-label">
                                                 <input type="checkbox" name="isContinued"> Is_Continued
                                             </label>
-                                        </div>
+                                        </div>-->
                                         <div class="form-actions">
                                             <button type="submit" class="btn btn-info" style="margin-left: 10px;">Tạo</button>
                                         </div>
@@ -273,4 +273,6 @@
         <!-- Director App -->
         <script src="js/Director/app.js" type="text/javascript"></script>
     </body>
+
+
 </html>

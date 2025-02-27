@@ -98,7 +98,7 @@ public class CreateProductServlet extends HttpServlet {
         int quantityPerUnit = Integer.parseInt(request.getParameter("quantityPerUnit"));
         int unitInStock = Integer.parseInt(request.getParameter("unitInStock"));
         int unitOnOrder = Integer.parseInt(request.getParameter("unitOnOrder"));
-        boolean isContinued = request.getParameter("isContinued") != null;
+        boolean isContinued = true;
 
         // Retrieve the category object by its ID
         CategoryDAO categoryDAO = new CategoryDAO();

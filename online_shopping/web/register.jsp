@@ -353,6 +353,23 @@
                 };
             });
         </script>
+        <script>
+            $(document).ready(function () {
+                // Tính ngày 10 năm trước từ ngày hiện tại
+                var today = new Date();
+                var tenYearsAgo = new Date(today.setFullYear(today.getFullYear() - 10));
+
+                // Định dạng ngày dưới dạng yyyy-mm-dd
+                var day = String(tenYearsAgo.getDate()).padStart(2, '0');
+                var month = String(tenYearsAgo.getMonth() + 1).padStart(2, '0');
+                var year = tenYearsAgo.getFullYear();
+
+                // Cập nhật thuộc tính max cho input ngày sinh
+                $('input[name="dob"]').attr('max', year + '-' + month + '-' + day);
+            });
+        </script>
+
+
 
 
 
