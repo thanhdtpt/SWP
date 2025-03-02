@@ -272,7 +272,7 @@
                                                         </div>
                                                         <div class="header__cart-item-body ">
                                                             <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -527,4 +527,5 @@
         });
     </script>
 </body>
+<%@ include file="footer.jsp" %>
 </html>

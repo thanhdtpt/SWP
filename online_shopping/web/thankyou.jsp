@@ -1,7 +1,7 @@
 
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
     <!-- Basic -->
@@ -278,7 +278,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -531,6 +531,6 @@
         <script src="js/contact-form-script.js"></script>
         <script src="js/custom.js"></script>
     </body>
-
+    <%@ include file="footer.jsp" %>
 </html>
 

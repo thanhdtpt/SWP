@@ -2,7 +2,7 @@
 <html lang="en">
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
     <head>
         <meta charset="UTF-8">
@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
         <link rel="stylesheet" href="./asserts/css/main.css">
+        <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/css/profile.css">
         <link rel="stylesheet" href="./asserts/css/product.css">
         <link rel="stylesheet" href="./asserts/css/order__detail.css">
@@ -246,7 +247,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -489,9 +490,9 @@
                                                                 <div class="order-item order-item__product-image"
                                                                      style="background-image: url(${i.product.images1});">
                                                                 </div>
-                                                                <div class="order-item order-item__product-content">
-                                                                    <div>
-                                                                        <div class="order-item order-item__product-content order-item__product-content--name">
+                                                                <div class="order-item order-item__product-content" >
+                                                                    <div style="width: 100%">
+                                                                        <div class="order-item order-item__product-content order-item__product-content--name" >
                                                                             <span class="_30COVM">
                                                                                 ${i.product.productname}
                                                                                 <input type="text" name="pid" value="${i.product.id}" style="display: none"/>
@@ -551,8 +552,8 @@
                                                         <span>Tổng số tiền</span>
                                                     </div>
                                                     <div class="_2aXD4G">
-                                                        <div class="_1gMI9H">₫${totalPtice+requestScope.freight-10000-requestScope.discount}
-                                                            <input type="text" value="${totalPtice+requestScope.freight-10000-requestScope.discount}"  name="total" readonly style="display: none">
+                                                        <div class="_1gMI9H">₫${totalPrice+requestScope.freight-10000-requestScope.discount}
+                                                            <input type="text" value="${totalPrice+requestScope.freight-10000-requestScope.discount}"  name="total" readonly style="display: none">    
                                                         </div>
                                                     </div>
                                                 </div>
@@ -575,4 +576,5 @@
     </div>
 </div>
 </body>
+<%@ include file="footer.jsp" %>
 </html>

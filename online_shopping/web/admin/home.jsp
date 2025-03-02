@@ -21,6 +21,10 @@
         <link href="admin/css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
         <!-- Date Picker -->
         <link href="admin/css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+       
+
         <!-- fullCalendar -->
         <!-- <link href="css/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" /> -->
         <!-- Daterange picker -->
@@ -61,7 +65,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <div class="navbar-right">
+                <div class="navbar-right" style="z-index: 10000">
                     <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
@@ -571,9 +575,10 @@
                                     document.getElementById('product-status-' + productId).innerText = 'created';
                                     // Optionally, change color or add classes as needed
                                 }
-                                window.location.reload();
+                               
                             }
                         };
+                         window.location.reload();
                         // Send productId and action (approve or cancel) to the servlet
                         xhr.send("productId=" + productId + "&action=" + action);
                     }

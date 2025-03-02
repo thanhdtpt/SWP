@@ -10,9 +10,13 @@ package model;
  * @author win
  */
 public class Item {
+
+    private int id;
     private Product product;
     private int quantity;
     private double price;
+    private String userName;
+    private boolean hasBeenPurchased;
 
     public Item() {
     }
@@ -21,6 +25,55 @@ public class Item {
         this.product = product;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public Item(Product product, int quantity, double price, String userName) {
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+        this.userName = userName;
+    }
+
+    public Item(int id, Product product, int quantity, double price, String userName, boolean hasBeenPurchased) {
+        this.id = id;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+        this.userName = userName;
+        this.hasBeenPurchased = hasBeenPurchased;
+    }
+     public Item( Product product, int quantity, double price, String userName, boolean hasBeenPurchased) {
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+        this.userName = userName;
+        this.hasBeenPurchased = hasBeenPurchased;
+    }
+    
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public boolean isHasBeenPurchased() {
+        return hasBeenPurchased;
+    }
+
+    public void setHasBeenPurchased(boolean hasBeenPurchased) {
+        this.hasBeenPurchased = hasBeenPurchased;
     }
 
     public Product getProduct() {
@@ -51,5 +104,5 @@ public class Item {
     public String toString() {
         return "Item{" + "product=" + product + ", quantity=" + quantity + ", price=" + price + '}';
     }
-    
+
 }

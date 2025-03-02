@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
         <link rel="stylesheet" href="./asserts/css/main.css">
+        <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/css/profile.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
         <style>
@@ -341,7 +342,7 @@
                                                         </div>
                                                         <div class="header__cart-item-body ">
                                                             <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -583,4 +584,5 @@
     </script>
 
 </body>
+<%@ include file="footer.jsp" %>
 </html>

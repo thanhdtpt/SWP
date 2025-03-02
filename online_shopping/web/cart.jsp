@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+        <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
         <link rel="stylesheet" href="./asserts/css/main.css">
+        <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/css/profile.css">
         <link rel="stylesheet" href="./asserts/css/order.css">
         <link rel="stylesheet" href="./asserts/css/cart.css">
@@ -253,7 +254,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -509,7 +510,7 @@
         </div>
     </div>
 </div>
-
+<%@ include file="footer.jsp" %>
 </div>
 <!--modal layout-->
 <script  src="./asserts/js/handlercheckbox.js" />
@@ -547,6 +548,4 @@
                                                         tien.innerHTML = '₫0'
                                                     }
                                                 })
-
-
 </script>

@@ -5,7 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
         <link rel="stylesheet" href="./asserts/css/main1.css">
+        <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/css/profile.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
     </head>
@@ -248,7 +249,7 @@
                                                         </div>
                                                         <div class="header__cart-item-body ">
                                                             <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -363,13 +364,12 @@
                                             <label for="dob">Ngày sinh</label>
                                             <input type="date" id="dob" name="dob" value="${profile.dob}">
                                         </div>
-
+                                        <div>${profile.gender}</div>
                                         <div class="form-group">
                                             <label for="gender">Giới tính</label>
                                             <select id="gender" name="gender">
-                                                <option value="male" ${profile.gender == "male" ? "selected" : ""}>Nam</option>
-                                                <option value="female" ${profile.gender == "female" ? "selected" : ""}>Nữ</option>
-                                                <option value="other" ${profile.gender == "other" ? "selected" : ""}>Khác</option>
+                                                <option value="male" ${profile.gender == true ? "selected" : ""}>Nam</option>
+                                                <option value="female" ${profile.gender == false ? "selected" : ""}>Nữ</option>
                                             </select>
                                         </div>
 
@@ -512,4 +512,5 @@
     </c:if>
 </div>
 </body>
+<%@ include file="footer.jsp" %>
 </html>

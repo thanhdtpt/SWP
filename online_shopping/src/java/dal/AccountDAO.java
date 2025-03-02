@@ -114,14 +114,14 @@ public class AccountDAO extends DBContext {
 
     public boolean CheckUserName(String user) {
         String sql = "select * from account "
-                + "where username= " + user;
+                + "where username= ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, user);
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                return false;
-            }
+            return !rs.next();
         } catch (Exception e) {
+              e.printStackTrace();
         }
         return true;
     }

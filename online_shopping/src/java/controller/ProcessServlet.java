@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dal.CartDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Account;
 import model.Cart;
 import model.Item;
 import model.Product;
@@ -32,7 +34,7 @@ public class ProcessServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -66,21 +68,34 @@ public class ProcessServlet extends HttpServlet {
         } else {
             cart = new Cart();
         }
+        Account currentAccount = (Account) session.getAttribute("account");
 
         String num_raw = request.getParameter("num");
         int num;
         String tid = request.getParameter("id");
         ProductDAO pd = new ProductDAO();
+        CartDAO cartDAO = new CartDAO();
         int quantity, id;
         try {
             id = Integer.parseInt(tid);
             num = Integer.parseInt(num_raw);
             if (num == -1 && cart.getQuantityByID(id) <= 1) {
                 cart.removeItem(id);
+                Item item = cartDAO.getItem(id, currentAccount.getEmail());
+                item.setHasBeenPurchased(true);
+                item.setQuantity(0);
+                cartDAO.updateCartItem(item);
             } else {
                 Product p = pd.getProductById(id);
                 float price = p.getOldPrice();
-                Item t = new Item(p, num, price);
+                Item t = new Item(p, num, price, currentAccount.getUsername(), false);
+                Item esixtingItem = cartDAO.getItem(id, currentAccount.getUsername());
+                if (esixtingItem != null) {
+                    esixtingItem.setQuantity(esixtingItem.getQuantity() + num);
+                    cartDAO.updateCartItem(esixtingItem);
+                } else {
+                    cartDAO.createCartItem(t);
+                }
                 cart.addItem(t);
             }
 
@@ -110,6 +125,7 @@ public class ProcessServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Cart cart = null;
+        Account currentAccount = (Account) session.getAttribute("account");
         Object o = session.getAttribute("cart");
         if (o != null) {
             cart = (Cart) o;
@@ -118,9 +134,14 @@ public class ProcessServlet extends HttpServlet {
         }
         String tid = request.getParameter("id");
         ProductDAO pd = new ProductDAO();
+        CartDAO cartDAO = new CartDAO();
         int quantity, id;
         try {
             id = Integer.parseInt(tid);
+            Item item = cartDAO.getItem(id, currentAccount.getEmail());
+            item.setHasBeenPurchased(true);
+            item.setQuantity(0);
+            cartDAO.updateCartItem(item);
             cart.removeItem(id);
         } catch (Exception e) {
             System.out.println(e);

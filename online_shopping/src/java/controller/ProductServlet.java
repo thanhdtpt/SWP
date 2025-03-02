@@ -84,7 +84,7 @@ request.setCharacterEncoding("utf-8");
         }else
         {
      
-        String id_raw=request.getParameter("id");
+        String id_raw = request.getParameter("id");
             System.out.println("ID------------------------------TESTTT--------------"+id_raw);
         ProductDAO pd=new ProductDAO();
         CategoryDAO cd=new CategoryDAO();

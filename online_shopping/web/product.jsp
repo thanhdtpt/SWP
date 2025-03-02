@@ -2,7 +2,8 @@
 <html lang="en">
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,10 +15,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
         <link rel="stylesheet" href="./asserts/css/main1.css">
+        <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/css/product.css">
-
         <link rel="stylesheet" href="./asserts/css/checkbox.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
+        <<script src="./asserts/js/product.js"></script>
     </head>
 
     <body>
@@ -186,6 +188,7 @@
                         <div class="header__search">
                             <div class="header__search-input-wrap">
                                 <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
+                                
                                 <!-- Search history -->
                                 <div class="header__search-history">
                                     <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
@@ -263,7 +266,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            <span class="header__cart-item-delete">Xóa </span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -296,6 +299,7 @@
                             </div>
                             <div class="grid__column-10  " style="margin-bottom:100px; background-color:var(--white-color);">
                                 <form action="addToCart" method="post" id="form-product" onsubmit="return false">
+                                    <input type="hidden" name="leadTo" id="leadTo">
                                     <!--<form action="buy" method="get" id="form-product" onsubmit="return false">-->
                                     <div class="home-product">
                                         <div class="grid__row">
@@ -327,7 +331,7 @@
                                                         <span>
                                                             ${p.productname}</span>
                                                     </div>
-                                                    <div class="flex _28iFbX rating--icon">
+<!--                                                    <div class="flex _28iFbX rating--icon">
                                                         <div class="flex _1GknPu star--icon rating--icon">
                                                             <div class="_3uBhVI URjL1D rating--icon">
                                                                 5.0</div>
@@ -487,17 +491,18 @@
                                                             <div class="_3hic1u">
                                                                 đã bán</div>
                                                         </div>
-                                                    </div>
+                                                    </div>-->
                                                     <div style="margin-top: 10px;" class="nav__bar__price">
                                                         <div class="flex flex-column">
                                                             <div class="flex flex-column _1900SS">
                                                                 <div class="flex items-center">
                                                                     <div class="flex items-center _1V_Jxg">
                                                                         <div class="_2Csw3W old--price">
-                                                                            ${p.oldPrice}</div>
+                                                                            <fmt:formatNumber value="${p.oldPrice}" type="number" groupingUsed="true"/>  đ
+                                                                        </div>
                                                                         <div class="flex items-center">
                                                                             <div class="_2v0Hgx current--price">
-                                                                                ${p.currentPrice}</div>
+                                                                                <fmt:formatNumber value="${p.currentPrice}" type="number" groupingUsed="true"/>  đ</div>
                                                                             <div class="_1kpF5Y item--discount">
                                                                                 ${p.discount}%</div>
                                                                         </div>
@@ -645,23 +650,11 @@
                                                                                         </svg>
                                                                                     </button>
                                                                                 </div>
-                                                                                <script>
-                                                                                    let creament = document.getElementById("creament")
-                                                                                    let uncreament = document.getElementById("uncreament")
-                                                                                    let text = document.getElementById("text")
-                                                                                    let click = document.getElementById("click")
-                                                                                    uncreament.addEventListener("click", () => {
-                                                                                        text.value++
-                                                                                    })
-                                                                                    creament.addEventListener("click", () => {
-                                                                                        if (text.value > 1) {
-                                                                                            text.value--
-                                                                                        }
-                                                                                    })
-                                                                                </script>
+                                                                               
                                                                             </div>
-                                                                            <div>
+                                                                            <div id="unit" data = ${p.unitInstock}>
                                                                                 ${p.unitInstock} sản phẩm có sẵn</div>
+                                                                                
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -673,7 +666,7 @@
                                                             <div class="QcT1pP">
                                                                 <button type="button"
                                                                         class="btn btn-tinted btn--l rvHxix _3t_iHy btn--add"
-                                                                        aria-disabled="false" onclick="document.getElementById('form-product').submit()">
+                                                                        aria-disabled="false" onclick="submitForm('product')">
                                                                     <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15"
                                                                          x="0" y="0"
                                                                          class="shopee-svg-icon _32Ho0Q icon-add-to-cart">
@@ -710,7 +703,7 @@
                                                                 </button>
                                                                 <button type="button"
                                                                         class="btn btn-solid-primary btn--l rvHxix"
-                                                                        aria-disabled="false" onclick="document.getElementById('form-product').submit()">
+                                                                        aria-disabled="false" onclick="submitForm('cart')">
                                                                     Mua ngay</button>
                                                             </div>
                                                         </div>
@@ -1043,10 +1036,12 @@
 
         </div>
 
-
+     <%@ include file="footer.jsp" %>
     </div>
     <!--modal layout-->
-
+ <script>
+                                                                                   
+                                                                                </script>
 </body>
 
 </html>

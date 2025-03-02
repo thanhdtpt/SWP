@@ -6,20 +6,15 @@
 package controller;
 
 import dal.AccountDAO;
-import dal.CustomerDAO;
-import dal.ShopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.Random;
 import jakarta.mail.MessagingException;
-import model.Account;
 import model.Customer;
 import model.Shop;
 import util.EmailUtility;
@@ -92,8 +87,14 @@ public class RegisterServlet extends HttpServlet {
         boolean gender = request.getParameter("gender").equals("male");
         String dob = request.getParameter("dob");
         int userType = Integer.parseInt(request.getParameter("type"));
-
-        // Tạo mã OTP
+        
+        AccountDAO dao = new AccountDAO();
+        boolean isEmailExisted = dao.CheckUserName(email);
+        if(!isEmailExisted){
+            request.setAttribute("emailExistError", "Email đã tồn tại");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        }else{
+             // Tạo mã OTP
         String otp = String.valueOf(new Random().nextInt(900000) + 100000);
 
         // Lưu OTP vào session
@@ -121,6 +122,7 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("error", "Không thể gửi email, vui lòng thử lại.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
+        }     
     }
 
     private String generateOTP() {

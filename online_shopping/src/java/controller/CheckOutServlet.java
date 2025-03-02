@@ -6,6 +6,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.CartDAO;
 import dal.OrderDAO;
 import dal.ProductDAO;
 import dal.ShippingDAO;
@@ -252,7 +253,8 @@ public class CheckOutServlet extends HttpServlet {
             } catch (Exception e) {
                 System.out.println(e);
             }
-
+            CartDAO cartDAO = new CartDAO();
+            cartDAO.deleteCartByUsers(a);
             session.removeAttribute("cart");
             session.setAttribute("size", 0);
             request.getRequestDispatcher("thankyou.jsp").forward(request, response);

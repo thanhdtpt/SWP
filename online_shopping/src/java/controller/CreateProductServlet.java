@@ -137,7 +137,8 @@ public class CreateProductServlet extends HttpServlet {
         }
 
         // Forward back to the form page
-        request.getRequestDispatcher("seller/create_product.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/create-product");
+        //request.getRequestDispatcher("seller/create_product.jsp").forward(request, response);
     }
 
     /**

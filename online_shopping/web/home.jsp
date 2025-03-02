@@ -233,6 +233,7 @@
                             </form>
                         </div>
                         <!-- Cart layout -->
+                        <c:if test="${sessionScope.account != null}">
                         <div class="header__cart">
                             <div class="header__cart-wrap">
                                 <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
@@ -273,7 +274,6 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            <span class="header__cart-item-delete">Xóa </span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -290,7 +290,7 @@
                             </div>
 
                         </div>
-
+                         </c:if>
 
 
                     </nav>

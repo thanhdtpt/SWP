@@ -1,5 +1,5 @@
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -263,9 +263,9 @@
                         </div>
                     </div>
                     <label id="repass-error" class="error" for="repass"></label>
-
-
-
+                    <c:if test="${emailExistError}">
+                        <div style="color: red;">${emailExistError}</div>
+                    </c:if>
                 </div>
                 <div class="auth-form_aside">
                     <p class="auth-form__policy-text">
@@ -374,7 +374,5 @@
 
 
     </body>
-
-
 
 </html>
