@@ -19,6 +19,8 @@
         <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
         <!-- Theme style -->
         <link href="seller/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -116,7 +118,7 @@
                     </form>
                     <ul class="sidebar-menu">
                         <li>
-                            <a href="home.jsp">
+                            <a href="seller/home.jsp">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -125,7 +127,7 @@
                                 <i class="fa fa-gavel"></i> <span>Manage Product</span>
                             </a>
                         </li>
-                        <li>
+<!--                        <li>
                             <a href="general.html">
                                 <i class="fa fa-gavel"></i> <span>General</span>
                             </a>
@@ -141,7 +143,7 @@
                             <a href="simple.jsp">
                                 <i class="fa fa-glass"></i> <span>Simple tables</span>
                             </a>
-                        </li>
+                        </li>-->
 
                     </ul>
                 </section>
@@ -162,95 +164,117 @@
                                     Form Elements
                                 </header>
                                 <div class="panel-body">
-                                    <form class="form-horizontal tasi-form" method="POST" action="create-product">
+                                    <form class="form-horizontal tasi-form" method="POST" action="create-product" onsubmit="return validateForm()" enctype="multipart/form-data">
+                                        <!-- Tên sản phẩm -->
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Name</label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" name="productname">
+                                                <span id="nameError" class="text-danger"></span>
                                             </div>
                                         </div>
+
+                                        <!-- Danh mục sản phẩm -->
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Category</label>
                                             <div class="col-lg-4">
                                                 <select class="form-control m-b-4" name="category">
+                                                    <option value="">Chọn danh mục</option>
                                                     <c:forEach var="category" items="${listC}">
-                                                        <option value="${category.id}" >${category.name}</option>
+                                                        <option value="${category.id}">${category.name}</option>
                                                     </c:forEach>
                                                 </select>
+                                                <span id="categoryError" class="text-danger"></span>
                                             </div>
                                         </div>
 
+                                        <!-- Xuất xứ -->
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Origin</label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control round-input" name="origin">
+                                                <span id="originError" class="text-danger"></span>
                                             </div>
                                         </div>
+
+                                        <!-- Thương hiệu -->
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Brand</label>
                                             <div class="col-sm-4">
                                                 <input class="form-control" id="focusedInput" type="text" name="brand">
+                                                <span id="brandError" class="text-danger"></span>
                                             </div>
                                         </div>
+
+                                        <!-- Ảnh sản phẩm -->
                                         <div class="form-group">
-                                            <label class="col-lg-2 col-sm-2 control-label" for="exampleInputFile">Images</label>
+                                            <label class="col-lg-2 col-sm-2 control-label">Images</label>
                                             <div class="col-lg-4">
-                                                <input type="file" id="exampleInputFile" name="images1"> 
-                                                <p class="help-block">Example block-level help text here.</p>
+                                                <input type="file" id="imageInput" name="images1" accept="image/png, image/jpeg, image/jpg" onchange="validateImage()">
+                                                <span id="imageError" class="text-danger"></span>
                                             </div>
                                         </div>
+
+                                        <!-- Mô tả sản phẩm -->
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Describe</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" placeholder="describe" name="describe" >
+                                                <input type="text" class="form-control" placeholder="describe" name="describe">
+                                                <span id="describeError" class="text-danger"></span>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Old_Price</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" name="oldPrice">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Current_Price</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1000" min="0" name="currentPrice">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-sm-2 control-label">quantity_Per_Unit</label>
-                                            <div class="col-lg-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="quantityPerUnit">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Unit_In_Stock</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitInStock">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Unit_On_Order</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitOnOrder">
-                                            </div>
-                                        </div>
-<!--                                        <div class="form-group">
-                                            <label class="col-sm-3 col-sm-3 control-label">
-                                                <input type="checkbox" name="isContinued"> Is_Continued
-                                            </label>
-                                        </div>-->
-                                        <div class="form-actions">
-                                            <button type="submit" class="btn btn-info" style="margin-left: 10px;">Tạo</button>
                                         </div>
 
-                                        <!--                                      <div class="checkbox">
-                                                                                  <label>
-                                                                                      <input type="checkbox"> Is_Continued
-                                                                                  </label>
-                                                                              </div>
-                                                                              <button type="submit" class="btn btn-info">Submit</button>-->
+                                        <!-- Giá cũ -->
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Old Price</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" class="form-control" placeholder="0" name="oldPrice">
+                                                <span id="oldPriceError" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Giá hiện tại -->
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Current Price</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" class="form-control" placeholder="0" step="1000" min="0" name="currentPrice">
+                                                <span id="currentPriceError" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Số lượng mỗi đơn vị -->
+                                        <div class="form-group">
+                                            <label class="col-lg-2 col-sm-2 control-label">Quantity Per Unit</label>
+                                            <div class="col-lg-4">
+                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="quantityPerUnit">
+                                                <span id="quantityPerUnitError" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Số lượng trong kho -->
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Unit In Stock</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitInStock">
+                                                <span id="unitInStockError" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Đơn hàng tồn -->
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Unit On Order</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitOnOrder">
+                                                <span id="unitOnOrderError" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Nút Submit -->
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-info">Tạo</button>
+                                        </div>
                                     </form>
+
                                     <c:if test="${not empty message}">
                                         <div class="alert alert-info" style="margin-top: 5px; width: 50%">
                                             <strong>${message}</strong>
@@ -272,6 +296,102 @@
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <!-- Director App -->
         <script src="js/Director/app.js" type="text/javascript"></script>
+        <script>
+                                                    function validateForm() {
+                                                        let isValid = true;
+
+                                                        // Lấy giá trị của input
+                                                        let name = document.querySelector("input[name='productname']").value.trim();
+                                                        let category = document.querySelector("select[name='category']").value;
+                                                        let origin = document.querySelector("input[name='origin']").value.trim();
+                                                        let brand = document.querySelector("input[name='brand']").value.trim();
+                                                        let describe = document.querySelector("input[name='describe']").value.trim();
+                                                        let oldPrice = document.querySelector("input[name='oldPrice']").value;
+                                                        let currentPrice = document.querySelector("input[name='currentPrice']").value;
+                                                        let quantity = document.querySelector("input[name='quantityPerUnit']").value;
+                                                        let unitInStock = document.querySelector("input[name='unitInStock']").value;
+                                                        let unitOnOrder = document.querySelector("input[name='unitOnOrder']").value;
+                                                        let image = document.getElementById("imageInput").files[0];
+
+                                                        // Xóa thông báo lỗi cũ
+                                                        let errorFields = [
+                                                            "nameError", "categoryError", "originError", "brandError", "imageError",
+                                                            "describeError", "oldPriceError", "currentPriceError", "quantityPerUnitError",
+                                                            "unitInStockError", "unitOnOrderError"
+                                                        ];
+
+                                                        errorFields.forEach(field => document.getElementById(field).innerText = "");
+
+                                                        // Kiểm tra tên sản phẩm
+                                                        if (name === "") {
+                                                            document.getElementById("nameError").innerText = "Tên sản phẩm không được để trống!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra danh mục
+                                                        if (category === "") {
+                                                            document.getElementById("categoryError").innerText = "Vui lòng chọn danh mục!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra xuất xứ
+                                                        if (origin === "") {
+                                                            document.getElementById("originError").innerText = "Vui lòng nhập xuất xứ!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra thương hiệu
+                                                        if (brand === "") {
+                                                            document.getElementById("brandError").innerText = "Vui lòng nhập thương hiệu!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra mô tả
+                                                        if (describe === "") {
+                                                            document.getElementById("describeError").innerText = "Vui lòng nhập mô tả!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra giá cũ (không bắt buộc nhưng phải >= 0 nếu nhập)
+                                                        if (oldPrice !== "" && oldPrice < 0) {
+                                                            document.getElementById("oldPriceError").innerText = "Giá cũ không được âm!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra giá hiện tại
+                                                        if (currentPrice === "" || currentPrice <= 0) {
+                                                            document.getElementById("currentPriceError").innerText = "Giá phải lớn hơn 0!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra số lượng mỗi đơn vị
+                                                        if (quantity === "" || quantity <= 0) {
+                                                            document.getElementById("quantityPerUnitError").innerText = "Số lượng phải lớn hơn 0!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra số lượng trong kho
+                                                        if (unitInStock === "" || unitInStock < 0) {
+                                                            document.getElementById("unitInStockError").innerText = "Số lượng trong kho không được âm!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra số lượng đơn hàng tồn
+                                                        if (unitOnOrder === "" || unitOnOrder < 0) {
+                                                            document.getElementById("unitOnOrderError").innerText = "Số lượng đơn hàng tồn không được âm!";
+                                                            isValid = false;
+                                                        }
+
+                                                        // Kiểm tra ảnh đã được chọn chưa
+                                                        if (!image) {
+                                                            document.getElementById("imageError").innerText = "Vui lòng chọn ảnh sản phẩm!";
+                                                            isValid = false;
+                                                        }
+
+                                                        return isValid;
+                                                    }
+
+        </script>
     </body>
 
 

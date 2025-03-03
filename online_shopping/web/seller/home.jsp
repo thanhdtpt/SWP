@@ -147,7 +147,7 @@
                         </li>
 
 
-                        <li>
+<!--                        <li>
                             <a href="general.jsp">
                                 <i class="fa fa-gavel"></i> <span>General</span>
                             </a>
@@ -163,7 +163,7 @@
                             <a href="simple.jsp">
                                 <i class="fa fa-glass"></i> <span>Simple tables</span>
                             </a>
-                        </li>
+                        </li>-->
 
 
                     </ul>

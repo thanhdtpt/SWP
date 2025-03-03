@@ -71,7 +71,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a href="<%= request.getContextPath() %>/logout><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                    <a href="<%= request.getContextPath() %>/logout"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
                                 </li>
                             </ul>
 
@@ -108,16 +108,16 @@
 
                     <ul class="sidebar-menu">
                         <li>
-                            <a href="home.jsp">
+                            <a href="seller/home.jsp">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="manage_product.jsp">
+                            <a href="<%= request.getContextPath() %>/manage-product">
                                 <i class="fa fa-gavel"></i> <span>Manage Product</span>
                             </a>
                         </li>
-                        <li>
+<!--                        <li>
                             <a href="general.html">
                                 <i class="fa fa-gavel"></i> <span>General</span>
                             </a>
@@ -133,7 +133,7 @@
                             <a href="simple.jsp">
                                 <i class="fa fa-glass"></i> <span>Simple tables</span>
                             </a>
-                        </li>
+                        </li>-->
 
                     </ul>
                 </section>
