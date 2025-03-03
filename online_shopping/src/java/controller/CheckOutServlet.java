@@ -239,6 +239,7 @@ public class CheckOutServlet extends HttpServlet {
                         if ((i.getProduct().getShops().getUsername().equalsIgnoreCase(j))) {
                             float m = i.getQuantity() * i.getProduct().getCurrentPrice() + freight;
                             Orders k = new Orders(customerID, shipvia, null, requiredDate, shippedDate, freight, shipaddress, postalCode, m, discount);
+                            System.out.println("============================");
                             Orders newo = od.insertOrder(k);
                             if (count == 0) {
                                 od.InsertOrderDetail(newo.getId(), i.getProduct().getId(), i.getQuantity());

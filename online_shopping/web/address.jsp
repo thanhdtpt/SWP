@@ -16,6 +16,135 @@
         <link rel="stylesheet" href="./asserts/css/footer.css">
         <link rel="stylesheet" href="./asserts/css/profile.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
+        <style>
+            /* Bảng chính */
+            .address-table {
+                width: 100%;
+                margin-top: 3rem;
+                border-collapse: collapse; /* Làm cho các đường viền không bị chồng lên nhau */
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng cho bảng */
+            }
+
+            /* Tiêu đề bảng */
+            .address-table th {
+                background-color: #4CAF50; /* Màu nền của tiêu đề */
+                color: white; /* Màu chữ trong tiêu đề */
+                padding: 12px 15px;
+                text-align: left;
+                font-size: 1rem;
+            }
+
+            /* Dòng trong bảng */
+            .address-table td {
+                padding: 12px 15px;
+                text-align: left;
+                font-size: 1rem;
+                border-bottom: 1px solid #ddd; /* Đường viền dưới các ô */
+            }
+
+            /* Màu nền của dòng khi di chuột */
+            .address-table tr:hover {
+                background-color: #f2f2f2; /* Đổi màu nền khi hover */
+            }
+
+            /* Các ô input */
+            .address-table input {
+                width: 100%;
+                padding: 8px 12px;
+                font-size: 1rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+                transition: border-color 0.3s ease;
+            }
+
+            /* Các ô input khi focus */
+            .address-table input:focus {
+                border-color: #4CAF50; /* Thay đổi màu đường viền khi focus */
+                outline: none;
+            }
+
+            /* Nút Cập nhật */
+            .address-table button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 8px 12px;
+                font-size: 1rem;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            /* Nút Cập nhật khi hover */
+            .address-table button:hover {
+                background-color: #45a049; /* Đổi màu khi hover vào nút */
+            }
+
+            /* Định dạng cho các ô input trong bảng */
+            .address-table td input {
+                border-radius: 4px;
+            }
+
+            /* Thêm khoảng cách cho bảng khi có nhiều hàng */
+            .address-table tbody tr {
+                transition: background-color 0.3s ease;
+            }
+            /* Các kiểu chung cho form */
+            .main-profile-form {
+                background-color: #f9f9f9;
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Các label cho trường thông tin */
+            .form-item__label {
+                font-size: 1rem;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            /* Các input và select */
+            .form-item__input {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+                color: #333;
+                background-color: #fff;
+                transition: border-color 0.3s ease;
+                margin-bottom: 1rem;
+            }
+
+            /* Hiệu ứng khi focus vào các trường input */
+            .form-item__input:focus {
+                border-color: #4CAF50; /* Màu xanh khi focus */
+                outline: none;
+            }
+
+            /* Nút Thêm mới */
+            .form-submit button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 12px 18px;
+                font-size: 1rem;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            /* Hiệu ứng hover cho nút */
+            .form-submit button:hover {
+                background-color: #45a049;
+            }
+
+
+        </style>
     </head>
     <body>
         <script src="asserts/js/form.js"></script>
@@ -243,7 +372,7 @@
                                                         </div>
                                                         <div class="header__cart-item-body ">
                                                             <span class="header__cart-item-description">Phân loại : Bạc </span>
-                                                           
+
                                                         </div>
                                                     </div>
                                                 </li>
@@ -272,7 +401,7 @@
                         <div class="profile">
                             <div class="profile__heading">
                                 <div class="profile__heading profile__heading-avatar">
-                                    <img src="https://cf.shopee.vn/file/e4b8614be265b210727bdef25190db23_tn" alt="avatar">
+                                    <img src="https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png" alt="avatar">
                                 </div>
                                 <div class="profile__heading profile__heading-content">
                                     <div class="profile__heading profile__heading-content profile__heading-content-acount">
@@ -313,8 +442,8 @@
                     </div>
                     <!-- /* Home Information  */ -->
                     <!-- /* Home Information  */ -->
-                    <div class="grid__column-7"  style="background-color: #fff; box-shadow: 0 0 2px #ccc; position: relative ; height:550px">
-                        <div class="profile__form">
+                    <div class="grid__column-10"  style="background-color: #fff; box-shadow: 0 0 2px #ccc; position: relative ; height:550px">
+                        <!--<div class="profile__form">-->
                             <!-- heading form-->
                             <div class="profile__form--heading">
                                 <div class="profile__form--heading profile__form--heading-title">
@@ -329,102 +458,189 @@
                             <c:set var="cus" value="${sessionScope.cus}"/>
                             <c:set var="shop" value="${sessionScope.shop}"/>
                             <!-- Form tạo mới địa chỉ -->
+                            <!--                            <form action="address?action=add" method="POST" style="width: 100%; margin-bottom: 2rem;">
+                                                            <div class="main-profile-form grid__column-7">
+                                                                <h3>Thêm địa chỉ mới</h3>
+                            
+                                                                <div class="form-item">
+                                                                    <div class="form-item form-item__shopname-label">
+                                                                        <p>Tên</p>
+                                                                    </div>
+                                                                    <div class="form-item form-item__shopname-output">
+                                                                        <input type="text" name="name" maxlength="255"
+                                                                               class="form-item__shopname-output form-item__shopname-output--input" 
+                                                                               placeholder="Nhập tên người nhận" style="width: 100%" required>
+                                                                    </div>
+                                                                </div>
+                            
+                                                                <div class="form-item">
+                                                                    <div class="form-item form-item__shopname-label">
+                                                                        <p>Điện thoại</p>
+                                                                    </div>
+                                                                    <div class="form-item form-item__shopname-output">
+                                                                        <input type="text" name="phone" maxlength="255"
+                                                                               class="form-item__shopname-output form-item__shopname-output--input" 
+                                                                               placeholder="Nhập số điện thoại" style="width: 100%" required>
+                                                                    </div>
+                                                                </div>
+                            
+                                                                <div class="form-item">
+                                                                    <div class="form-item form-item__shopname-label">
+                                                                        <p>Địa chỉ</p>
+                                                                    </div>
+                                                                    <div class="form-item form-item__shopname-output">
+                                                                        <input type="text" name="address" maxlength="255"
+                                                                               class="form-item__shopname-output form-item__shopname-output--input" 
+                                                                               placeholder="Nhập địa chỉ" style="width: 100%" required>
+                                                                    </div>
+                                                                </div>
+                            
+                                                                <div class="form-submit">
+                                                                    <div class="auth-form__control form-submit-control">
+                                                                        <button type="submit" class="btn__small btn__small--primary form-submit-btn">Thêm mới</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>-->
                             <form action="address?action=add" method="POST" style="width: 100%; margin-bottom: 2rem;">
                                 <div class="main-profile-form grid__column-7">
                                     <h3>Thêm địa chỉ mới</h3>
 
+                                    <!-- Tên người nhận -->
                                     <div class="form-item">
-                                        <div class="form-item form-item__shopname-label">
-                                            <p>Tên</p>
-                                        </div>
-                                        <div class="form-item form-item__shopname-output">
-                                            <input type="text" name="name" maxlength="255"
-                                                   class="form-item__shopname-output form-item__shopname-output--input" 
-                                                   placeholder="Nhập tên người nhận" style="width: 100%" required>
-                                        </div>
+                                        <label for="name" class="form-item__label">Tên</label>
+                                        <input type="text" name="name" id="name" maxlength="255" placeholder="Nhập tên người nhận" required class="form-item__input">
                                     </div>
 
+                                    <!-- Số điện thoại -->
                                     <div class="form-item">
-                                        <div class="form-item form-item__shopname-label">
-                                            <p>Điện thoại</p>
-                                        </div>
-                                        <div class="form-item form-item__shopname-output">
-                                            <input type="text" name="phone" maxlength="255"
-                                                   class="form-item__shopname-output form-item__shopname-output--input" 
-                                                   placeholder="Nhập số điện thoại" style="width: 100%" required>
-                                        </div>
+                                        <label for="phone" class="form-item__label">Điện thoại</label>
+                                        <input type="text" name="phone" id="phone" maxlength="255" placeholder="Nhập số điện thoại" required class="form-item__input">
                                     </div>
 
+                                    <!-- Chọn tỉnh -->
                                     <div class="form-item">
-                                        <div class="form-item form-item__shopname-label">
-                                            <p>Địa chỉ</p>
-                                        </div>
-                                        <div class="form-item form-item__shopname-output">
-                                            <input type="text" name="address" maxlength="255"
-                                                   class="form-item__shopname-output form-item__shopname-output--input" 
-                                                   placeholder="Nhập địa chỉ" style="width: 100%" required>
-                                        </div>
+                                        <label for="province" class="form-item__label">Tỉnh</label>
+                                        <select name="province" id="province" class="form-item__input" required>
+                                            <option value="">Chọn tỉnh</option>
+                                            <!-- Thêm các tỉnh vào đây -->
+                                            <option value="Hanoi">Hà Nội</option>
+                                            <option value="HCM">Hồ Chí Minh</option>
+                                            <option value="DaNang">Đà Nẵng</option>
+                                            <!-- Các tỉnh khác -->
+                                        </select>
                                     </div>
 
+                                    <!-- Chọn huyện -->
+                                    <div class="form-item">
+                                        <label for="district" class="form-item__label">Huyện</label>
+                                        <select name="district" id="district" class="form-item__input" required>
+                                            <option value="">Chọn huyện</option>
+                                            <!-- Các huyện sẽ được thêm vào dựa trên tỉnh đã chọn (sử dụng JavaScript hoặc backend để cập nhật) -->
+                                        </select>
+                                    </div>
+
+                                    <!-- Chọn xã -->
+                                    <div class="form-item">
+                                        <label for="ward" class="form-item__label">Xã</label>
+                                        <select name="ward" id="ward" class="form-item__input" required>
+                                            <option value="">Chọn xã</option>
+                                            <!-- Các xã sẽ được thêm vào dựa trên huyện đã chọn -->
+                                        </select>
+                                    </div>
+
+                                    <!-- Nút Thêm mới -->
                                     <div class="form-submit">
-                                        <div class="auth-form__control form-submit-control">
-                                            <button type="submit" class="btn__small btn__small--primary form-submit-btn">Thêm mới</button>
-                                        </div>
+                                        <button type="submit" class="btn__small btn__small--primary form-submit-btn">Thêm mới</button>
                                     </div>
                                 </div>
                             </form>
+
 
                             <!-- Form chỉnh sửa địa chỉ hiện có -->
-                            <form action="address" method="post" style="width: 100%; margin-top: 3rem;">
-                                <div class="main-profile-form grid__column-7">
-                                    <h3>Danh sách địa chỉ</h3>
+                            <!--                            <form action="address" method="post" style="width: 100%; margin-top: 3rem;">
+                                                            <div class="main-profile-form grid__column-7">
+                                                                <h3>Danh sách địa chỉ</h3>
+                            
+                            <c:forEach var="addr" items="${addresses}">
+                                <div class="form-item">
+                                    <input type="hidden" name="id" value="${addr.id}">
 
-                                    <c:forEach var="addr" items="${addresses}">
-                                        <div class="form-item">
-                                            <input type="hidden" name="id" value="${addr.id}">
-
-                                            <div class="form-item form-item__shopname-label">
-                                                <p>Tên</p>
-                                            </div>
-                                            <div class="form-item form-item__shopname-output">
-                                                <input type="text" placeholder="${addr.name}" value="${addr.name}" 
-                                                       name="name" maxlength="255"
-                                                       class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-item">
-                                            <div class="form-item form-item__shopname-label">
-                                                <p>Điện thoại</p>
-                                            </div>
-                                            <div class="form-item form-item__shopname-output">
-                                                <input type="text" placeholder="${addr.phone}" value="${addr.phone}" 
-                                                       name="phone" maxlength="255"
-                                                       class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-item">
-                                            <div class="form-item form-item__shopname-label">
-                                                <p>Địa chỉ</p>
-                                            </div>
-                                            <div class="form-item form-item__shopname-output">
-                                                <input type="text" placeholder="${addr.address}" value="${addr.address}" 
-                                                       name="address" maxlength="255"
-                                                       class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                            </div>
-                                        </div>
-
-<!--                                        <div class="form-submit">
-                                            <div class="auth-form__control form-submit-control">
-                                                <button type="submit" class="btn__small btn__small--primary form-submit-btn">Lưu</button>
-                                            </div>
-                                        </div>-->
-                                    </c:forEach>
+                                    <div class="form-item form-item__shopname-label">
+                                        <p>Tên</p>
+                                    </div>
+                                    <div class="form-item form-item__shopname-output">
+                                        <input type="text" placeholder="${addr.name}" value="${addr.name}" 
+                                               name="name" maxlength="255"
+                                               class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
+                                    </div>
                                 </div>
-                            </form>
+
+                                <div class="form-item">
+                                    <div class="form-item form-item__shopname-label">
+                                        <p>Điện thoại</p>
+                                    </div>
+                                    <div class="form-item form-item__shopname-output">
+                                        <input type="text" placeholder="${addr.phone}" value="${addr.phone}" 
+                                               name="phone" maxlength="255"
+                                               class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
+                                    </div>
+                                </div>
+
+                                <div class="form-item">
+                                    <div class="form-item form-item__shopname-label">
+                                        <p>Địa chỉ</p>
+                                    </div>
+                                    <div class="form-item form-item__shopname-output">
+                                        <input type="text" placeholder="${addr.address}" value="${addr.address}" 
+                                               name="address" maxlength="255"
+                                               class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
+                                    </div>
+                                </div>
+
+                                <div class="form-submit">
+                                    <div class="auth-form__control form-submit-control">
+                                        <button type="submit" class="btn__small btn__small--primary form-submit-btn">Lưu</button>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
-                    </div>
+                    </form>-->
+                            <form action="address" method="post">
+                                <table style="width: 100%; margin-top: 3rem;" class="address-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên</th>
+                                            <th>Điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="addr" items="${addresses}">
+                                            <tr>
+                                                <td>
+                                                    <input type="text" name="name" value="${addr.name}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
+                                                    <input type="hidden" name="id" value="${addr.id}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="phone" value="0${addr.phone}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="address" value="${addr.address}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
+                                                </td>
+                                                <td>
+                                                    <button type="submit" class="btn__small btn__small--primary">Cập nhật</button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </form>
+
+
+                        </div>
+                    <!--</div>-->
 
                 </div>
             </div>

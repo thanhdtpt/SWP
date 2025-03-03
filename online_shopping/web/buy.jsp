@@ -35,7 +35,7 @@
                     <nav class="header__navbar">
                         <ul class="header__navbar-list">
                             <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-                                Vào cửa hàng Dung Bui shop
+                                
                                 <!-- head qr code -->
                                 <div class="header_qr">
                                     <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">
@@ -141,7 +141,7 @@
                                 <img src="
                                      https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
                                      alt="" class="header__navbar-user-img">
-                                <span class="header__navbar-user-name">Dũng Bùi</span>
+                                <span class="header__navbar-user-name">${sessionScope.cus.name}</span>
                                 <ul class="header__navbar-user-menu">
                                     <li class="header__navbar-user-item">
                                         <a href="">Tài khoản của tôi</a>

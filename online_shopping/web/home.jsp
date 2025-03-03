@@ -40,35 +40,9 @@
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
-                        <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate" onclick="window.location.href = 'seller-product'" >
-                            Kênh người bán
-
-                            <!-- head qr code -->
-                            <div class="header_qr">
-                                <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">
-                                <div class="header__qr-apps">
-                                    <a href="" class="header_qr-link">
-                                        <img src="/asserts/img/GooglePlay.png" alt="Google Play"
-                                             class="header_qr-dowload-img">
-                                    </a>
-                                    <a href="" class="header_qr-link">
-                                        <img src="/asserts/img/Appstore.png" alt="App Store"
-                                             class="header_qr-dowload-img">
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="header__navbar-item">
-                            <span class="header__navbar-title--no-pointer">Kết nối</span>
-                            <a href="" class="header__navbar-icon-link">
-                                <i class="header__navbar-icon fa-brands fa-facebook"></i>
-                                <i class="header__navbar-icon fa-brands fa-instagram"></i>
-                            </a>
-                        </li>
                     </ul>
                     <ul class="header__navbar-list">
-                        <li class="header__navbar-item header__navbar-item--has-notify">
+<!--                        <li class="header__navbar-item header__navbar-item--has-notify">
                             <a href="" class="header__navbar-item-link"><i
                                     class="header__navbar-icon fa-solid fa-bell"></i>
                                 Thông báo</a>
@@ -143,7 +117,7 @@
                                     class="header__navbar-icon fa-solid fa-circle-question"></i>
                                 Trợ giúp</a>
 
-                        </li>
+                        </li>-->
                         <!--does not loggin-->
                         <c:if test="${sessionScope.account==null}">
                             <li class="header__navbar-item  header__navbar-item--strong register-item" >

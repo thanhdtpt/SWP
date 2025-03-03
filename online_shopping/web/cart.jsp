@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="en">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -254,7 +255,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </li>
@@ -441,9 +442,13 @@
                                                                         </div>
                                                                         <div class="_1C6zuo">
                                                                             <div>
+                                                                                <!--                                                                                <span class="_1E5-FE">
+                                                                                                                                                                    ₫${i.product.currentPrice}</span>-->
                                                                                 <span class="_1E5-FE">
-                                                                                    ₫${i.product.currentPrice}</span>
+                                                                                    <fmt:formatNumber value="${i.product.currentPrice}" type="number" groupingUsed="true"/> đ
+                                                                                </span>
                                                                             </div>
+
                                                                         </div>
                                                                         <div class="_2vZsK0">
                                                                             <div class="_2vZsK0">
@@ -463,11 +468,10 @@
                                                                             </div>
 
                                                                         </div>
-                                                                        <div class="_2S6DJl">
-                                                                            <div id="tien" class="ZxTZV3"></div><span style="color: black;">₫</span></div>
-                                                                            <span id="tienok">
-                                                                                ${(i.product.currentPrice)*(i.quantity)}</span>
-                                                                        </div>
+                                                                        <!--                                                                        <div class="_2S6DJl">
+                                                                                                                                                    <div id="tien" class="ZxTZV3"></div><span style="color: black;">₫</span></div>-->
+                                                                        <span id="tienok">
+                                                                            ${(i.product.currentPrice)*(i.quantity)}</span>
                                                                         <div class="_1-z5aG _1AeN8q">
                                                                             <form action="process" method="post">
                                                                                 <button class="Lur7Ey" type="submit">
@@ -479,6 +483,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                             </div>
 
                                                         </li>
