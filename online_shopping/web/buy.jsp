@@ -2,6 +2,7 @@
 <html lang="en">
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
     <head>
@@ -35,7 +36,7 @@
                     <nav class="header__navbar">
                         <ul class="header__navbar-list">
                             <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-                                
+                                Vào cửa hàng Dung Bui shop
                                 <!-- head qr code -->
                                 <div class="header_qr">
                                     <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">
@@ -141,7 +142,7 @@
                                 <img src="
                                      https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
                                      alt="" class="header__navbar-user-img">
-                                <span class="header__navbar-user-name">${sessionScope.cus.name}</span>
+                                <span class="header__navbar-user-name">Dũng Bùi</span>
                                 <ul class="header__navbar-user-menu">
                                     <li class="header__navbar-user-item">
                                         <a href="">Tài khoản của tôi</a>
@@ -483,7 +484,8 @@
                                             <ul>
                                                 <li>
                                                     <c:set var="totalPrice" value="0" />
-                                                    <c:forEach items="${o.items}" var="i">
+                                                    <c:if test="${requestScope.cart != null and requestScope.cart.items != null and fn:length(requestScope.cart.items) > 0}">
+                                    <c:forEach items="${requestScope.cart.items}" var="i">
                                                         <c:set var="totalPrice" value="${totalPrice + (i.product.currentPrice * i.quantity)}" />
                                                         <div class="order-item-body" style="padding-left: 36px;">
                                                             <div class="order-item order-item__product">
@@ -514,6 +516,8 @@
                                                             </div>
                                                         </div>
                                                     </c:forEach>
+                                                    </c:if>
+                                                    
                                                 </li>
                                             </ul> 
                                             <!--Bill-->

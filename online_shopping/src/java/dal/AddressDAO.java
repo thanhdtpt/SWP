@@ -74,4 +74,16 @@ public class AddressDAO extends DBContext {
         }
     }
 
+    public void deleteAddress(int id) {
+        String sql = "DELETE FROM Address WHERE id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

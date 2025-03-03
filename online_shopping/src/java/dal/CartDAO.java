@@ -11,6 +11,7 @@ import model.Account;
 import model.Cart;
 import model.Item;
 import model.Product;
+import model.Shop;
 
 /**
  *
@@ -50,16 +51,20 @@ public class CartDAO extends DBContext {
     public Cart getCartByAccount(Account account) {
         Cart cart = new Cart();
         String sql = "SELECT id\n"
-                + "      ,c.productId\n"
-                + "      ,userName\n"
-                + "      ,quantity\n"
-                + "      ,price\n"
-                + "	  ,p.CurrentPrice\n"
-                + "	  ,p.ProductName\n"
-                + "	  ,p.Images1\n"
-                + "  FROM CartItem c\n"
-                + "  JOIN Products p \n"
-                + "  ON p.ProductID = c.productId"
+                + "	,c.productId\n"
+                + "	,c.userName\n"
+                + "	,quantity\n"
+                + "	,price\n"
+                + "	,p.CurrentPrice\n"
+                + "	,p.ProductName\n"
+                + "	,p.Images1\n"
+                + "	,p.Describe\n"
+                + "	,p.ProductID\n"
+                + "	,s.ShopName\n"
+                + "	,s.UserName as shopUserName\n"
+                + "	FROM CartItem c\n"
+                + "	JOIN Products p	ON p.ProductID = c.productId\n"
+                + "	JOIN [Shops] s	ON s.UserName = p.ShopID"
                 + "  WHERE c.[userName]= ? AND c.[hasBeenPurchased] = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -72,10 +77,14 @@ public class CartDAO extends DBContext {
                 int quantity = rs.getInt("quantity");
                 float price = rs.getFloat("price");
                 Product product = new Product();
+                Shop shop = new Shop();
+                shop.setUsername(rs.getString("shopUserName"));
+                shop.setName(rs.getString("ShopName"));
                 product.setId(productId);
                 product.setImages1(rs.getString("Images1"));
                 product.setProductname(rs.getString("ProductName"));
                 product.setCurrentPrice(rs.getFloat("CurrentPrice"));
+                product.setShops(shop);
                 cart.getItems().add(new Item(product, quantity, price, userName));
             }
         } catch (SQLException e) {
@@ -84,7 +93,7 @@ public class CartDAO extends DBContext {
         return cart;
     }
 
-    public Item getItem(int productId, String userName) {       
+    public Item getItem(int productId, String userName) {
         String sql = "SELECT *\n"
                 + "FROM CartItem c\n"
                 + "WHERE c.productId = ? AND c.userName= ? AND c.hasBeenPurchased = ?";
@@ -94,7 +103,7 @@ public class CartDAO extends DBContext {
             st.setString(2, userName);
             st.setBoolean(3, false);
             ResultSet rs = st.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 Item i = new Item();
                 Product p = new Product();
                 i.setId(rs.getInt("id"));
@@ -121,7 +130,7 @@ public class CartDAO extends DBContext {
                 + "      ,[hasBeenPurchased] =?\n"
                 + " WHERE id = ?";
         try {
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
+            try ( PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, cartItem.getProduct().getId());
                 st.setString(2, cartItem.getUserName());
                 st.setInt(3, cartItem.getQuantity());
@@ -138,14 +147,14 @@ public class CartDAO extends DBContext {
     }
 
     public boolean deleteCartByUsers(Account a) {
-       String sql = "UPDATE CartItem\n"
-                + "   SET [quantity] = ?\n" 
+        String sql = "UPDATE CartItem\n"
+                + "   SET [quantity] = ?\n"
                 + "      ,[hasBeenPurchased] = ?\n"
                 + " WHERE userName = ?";
         try {
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
+            try ( PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, 0);
-                st.setBoolean(2, true);       
+                st.setBoolean(2, true);
                 st.setString(3, a.getEmail());
                 st.executeUpdate();
             }

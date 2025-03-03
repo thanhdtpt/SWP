@@ -38,7 +38,7 @@ public class AddressServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -64,19 +64,44 @@ public class AddressServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession(true);
         Account a = (Account) session.getAttribute("account");
+
         if (a == null) {
             processRequest(request, response);
-        } else {
-            AddressDAO d = new AddressDAO();
-            List<Address> addresses = new ArrayList<>();
-            addresses = d.getAddressesByCustomerId(a.getUsername());
-            request.setAttribute("addresses", addresses);
-            request.getRequestDispatcher("address.jsp").forward(request, response);
+            return;
         }
+
+        AddressDAO d = new AddressDAO();
+        String action = request.getParameter("action");
+
+        if ("delete".equals(action)) {
+            String idParam = request.getParameter("id");
+
+            // Kiểm tra nếu `id` rỗng hoặc không hợp lệ
+            if (idParam == null || idParam.trim().isEmpty()) {
+                response.sendRedirect("address?error=invalid_id");
+                return;
+            }
+
+            try {
+                int id = Integer.parseInt(idParam);
+                d.deleteAddress(id);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                response.sendRedirect("address?error=invalid_id");
+                return;
+            }
+
+            response.sendRedirect("address?success=deleted");
+            return;
+        }
+
+        // Load danh sách địa chỉ
+        List<Address> addresses = d.getAddressesByCustomerId(a.getUsername());
+        request.setAttribute("addresses", addresses);
+        request.getRequestDispatcher("address.jsp").forward(request, response);
     }
 
     /**

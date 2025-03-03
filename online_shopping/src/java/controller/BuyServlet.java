@@ -25,6 +25,7 @@ import model.Account;
 import model.Address;
 import model.Cart;
 import model.Customer;
+import model.Item;
 import model.OrderDetail;
 import model.Orders;
 import model.Product;
@@ -92,7 +93,7 @@ public class BuyServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Account a = (Account) session.getAttribute("account");
-
+      
         if (a == null) {
             processRequest(request, response);
         } else {
@@ -102,11 +103,21 @@ public class BuyServlet extends HttpServlet {
             try {
                 // Lấy giỏ hàng từ session
                 Cart cart = (Cart) session.getAttribute("cart");
+                Cart finalCart = new Cart();
                 if (cart == null || cart.getItems().isEmpty()) {
                     response.sendRedirect("cart.jsp"); // Chuyển hướng nếu giỏ hàng rỗng
                     return;
                 }
-
+                String[] productIdRaws = request.getParameterValues("productIds");
+                List<Integer> productIds = new ArrayList<>();
+                if(productIdRaws != null && productIdRaws.length > 0){
+                    for (String productId : productIdRaws) {
+                        productIds.add(Integer.parseInt(productId));
+                    }
+                }
+                List<Item> finalItems = new ArrayList<>();
+                finalItems = cart.getItems().stream().filter(item -> productIds.indexOf(item.getProduct().getId()) != -1).toList();
+                finalCart.setItems(finalItems);
                 // Lấy thông tin khách hàng
                 Customer cus = ac.getCustomer(a.getUsername());
                 List<ShippingCompany> company = sp.getAllShippingCompany();
@@ -115,7 +126,7 @@ public class BuyServlet extends HttpServlet {
                 LocalDateTime now = LocalDateTime.now();
 
                 // Tính tổng giá trị giỏ hàng
-                float total = cart.getTotalMoney(); // Gọi hàm getTotalMoney() trong Cart
+                float total = finalCart.getTotalMoney(); // Gọi hàm getTotalMoney() trong Cart
                 float freight = 10000; // Phí vận chuyển
                 float discount = 20000; // Giảm giá
 
@@ -123,7 +134,7 @@ public class BuyServlet extends HttpServlet {
                 Shop shop = cart.getItems().get(0).getProduct().getShops();
 
                 // Gửi dữ liệu qua JSP
-                request.setAttribute("cart", cart);
+                request.setAttribute("cart", finalCart);
                 request.setAttribute("freight", freight);
                 request.setAttribute("discount", discount);
                 request.setAttribute("total", total);
@@ -135,7 +146,7 @@ public class BuyServlet extends HttpServlet {
                 List<Address> addresses = new ArrayList<>();
                 addresses = d.getAddressesByCustomerId(cus.getUsername());
                 request.setAttribute("addresses", addresses);
-
+                session.setAttribute("finalCart",finalCart);
                 request.getRequestDispatcher("buy.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();

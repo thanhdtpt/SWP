@@ -1,8 +1,15 @@
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="en">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+        <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,6 +27,7 @@
         <link rel="stylesheet" href="./asserts/css/cart.css">
         <link rel="stylesheet" href="./asserts/css/checkbox.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
+        <<script src="asserts/js/cart.js"></script>
     </head>
 
     <body>
@@ -255,7 +263,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
@@ -315,9 +323,11 @@
                                     <div class="_2eZQze">
                                         <div class="_35gBGg">
                                             <label class="stardust-checkbox">
-                                                <input class="stardust-checkbox__input" type="checkbox">
-                                                <div class="stardust-checkbox__box">
-                                                </div>
+                                                <div >
+                                                    <input onchange="checkAll(this)"  type="checkbox" id="all-checkbox-first" class="toggle" >
+                                                    <label for="all-checkbox-first" class="label">
+                                                    </label>
+                                                 </div>
                                             </label>
                                         </div>
                                         <div class="_2cHnzN">Sản phẩm
@@ -337,9 +347,9 @@
                                     </div>
 
                                     <!--Item-->
-                                    <c:set var="o" value="${sessionScope.cart}"/>
+                                    <c:set var="o" value="${sessionScope.cart}" />
                                     <c:set var="totalPrice" value="0" />
-                                    <c:forEach items="${o.items}" var="i">
+                                    <c:forEach items="${o.items}" var="i" varStatus="status">
                                         <c:set var="totalPrice" value="${totalPrice + (i.product.currentPrice * i.quantity)}" />
 
                                         <ul class="list__shop">
@@ -350,8 +360,8 @@
                                                         <div class="_17ffUV">
                                                             <div class="_3o7bbN">
                                                                 <div class="toggle-container">
-                                                                    <input type="checkbox" id="all-checkbox" class="toggle" >
-                                                                    <label for="all-checkbox" class="label">
+                                                                    <input data-index="${status.index}" onchange="toggleCheckboxes(this)" type="checkbox" id="group-checkbox-${status.index}" class="toggle all-checkbox" >
+                                                                    <label for="group-checkbox-${status.index}" class="label">
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -408,7 +418,7 @@
                                                                 <div class="_1BehlF">
                                                                     <div class="_-0yJ2-">
                                                                         <div class="toggle-container">
-                                                                            <input type="checkbox" id="cheap" class="toggle1" >
+                                                                            <input data-index="${status.index}" onchange="checkItem(this)" type="checkbox" id="cheap" class="toggle1 item-checkbox item-checkbox-${status.index}" >
                                                                             <label for="cheap" class="label">
                                                                             </label>
                                                                         </div>
@@ -442,13 +452,9 @@
                                                                         </div>
                                                                         <div class="_1C6zuo">
                                                                             <div>
-                                                                                <!--                                                                                <span class="_1E5-FE">
-                                                                                                                                                                    ₫${i.product.currentPrice}</span>-->
-                                                                                <span class="_1E5-FE">
-                                                                                    <fmt:formatNumber value="${i.product.currentPrice}" type="number" groupingUsed="true"/> đ
-                                                                                </span>
+                                                                                <span class="_1E5-FE current-price-${status.index}" data-index="${status.index}" data-price="${i.product.currentPrice}">
+                                                                                    ₫${i.product.currentPrice}</span>
                                                                             </div>
-
                                                                         </div>
                                                                         <div class="_2vZsK0">
                                                                             <div class="_2vZsK0">
@@ -458,8 +464,9 @@
                                                                                         <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
                                                                                         </svg>
                                                                                     </a>
-                                                                                    <input class="_2rGMck _8rdz59" type="text" role="spinbutton" value="${i.quantity}" name="quantity" id="text">
-                                                                                    <a href="process?num=1&id=${i.product.id}" class="_2rGMck" id="uncreament">
+                                                                                    <input class="_2rGMck _8rdz59 quantity-${status.index}" type="text" role="spinbutton" value="${i.quantity}" name="quantity" id="text" data-index="${status.index}">
+                                                                                    
+                                                                                    <a href="process?num=1&id=${i.product.id}" class="_2rGMck product-id-${status.index}" id="uncreament" data-index="${status.index}" data-productId="${i.product.id}">
                                                                                         <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="shopee-svg-icon icon-plus-sign">
                                                                                         <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
                                                                                         </svg>
@@ -468,10 +475,11 @@
                                                                             </div>
 
                                                                         </div>
-                                                                        <!--                                                                        <div class="_2S6DJl">
-                                                                                                                                                    <div id="tien" class="ZxTZV3"></div><span style="color: black;">₫</span></div>-->
-                                                                        <span id="tienok">
-                                                                            ${(i.product.currentPrice)*(i.quantity)}</span>
+                                                                        <div class="_2S6DJl">
+                                                                            <div id="tien" class="ZxTZV3"></div><span style="color: black;">₫</span></div>
+                                                                            <span id="tienok">
+                                                                                ${(i.product.currentPrice)*(i.quantity)}</span>
+                                                                        </div>
                                                                         <div class="_1-z5aG _1AeN8q">
                                                                             <form action="process" method="post">
                                                                                 <button class="Lur7Ey" type="submit">
@@ -484,22 +492,19 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            </div>
 
                                                         </li>
 
                                                     </ul>
-                                                </div>
-
-                                            </li>
-                                        </ul>
 
                                     </c:forEach>
                                     <form action="buy" method="GET">
-
+                                        <div id="product-id-inputs-list">
+                                            
+                                        </div>
                                         <div class="_1UHCH_ shop__item--voucher">
 
-                                            <div id="tien" class="ZxTZV3"></div><span style="color: #ee4d2d;">Tổng: ${totalPrice} ₫</span></div>
+                                            <div id="tien" class="ZxTZV3"></div><span id="totalAmount" style="color: #ee4d2d;">Tổng: $0 ₫</span></div>
                                         <button class="shopee-button" type="submit" >
                                             <span class="_3zK-FN">Mua hàng</span>
                                         </button

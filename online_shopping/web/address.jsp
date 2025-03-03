@@ -8,6 +8,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Địa chỉ của tôi</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -145,6 +147,79 @@
 
 
         </style>
+        <script>
+            // Danh sách các địa phương
+            const locations = {
+                "Hanoi": {
+                    "Ba Đình": ["Kim Mã", "Ngọc Hà"],
+                    "Hoàn Kiếm": ["Hàng Bài", "Hàng Mã"]
+                },
+                "HCM": {
+                    "Quận 1": ["Bến Nghé", "Đa Kao"],
+                    "Quận 3": ["Phường 1", "Phường 2"]
+                },
+                "DaNang": {
+                    "Hải Châu": ["Hòa Thuận", "Thạch Thang"],
+                    "Sơn Trà": ["Mân Thái", "Nại Hiên Đông"]
+                }
+            };
+
+// Hàm cập nhật danh sách huyện khi chọn tỉnh
+            function loadDistricts() {
+                let province = document.getElementById("province").value;
+                let districtSelect = document.getElementById("district");
+                let wardSelect = document.getElementById("ward");
+
+                // Xóa dữ liệu cũ
+                districtSelect.innerHTML = '<option value="">Chọn huyện</option>';
+                wardSelect.innerHTML = '<option value="">Chọn xã</option>';
+
+                if (province in locations) {
+                    for (let district in locations[province]) {
+                        let option = document.createElement("option");
+                        option.value = district;
+                        option.text = district;
+                        districtSelect.appendChild(option);
+                    }
+                }
+            }
+
+// Hàm cập nhật danh sách xã khi chọn huyện
+            function loadWards() {
+                let province = document.getElementById("province").value;
+                let district = document.getElementById("district").value;
+                let wardSelect = document.getElementById("ward");
+
+                // Xóa dữ liệu cũ
+                wardSelect.innerHTML = '<option value="">Chọn xã</option>';
+
+                if (province in locations && district in locations[province]) {
+                    for (let ward of locations[province][district]) {
+                        let option = document.createElement("option");
+                        option.value = ward;
+                        option.text = ward;
+                        wardSelect.appendChild(option);
+                    }
+                }
+            }
+
+// Hàm lưu địa chỉ đầy đủ vào trường input ẩn trước khi submit
+            function saveFullAddress() {
+                let province = document.getElementById("province").value;
+                let district = document.getElementById("district").value;
+                let ward = document.getElementById("ward").value;
+                let addressInput = document.getElementById("fullAddress");
+
+                if (ward && district && province) {
+                    addressInput.value = ward + ` - ` + district + ` - ` + province;
+                } else {
+                    alert("Vui lòng chọn đầy đủ tỉnh, huyện, xã!");
+                    return false; // Ngăn không cho form submit nếu thiếu dữ liệu
+                }
+            }
+
+        </script>
+
     </head>
     <body>
         <script src="asserts/js/form.js"></script>
@@ -254,8 +329,8 @@
                             <!--does not loggin-->
                             <c:if test="${sessionScope.account==null}">
                                 <script>
-                                    alert("Access denied");
-                                    window.location.href = "login.jsp";
+            alert("Access denied");
+            window.location.href = "login.jsp";
                                 </script>
                             </c:if>
 
@@ -444,204 +519,118 @@
                     <!-- /* Home Information  */ -->
                     <div class="grid__column-10"  style="background-color: #fff; box-shadow: 0 0 2px #ccc; position: relative ; height:550px">
                         <!--<div class="profile__form">-->
-                            <!-- heading form-->
-                            <div class="profile__form--heading">
-                                <div class="profile__form--heading profile__form--heading-title">
-                                    <h1 class="profile__form--heading profile__form--heading-title-content">
-                                        Địa Chỉ Của Tôi
-                                    </h1>
-                                </div>
-                                <div class="profile__form--heading profile__form--heading-title-description">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
-
+                        <!-- heading form-->
+                        <div class="profile__form--heading">
+                            <div class="profile__form--heading profile__form--heading-title">
+                                <h1 class="profile__form--heading profile__form--heading-title-content">
+                                    Địa Chỉ Của Tôi
+                                </h1>
                             </div>
-                            <!--Bodyform-->
-                            <c:set var="cus" value="${sessionScope.cus}"/>
-                            <c:set var="shop" value="${sessionScope.shop}"/>
-                            <!-- Form tạo mới địa chỉ -->
-                            <!--                            <form action="address?action=add" method="POST" style="width: 100%; margin-bottom: 2rem;">
-                                                            <div class="main-profile-form grid__column-7">
-                                                                <h3>Thêm địa chỉ mới</h3>
-                            
-                                                                <div class="form-item">
-                                                                    <div class="form-item form-item__shopname-label">
-                                                                        <p>Tên</p>
-                                                                    </div>
-                                                                    <div class="form-item form-item__shopname-output">
-                                                                        <input type="text" name="name" maxlength="255"
-                                                                               class="form-item__shopname-output form-item__shopname-output--input" 
-                                                                               placeholder="Nhập tên người nhận" style="width: 100%" required>
-                                                                    </div>
-                                                                </div>
-                            
-                                                                <div class="form-item">
-                                                                    <div class="form-item form-item__shopname-label">
-                                                                        <p>Điện thoại</p>
-                                                                    </div>
-                                                                    <div class="form-item form-item__shopname-output">
-                                                                        <input type="text" name="phone" maxlength="255"
-                                                                               class="form-item__shopname-output form-item__shopname-output--input" 
-                                                                               placeholder="Nhập số điện thoại" style="width: 100%" required>
-                                                                    </div>
-                                                                </div>
-                            
-                                                                <div class="form-item">
-                                                                    <div class="form-item form-item__shopname-label">
-                                                                        <p>Địa chỉ</p>
-                                                                    </div>
-                                                                    <div class="form-item form-item__shopname-output">
-                                                                        <input type="text" name="address" maxlength="255"
-                                                                               class="form-item__shopname-output form-item__shopname-output--input" 
-                                                                               placeholder="Nhập địa chỉ" style="width: 100%" required>
-                                                                    </div>
-                                                                </div>
-                            
-                                                                <div class="form-submit">
-                                                                    <div class="auth-form__control form-submit-control">
-                                                                        <button type="submit" class="btn__small btn__small--primary form-submit-btn">Thêm mới</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>-->
-                            <form action="address?action=add" method="POST" style="width: 100%; margin-bottom: 2rem;">
-                                <div class="main-profile-form grid__column-7">
-                                    <h3>Thêm địa chỉ mới</h3>
+                            <div class="profile__form--heading profile__form--heading-title-description">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
 
-                                    <!-- Tên người nhận -->
-                                    <div class="form-item">
-                                        <label for="name" class="form-item__label">Tên</label>
-                                        <input type="text" name="name" id="name" maxlength="255" placeholder="Nhập tên người nhận" required class="form-item__input">
-                                    </div>
-
-                                    <!-- Số điện thoại -->
-                                    <div class="form-item">
-                                        <label for="phone" class="form-item__label">Điện thoại</label>
-                                        <input type="text" name="phone" id="phone" maxlength="255" placeholder="Nhập số điện thoại" required class="form-item__input">
-                                    </div>
-
-                                    <!-- Chọn tỉnh -->
-                                    <div class="form-item">
-                                        <label for="province" class="form-item__label">Tỉnh</label>
-                                        <select name="province" id="province" class="form-item__input" required>
-                                            <option value="">Chọn tỉnh</option>
-                                            <!-- Thêm các tỉnh vào đây -->
-                                            <option value="Hanoi">Hà Nội</option>
-                                            <option value="HCM">Hồ Chí Minh</option>
-                                            <option value="DaNang">Đà Nẵng</option>
-                                            <!-- Các tỉnh khác -->
-                                        </select>
-                                    </div>
-
-                                    <!-- Chọn huyện -->
-                                    <div class="form-item">
-                                        <label for="district" class="form-item__label">Huyện</label>
-                                        <select name="district" id="district" class="form-item__input" required>
-                                            <option value="">Chọn huyện</option>
-                                            <!-- Các huyện sẽ được thêm vào dựa trên tỉnh đã chọn (sử dụng JavaScript hoặc backend để cập nhật) -->
-                                        </select>
-                                    </div>
-
-                                    <!-- Chọn xã -->
-                                    <div class="form-item">
-                                        <label for="ward" class="form-item__label">Xã</label>
-                                        <select name="ward" id="ward" class="form-item__input" required>
-                                            <option value="">Chọn xã</option>
-                                            <!-- Các xã sẽ được thêm vào dựa trên huyện đã chọn -->
-                                        </select>
-                                    </div>
-
-                                    <!-- Nút Thêm mới -->
-                                    <div class="form-submit">
-                                        <button type="submit" class="btn__small btn__small--primary form-submit-btn">Thêm mới</button>
-                                    </div>
-                                </div>
-                            </form>
-
-
-                            <!-- Form chỉnh sửa địa chỉ hiện có -->
-                            <!--                            <form action="address" method="post" style="width: 100%; margin-top: 3rem;">
-                                                            <div class="main-profile-form grid__column-7">
-                                                                <h3>Danh sách địa chỉ</h3>
-                            
-                            <c:forEach var="addr" items="${addresses}">
-                                <div class="form-item">
-                                    <input type="hidden" name="id" value="${addr.id}">
-
-                                    <div class="form-item form-item__shopname-label">
-                                        <p>Tên</p>
-                                    </div>
-                                    <div class="form-item form-item__shopname-output">
-                                        <input type="text" placeholder="${addr.name}" value="${addr.name}" 
-                                               name="name" maxlength="255"
-                                               class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                    </div>
-                                </div>
-
-                                <div class="form-item">
-                                    <div class="form-item form-item__shopname-label">
-                                        <p>Điện thoại</p>
-                                    </div>
-                                    <div class="form-item form-item__shopname-output">
-                                        <input type="text" placeholder="${addr.phone}" value="${addr.phone}" 
-                                               name="phone" maxlength="255"
-                                               class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                    </div>
-                                </div>
-
-                                <div class="form-item">
-                                    <div class="form-item form-item__shopname-label">
-                                        <p>Địa chỉ</p>
-                                    </div>
-                                    <div class="form-item form-item__shopname-output">
-                                        <input type="text" placeholder="${addr.address}" value="${addr.address}" 
-                                               name="address" maxlength="255"
-                                               class="form-item__shopname-output form-item__shopname-output--input" style="width: 100%">
-                                    </div>
-                                </div>
-
-                                <div class="form-submit">
-                                    <div class="auth-form__control form-submit-control">
-                                        <button type="submit" class="btn__small btn__small--primary form-submit-btn">Lưu</button>
-                                    </div>
-                                </div>
-                            </c:forEach>
                         </div>
-                    </form>-->
-                            <form action="address" method="post">
-                                <table style="width: 100%; margin-top: 3rem;" class="address-table">
-                                    <thead>
+                        <!--Bodyform-->
+                        <c:set var="cus" value="${sessionScope.cus}"/>
+                        <c:set var="shop" value="${sessionScope.shop}"/> 
+                        <form action="address?action=add" method="POST" onsubmit="return saveFullAddress()" class="container mt-4 p-4 bg-light rounded shadow">
+                            <h3 class="mb-3">Thêm địa chỉ mới</h3>
+
+                            <!-- Tên người nhận -->
+                            <div class="row mb-3 align-items-center">
+                                <label for="name" class="col-md-3 col-form-label fw-bold">Tên</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="name" id="name" maxlength="255" class="form-control" placeholder="Nhập tên người nhận" required>
+                                </div>
+                            </div>
+
+                            <!-- Số điện thoại -->
+                            <div class="row mb-3 align-items-center">
+                                <label for="phone" class="col-md-3 col-form-label fw-bold">Điện thoại</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="phone" id="phone" maxlength="10" class="form-control" placeholder="Nhập số điện thoại" required oninput="validatePhoneNumber()">
+                                    <span id="phoneError" style="color: red; font-size: 0.9rem;"></span>
+
+                                </div>
+                            </div>
+
+                            <!-- Chọn tỉnh -->
+                            <div class="row mb-3 align-items-center">
+                                <label for="province" class="col-md-3 col-form-label fw-bold">Tỉnh</label>
+                                <div class="col-md-9">
+                                    <select name="province" id="province" class="form-select" required onchange="loadDistricts()">
+                                        <option value="">Chọn tỉnh</option>
+                                        <option value="Hanoi">Hà Nội</option>
+                                        <option value="HCM">Hồ Chí Minh</option>
+                                        <option value="DaNang">Đà Nẵng</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Chọn huyện -->
+                            <div class="row mb-3 align-items-center">
+                                <label for="district" class="col-md-3 col-form-label fw-bold">Huyện</label>
+                                <div class="col-md-9">
+                                    <select name="district" id="district" class="form-select" required onchange="loadWards()">
+                                        <option value="">Chọn huyện</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Chọn xã -->
+                            <div class="row mb-3 align-items-center">
+                                <label for="ward" class="col-md-3 col-form-label fw-bold">Xã</label>
+                                <div class="col-md-9">
+                                    <select name="ward" id="ward" class="form-select" required>
+                                        <option value="">Chọn xã</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Input ẩn lưu địa chỉ đầy đủ -->
+                            <input type="hidden" name="address" id="fullAddress">
+
+                            <!-- Nút Thêm mới -->
+                            <div class="row">
+                                <div class="col-md-9 offset-md-3">
+                                    <button type="submit" class="btn btn-success px-4">Thêm mới</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form action="address?action=update" method="post">
+                            <table style="width: 100%; margin-top: 3rem;" class="address-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="addr" items="${addresses}">
                                         <tr>
-                                            <th>Tên</th>
-                                            <th>Điện thoại</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Thao tác</th>
+                                            <td>
+                                                <input type="text" name="name" value="${addr.name}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
+                                                <input type="hidden" name="id" value="${addr.id}">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="phone" value="0${addr.phone}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="address" value="<c:out value='${addr.address}'/>" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
+                                            </td>   
+                                            <td>
+                                                <button type="submit" class="btn__small btn__small--primary">Cập nhật</button>
+                                                <button type="button" class="btn btn__small btn-danger" onclick="confirmDelete('${addr.id}')">Xóa</button>
+
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="addr" items="${addresses}">
-                                            <tr>
-                                                <td>
-                                                    <input type="text" name="name" value="${addr.name}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
-                                                    <input type="hidden" name="id" value="${addr.id}">
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="phone" value="0${addr.phone}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="address" value="${addr.address}" maxlength="255" class="form-item__shopname-output--input" style="width: 100%">
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn__small btn__small--primary">Cập nhật</button>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </form>
-
-
-                        </div>
-                    <!--</div>-->
-
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -693,20 +682,48 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-</c:if>
-<style>
-    .profile__form {
-        max-height: 500px; /* Giới hạn chiều cao để kích hoạt cuộn */
-        overflow-y: auto; /* Cho phép cuộn theo chiều dọc */
-        padding-right: 10px;
-    }
+    </c:if>
+    <style>
+        .profile__form {
+            max-height: 500px; /* Giới hạn chiều cao để kích hoạt cuộn */
+            overflow-y: auto; /* Cho phép cuộn theo chiều dọc */
+            padding-right: 10px;
+        }
 
-</style>
+    </style>
 
 </div>
 </body>
+
+<script>
+    function confirmDelete(addressId) {
+        if (!addressId || addressId.trim() === "" || isNaN(addressId)) {
+            alert("Lỗi: ID không hợp lệ!");
+            return;
+        }
+        let confirmAction = confirm("Bạn có chắc chắn muốn xóa địa chỉ này?");
+        if (confirmAction) {
+            window.location.href = `address?action=delete&id=` + addressId;
+        }
+    }
+    function validatePhoneNumber() {
+        let phoneInput = document.getElementById("phone");
+        let phoneError = document.getElementById("phoneError");
+        let phoneNumber = phoneInput.value.trim();
+
+        if (!/^\d{10}$/.test(phoneNumber)) {
+            phoneError.innerText = "Số điện thoại phải có đúng 10 chữ số!";
+            phoneInput.style.borderColor = "red";
+        } else {
+            phoneError.innerText = "";
+            phoneInput.style.borderColor = "";
+        }
+    }
+
+
+</script>
+
 <%@ include file="footer.jsp" %>
 </html>

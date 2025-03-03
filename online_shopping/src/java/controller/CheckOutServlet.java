@@ -22,6 +22,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Iterator;
 import model.Account;
 import model.Cart;
 import model.Customer;
@@ -194,7 +195,9 @@ public class CheckOutServlet extends HttpServlet {
 //        processRequest(request, response);
         HttpSession session = request.getSession(true);
         Cart cart = null;
+        Cart finalCart = null;
         Object o = session.getAttribute("cart");
+        Object fnCart = session.getAttribute("finalCart");
         Account a = (Account) session.getAttribute("account");
         if (a == null) {
             processRequest(request, response);
@@ -204,7 +207,23 @@ public class CheckOutServlet extends HttpServlet {
             } else {
                 cart = new Cart();
             }
+            if(fnCart != null){
+                finalCart = (Cart) fnCart;
+            }else {
+                finalCart = new Cart();
+            }
             try {
+                Iterator<Item> iterator = cart.getItems().iterator();
+                while (iterator.hasNext()) {
+                    Item item = iterator.next();
+                    boolean shouldRemove = finalCart.getItems().stream()
+                        .anyMatch(finalItem -> finalItem.getProduct().getId() == item.getProduct().getId());
+
+                    if (shouldRemove) {
+                        iterator.remove(); // XÃ³a pháº§n tá»­ an toÃ n
+                    }
+                }
+
 
                 customerID = a.getUsername();
                 shipvia = Integer.parseInt(request.getParameter("shipper"));
@@ -217,8 +236,10 @@ public class CheckOutServlet extends HttpServlet {
                 //list username
                 List<Shop> s = new ArrayList<>();
                 List<String> lid = new ArrayList<>();
-
-                for (Item i : cart.getItems()) {
+                               
+               
+                
+                for (Item i : finalCart.getItems()) {
                     lid.add(i.getProduct().getShops().getUsername());
                 }
 
@@ -226,7 +247,7 @@ public class CheckOutServlet extends HttpServlet {
 
                 for (String j : collect) {
                     float t = 0;
-                    for (Item i : cart.getItems()) {
+                    for (Item i : finalCart.getItems()) {
                         if ((i.getProduct().getShops().getUsername().equalsIgnoreCase(j))) {
 
                         }
@@ -235,11 +256,10 @@ public class CheckOutServlet extends HttpServlet {
 
                 for (String j : collect) {
                     int count = 0;
-                    for (Item i : cart.getItems()) {
+                    for (Item i : finalCart.getItems()) {
                         if ((i.getProduct().getShops().getUsername().equalsIgnoreCase(j))) {
                             float m = i.getQuantity() * i.getProduct().getCurrentPrice() + freight;
                             Orders k = new Orders(customerID, shipvia, null, requiredDate, shippedDate, freight, shipaddress, postalCode, m, discount);
-                            System.out.println("============================");
                             Orders newo = od.insertOrder(k);
                             if (count == 0) {
                                 od.InsertOrderDetail(newo.getId(), i.getProduct().getId(), i.getQuantity());
@@ -254,10 +274,18 @@ public class CheckOutServlet extends HttpServlet {
             } catch (Exception e) {
                 System.out.println(e);
             }
+            
             CartDAO cartDAO = new CartDAO();
             cartDAO.deleteCartByUsers(a);
-            session.removeAttribute("cart");
-            session.setAttribute("size", 0);
+            if(cart != null && cart.getItems() != null && !cart.getItems().isEmpty()){
+                session.setAttribute("cart", cart);
+                 session.setAttribute("size", cart.getItems().size());
+            }else{
+                 session.removeAttribute("cart");
+                 session.setAttribute("size", 0);
+            }
+           
+            
             request.getRequestDispatcher("thankyou.jsp").forward(request, response);
         }
     }
