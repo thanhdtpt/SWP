@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,6 +21,8 @@ import model.AnalysisProduct1;
 import model.Categories;
 import model.Product;
 import model.Shop;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -509,19 +512,112 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-    
-    public Product updateProductInformationN(Product p) {
-    try {
-        String sql = "UPDATE Products SET status=?, UpdatedDate=GETDATE() WHERE ProductID=?";
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, p.getStatus());
-        st.setInt(2, p.getId());
-        st.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return getProductById(p.getId());
-}
 
+    public Product updateProductInformationN(Product p) {
+        try {
+            String sql = "UPDATE Products SET status=?, UpdatedDate=GETDATE() WHERE ProductID=?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, p.getStatus());
+            st.setInt(2, p.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getProductById(p.getId());
+    }
+
+    public boolean isProductLiked(String userName, int productId) {
+        boolean isLiked = false;
+        String sql = "SELECT COUNT(*) FROM LikedProducts WHERE UserName = ? AND ProductID = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userName);
+            stmt.setInt(2, productId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                isLiked = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isLiked;
+    }
+
+    public void likeProduct(String userName, int productId) {
+        String sql = "INSERT INTO LikedProducts (UserName, ProductID) VALUES (?, ?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userName);
+            stmt.setInt(2, productId);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unlikeProduct(String userName, int productId) {
+        String sql = "DELETE FROM LikedProducts WHERE UserName = ? AND ProductID = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userName);
+            stmt.setInt(2, productId);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Product> getLikedProducts(String username) {
+        List<Product> likedProducts = new ArrayList<>();
+        String sql = "SELECT p.* FROM LikedProducts lp JOIN Products p ON lp.productId = p.productId WHERE lp.username = ?";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("productId"));
+                p.setProductname(rs.getString("productname"));
+                p.setImages1(rs.getString("images1"));
+                p.setCurrentPrice(rs.getFloat("currentPrice"));
+                p.setOldPrice(rs.getFloat("oldPrice"));
+                p.setQuantityPerUnit(rs.getInt("quanTityPerUnit"));
+                p.setUnitInstock(rs.getInt("unitInStock"));
+                p.setUnitOnOrder(rs.getInt("unitOnOrder"));
+                p.setBrand(rs.getString("brand"));
+                p.setOrigin(rs.getString("origin"));
+                // Format ngày tháng
+                Timestamp timestamp = rs.getTimestamp("createdDate"); // Lấy dữ liệu kiểu timestamp
+                if (timestamp != null) {
+                    Date date = new Date(timestamp.getTime());
+                    p.setCreatedDate(sdf.format(date)); // Chuyển về chuỗi yyyy-MM-dd
+                }
+                likedProducts.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return likedProducts;
+    }
+
+    public List<Integer> getLikedProductIds(String userEmail) {
+        List<Integer> likedProductIds = new ArrayList<>();
+        String sql = "SELECT productId FROM LikedProducts WHERE username = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userEmail);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                likedProductIds.add(rs.getInt("productId"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return likedProductIds;
+    }
 
 }

@@ -20,6 +20,42 @@
         <link rel="stylesheet" href="./asserts/css/checkbox.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
         <<script src="./asserts/js/product.js"></script>
+        <style>
+            .heart-icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: rgba(255, 0, 0, 0.1); /* Màu nền nhạt */
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-left: 15px;
+            }
+
+            .heart-icon:hover {
+                background-color: rgba(255, 0, 0, 0.2); /* Khi hover, màu đậm hơn */
+            }
+
+            .like-button {
+                font-size: 22px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                transition: transform 0.3s ease, color 0.3s ease;
+            }
+
+            .like-button.liked {
+                color: red; /* Trái tim đỏ khi được thích */
+                transform: scale(1.2); /* Phóng to nhẹ */
+            }
+
+            .like-button.unliked {
+                color: gray; /* Trái tim xám khi chưa thích */
+            }
+
+        </style>
     </head>
 
     <body>
@@ -170,6 +206,9 @@
                                     <li class="header__navbar-user-item">
                                         <a href="order">Đơn mua </a>
                                     </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="like-product">yêu thích </a>
+                                    </li>
 
                                     <li class="header__navbar-user-item">
                                         <a href="logout">Đăng xuất</a>
@@ -188,7 +227,7 @@
                         <div class="header__search">
                             <div class="header__search-input-wrap">
                                 <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
-                                
+
                                 <!-- Search history -->
                                 <div class="header__search-history">
                                     <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
@@ -266,7 +305,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </li>
@@ -329,169 +368,10 @@
                                                 <div class="flex-auto flex-column  _4QIZZo">
                                                     <div class="_3g8My- product--order--title">
                                                         <span>
-                                                            ${p.productname}</span>
+                                                            ${p.productname}</span> 
+
                                                     </div>
-<!--                                                    <div class="flex _28iFbX rating--icon">
-                                                        <div class="flex _1GknPu star--icon rating--icon">
-                                                            <div class="_3uBhVI URjL1D rating--icon">
-                                                                5.0</div>
-                                                            <div class="oMTlt6">
-                                                                <div class="shopee-rating-stars rating--icon">
-                                                                    <div class="shopee-rating-stars__stars rating--icon">
-                                                                        <div
-                                                                            class="shopee-rating-stars__star-wrapper rating--icon">
-                                                                            <div class="shopee-rating-stars__lit rating--icon"
-                                                                                 style="width: 100%;">
-                                                                                <svg enable-background="new 0 0 15 15"
-                                                                                     viewBox="0 0 15 15" x="0" y="0"
-                                                                                     class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid rating--icon">
-                                                                                <polygon
-                                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    stroke-miterlimit="10">
 
-                                                                                </polygon>
-                                                                                </svg>
-                                                                            </div>
-                                                                            <svg enable-background="new 0 0 15 15"
-                                                                                 viewBox="0 0 15 15" x="0" y="0"
-                                                                                 class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating rating--icon">
-                                                                            <polygon fill="none"
-                                                                                     points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                     stroke-linecap="round"
-                                                                                     stroke-linejoin="round"
-                                                                                     stroke-miterlimit="10">
-
-                                                                            </polygon>
-                                                                            </svg>
-                                                                        </div>
-                                                                        <div
-                                                                            class="shopee-rating-stars__star-wrapper rating--icon">
-                                                                            <div class="shopee-rating-stars__lit rating--icon"
-                                                                                 style="width: 100%;">
-                                                                                <svg enable-background="new 0 0 15 15 rating--icon"
-                                                                                     viewBox="0 0 15 15" x="0" y="0"
-                                                                                     class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid rating--icon">
-                                                                                <polygon
-                                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    stroke-miterlimit="10">
-
-                                                                                </polygon>
-                                                                                </svg>
-                                                                            </div>
-                                                                            <svg enable-background="new 0 0 15 15"
-                                                                                 viewBox="0 0 15 15" x="0" y="0"
-                                                                                 class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating rating--icon">
-                                                                            <polygon fill="none"
-                                                                                     points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                     stroke-linecap="round"
-                                                                                     stroke-linejoin="round"
-                                                                                     stroke-miterlimit="10">
-
-                                                                            </polygon>
-                                                                            </svg>
-                                                                        </div>
-                                                                        <div class="shopee-rating-stars__star-wrapper">
-                                                                            <div class="shopee-rating-stars__lit"
-                                                                                 style="width: 100%;">
-                                                                                <svg enable-background="new 0 0 15 15"
-                                                                                     viewBox="0 0 15 15" x="0" y="0"
-                                                                                     class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
-                                                                                <polygon
-                                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    stroke-miterlimit="10">
-
-                                                                                </polygon>
-                                                                                </svg>
-                                                                            </div>
-                                                                            <svg enable-background="new 0 0 15 15"
-                                                                                 viewBox="0 0 15 15" x="0" y="0"
-                                                                                 class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
-                                                                            <polygon fill="none"
-                                                                                     points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                     stroke-linecap="round"
-                                                                                     stroke-linejoin="round"
-                                                                                     stroke-miterlimit="10">
-
-                                                                            </polygon>
-                                                                            </svg>
-                                                                        </div>
-                                                                        <div class="shopee-rating-stars__star-wrapper">
-                                                                            <div class="shopee-rating-stars__lit"
-                                                                                 style="width: 100%;">
-                                                                                <svg enable-background="new 0 0 15 15"
-                                                                                     viewBox="0 0 15 15" x="0" y="0"
-                                                                                     class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
-                                                                                <polygon
-                                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    stroke-miterlimit="10">
-
-                                                                                </polygon>
-                                                                                </svg>
-                                                                            </div>
-                                                                            <svg enable-background="new 0 0 15 15"
-                                                                                 viewBox="0 0 15 15" x="0" y="0"
-                                                                                 class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
-                                                                            <polygon fill="none"
-                                                                                     points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                     stroke-linecap="round"
-                                                                                     stroke-linejoin="round"
-                                                                                     stroke-miterlimit="10">
-
-                                                                            </polygon>
-                                                                            </svg>
-                                                                        </div>
-                                                                        <div class="shopee-rating-stars__star-wrapper">
-                                                                            <div class="shopee-rating-stars__lit"
-                                                                                 style="width: 96.6667%;">
-                                                                                <svg enable-background="new 0 0 15 15"
-                                                                                     viewBox="0 0 15 15" x="0" y="0"
-                                                                                     class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
-                                                                                <polygon
-                                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    stroke-miterlimit="10">
-
-                                                                                </polygon>
-                                                                                </svg>
-                                                                            </div>
-                                                                            <svg enable-background="new 0 0 15 15"
-                                                                                 viewBox="0 0 15 15" x="0" y="0"
-                                                                                 class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
-                                                                            <polygon fill="none"
-                                                                                     points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                                     stroke-linecap="round"
-                                                                                     stroke-linejoin="round"
-                                                                                     stroke-miterlimit="10">
-
-                                                                            </polygon>
-                                                                            </svg>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex _1GknPu">
-                                                            <div class="_3uBhVI">
-                                                                60</div>
-                                                            <div class="oMTlt6">
-                                                                đánh giá</div>
-                                                        </div>
-                                                        <div class="flex voPlNU">
-                                                            <div class="_3b2Btx">
-                                                                ${p.unitOnOrder}</div>
-                                                            <div class="_3hic1u">
-                                                                đã bán</div>
-                                                        </div>
-                                                    </div>-->
                                                     <div style="margin-top: 10px;" class="nav__bar__price">
                                                         <div class="flex flex-column">
                                                             <div class="flex flex-column _1900SS">
@@ -506,6 +386,14 @@
                                                                             <div class="_1kpF5Y item--discount">
                                                                                 ${p.discount}%</div>
                                                                         </div>
+                                                                        <div class="heart-icon">
+                                                                            <button id="likeButton" 
+                                                                                    class="like-button"
+                                                                                    onclick="toggleLike(${p.id})">
+                                                                                ${isLiked ? "❤️" : "🤍"}
+                                                                            </button>
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -650,11 +538,11 @@
                                                                                         </svg>
                                                                                     </button>
                                                                                 </div>
-                                                                               
+
                                                                             </div>
                                                                             <div id="unit" data = ${p.unitInstock}>
                                                                                 ${p.unitInstock} sản phẩm có sẵn</div>
-                                                                                
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -664,6 +552,7 @@
                                                     <div style="margin-top: 15px;">
                                                         <div class="j1JSoD">
                                                             <div class="QcT1pP">
+
                                                                 <button type="button"
                                                                         class="btn btn-tinted btn--l rvHxix _3t_iHy btn--add"
                                                                         aria-disabled="false" onclick="submitForm('product')">
@@ -1036,12 +925,36 @@
 
         </div>
 
-     <%@ include file="footer.jsp" %>
+        <%@ include file="footer.jsp" %>
     </div>
     <!--modal layout-->
- <script>
-                                                                                   
-                                                                                </script>
+    <script>
+        function toggleLike(productId) {
+            fetch(`/online_shopping/like-product`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({productId: productId})
+            })
+                    .then(response => response.text()) // Đọc dữ liệu dưới dạng text trước
+                    .then(text => {
+                        console.log("Server response:", text); // In response ra console
+                        return JSON.parse(text); // Chuyển đổi sang JSON nếu có thể
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            let likeButton = document.getElementById('likeButton');
+                            likeButton.innerHTML = data.isLiked ? "❤️" : "🤍";
+                        } else {
+                            alert("Lỗi khi thích/bỏ thích sản phẩm!");
+                        }
+                    })
+                    .catch(error => console.error("Lỗi:", error));
+        }
+
+
+    </script>
 </body>
 
 </html>

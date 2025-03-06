@@ -96,6 +96,9 @@ request.setCharacterEncoding("utf-8");
                     Shop shop = ad.getShop(a.getUsername());
             request.setAttribute("pro", p);
             request.setAttribute("ca", c); 
+             boolean isLiked = pd.isProductLiked(a.getEmail(), p.getId());
+
+            request.setAttribute("isLiked", isLiked);
             
             request.setAttribute("shop", shop);
             request.getRequestDispatcher("product.jsp").forward(request, response);

@@ -35,89 +35,89 @@
     </style>
     <!-- Block Element Modifier -->
     <div class="app">
-        
+
         <header class="header">
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
                     </ul>
                     <ul class="header__navbar-list">
-<!--                        <li class="header__navbar-item header__navbar-item--has-notify">
-                            <a href="" class="header__navbar-item-link"><i
-                                    class="header__navbar-icon fa-solid fa-bell"></i>
-                                Thông báo</a>
-                            <div class="header__notify">
-                                <header class="header__notify-header">
-                                    <h3>Thông báo mới nhận</h3>
-                                </header>
-                                <ul class="header__notify-list">
-                                    <li class="header__notify-item header__notify-item--viewed">
-                                        <a href="" class="header__notify-link">
-
-                                            <img src="https://cdn.chanhtuoi.com/uploads/2021/06/w400/my-pham-truesky.jpg.webp"
-                                                 alt="Mỹ phâm Ohui" class="header__notify-img">
-                                            <div class="header__notify-info">
-                                                <span class="header__notify-name">Mỹ phẩm Ohui Chính Hãng</span>
-                                                <span class="header__notify-description">Mô tả mỹ phẩm Ohui Chính
-                                                    Hãng</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="header__notify-item">
-                                        <a href="" class="header__notify-link header__notify-item--viewed">
-
-                                            <img src="	https://cf.shopee.vn/file/6e28e2c12b39294ecfd4adcdfd03985d"
-                                                 alt="Mỹ phâm Ohui" class="header__notify-img">
-                                            <div class="header__notify-info">
-                                                <span class="header__notify-name">[FreeShip] [Giá hủy diệt] Giá đỡ
-                                                    Laptop - Giá kê laptop / MacBook / Ultrabook điều chỉnh độ cao - đế
-                                                    tản nhiệt</span>
-                                                <span class="header__notify-description">Giá đỡ laptop dành cho Macbook
-                                                    Ipad Surface và các máy tính xách tay khác
-                                                    Chất liệu: Nhựa ABS</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="header__notify-item header__notify-item--viewed">
-                                        <a href="" class="header__notify-link">
-
-                                            <img src="https://cf.shopee.vn/file/f85c05df4b8c46cf5205d72055c766ff"
-                                                 alt="Mỹ phâm Ohui" class="header__notify-img">
-                                            <div class="header__notify-info">
-                                                <span class="header__notify-name">(HOT) 🌻 ĐẤT TRỘN TRỒNG SEN ĐÁ - XƯƠNG
-                                                    RỒNG 🌻 15K/ 1KG - S30</span>
-                                                <span class="header__notify-description">
-                                                    Đất trộn chuyên trồng sen đá - xương rồng</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="header__notify-item header__notify-item--viewed">
-                                        <a href="" class="header__notify-link">
-
-                                            <img src="https://cf.shopee.vn/file/673f4dbfdd17548b58eab822a0d18ab3"
-                                                 alt="Mỹ phâm Ohui" class="header__notify-img">
-                                            <div class="header__notify-info">
-                                                <span class="header__notify-name">[Chính hãng] Đồng hồ decor ELEKSTUBE
-                                                    V6 - Đồng hồ NIXIE phát sáng - có thể setup thay đổi hình ảnh tùy
-                                                    ý</span>
-                                                <span class="header__notify-description">Elekstube IPs là sản phẩm đồng
-                                                    hồ cao cấp chạy trên nền Led chuyên nghiệp đang là một trong những
-                                                    đồng hồ hot nhất trên thế giới hiện nay.</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <footer class="header__notify-footer">
-                                    <a href="" class="header__notify-footer-btn">Xem tất cả</a>
-                                </footer>
-                            </div>
-                        </li>
-                        <li class="header__navbar-item">
-                            <a href="" class="header__navbar-item-link"><i
-                                    class="header__navbar-icon fa-solid fa-circle-question"></i>
-                                Trợ giúp</a>
-
-                        </li>-->
+                        <!--                        <li class="header__navbar-item header__navbar-item--has-notify">
+                                                    <a href="" class="header__navbar-item-link"><i
+                                                            class="header__navbar-icon fa-solid fa-bell"></i>
+                                                        Thông báo</a>
+                                                    <div class="header__notify">
+                                                        <header class="header__notify-header">
+                                                            <h3>Thông báo mới nhận</h3>
+                                                        </header>
+                                                        <ul class="header__notify-list">
+                                                            <li class="header__notify-item header__notify-item--viewed">
+                                                                <a href="" class="header__notify-link">
+                        
+                                                                    <img src="https://cdn.chanhtuoi.com/uploads/2021/06/w400/my-pham-truesky.jpg.webp"
+                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
+                                                                    <div class="header__notify-info">
+                                                                        <span class="header__notify-name">Mỹ phẩm Ohui Chính Hãng</span>
+                                                                        <span class="header__notify-description">Mô tả mỹ phẩm Ohui Chính
+                                                                            Hãng</span>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <li class="header__notify-item">
+                                                                <a href="" class="header__notify-link header__notify-item--viewed">
+                        
+                                                                    <img src="	https://cf.shopee.vn/file/6e28e2c12b39294ecfd4adcdfd03985d"
+                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
+                                                                    <div class="header__notify-info">
+                                                                        <span class="header__notify-name">[FreeShip] [Giá hủy diệt] Giá đỡ
+                                                                            Laptop - Giá kê laptop / MacBook / Ultrabook điều chỉnh độ cao - đế
+                                                                            tản nhiệt</span>
+                                                                        <span class="header__notify-description">Giá đỡ laptop dành cho Macbook
+                                                                            Ipad Surface và các máy tính xách tay khác
+                                                                            Chất liệu: Nhựa ABS</span>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <li class="header__notify-item header__notify-item--viewed">
+                                                                <a href="" class="header__notify-link">
+                        
+                                                                    <img src="https://cf.shopee.vn/file/f85c05df4b8c46cf5205d72055c766ff"
+                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
+                                                                    <div class="header__notify-info">
+                                                                        <span class="header__notify-name">(HOT) 🌻 ĐẤT TRỘN TRỒNG SEN ĐÁ - XƯƠNG
+                                                                            RỒNG 🌻 15K/ 1KG - S30</span>
+                                                                        <span class="header__notify-description">
+                                                                            Đất trộn chuyên trồng sen đá - xương rồng</span>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <li class="header__notify-item header__notify-item--viewed">
+                                                                <a href="" class="header__notify-link">
+                        
+                                                                    <img src="https://cf.shopee.vn/file/673f4dbfdd17548b58eab822a0d18ab3"
+                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
+                                                                    <div class="header__notify-info">
+                                                                        <span class="header__notify-name">[Chính hãng] Đồng hồ decor ELEKSTUBE
+                                                                            V6 - Đồng hồ NIXIE phát sáng - có thể setup thay đổi hình ảnh tùy
+                                                                            ý</span>
+                                                                        <span class="header__notify-description">Elekstube IPs là sản phẩm đồng
+                                                                            hồ cao cấp chạy trên nền Led chuyên nghiệp đang là một trong những
+                                                                            đồng hồ hot nhất trên thế giới hiện nay.</span>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <footer class="header__notify-footer">
+                                                            <a href="" class="header__notify-footer-btn">Xem tất cả</a>
+                                                        </footer>
+                                                    </div>
+                                                </li>
+                                                <li class="header__navbar-item">
+                                                    <a href="" class="header__navbar-item-link"><i
+                                                            class="header__navbar-icon fa-solid fa-circle-question"></i>
+                                                        Trợ giúp</a>
+                        
+                                                </li>-->
                         <!--does not loggin-->
                         <c:if test="${sessionScope.account==null}">
                             <li class="header__navbar-item  header__navbar-item--strong register-item" >
@@ -146,6 +146,9 @@
                                     </li>
                                     <li class="header__navbar-user-item">
                                         <a href="order">Đơn mua </a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="like-product">yêu thích </a>
                                     </li>
 
                                     <li class="header__navbar-user-item">
@@ -208,63 +211,63 @@
                         </div>
                         <!-- Cart layout -->
                         <c:if test="${sessionScope.account != null}">
-                        <div class="header__cart">
-                            <div class="header__cart-wrap">
-                                <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
+                            <div class="header__cart">
+                                <div class="header__cart-wrap">
+                                    <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
 
-                                <c:if test="${sessionScope.size == null or sessionScope.size==0}">
-                                    <span class="header__cart-notice">0</span>
-                                    <!--Has no cart-->
-                                    <div class="header__cart-list header__cart-list--no-cart">
-                                        <img src="./asserts/img/nocart.png" alt=""class="header__cart-list--no-cart-img">
-                                        <p class="header__cart-list-no-cart-msg">
-                                            Chưa có sản phẩm
-                                        </p>
-                                    </div> 
-                                </c:if>
+                                    <c:if test="${sessionScope.size == null or sessionScope.size==0}">
+                                        <span class="header__cart-notice">0</span>
+                                        <!--Has no cart-->
+                                        <div class="header__cart-list header__cart-list--no-cart">
+                                            <img src="./asserts/img/nocart.png" alt=""class="header__cart-list--no-cart-img">
+                                            <p class="header__cart-list-no-cart-msg">
+                                                Chưa có sản phẩm
+                                            </p>
+                                        </div> 
+                                    </c:if>
 
-                                <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
-                                    <span class="header__cart-notice">${sessionScope.size}</span>
-                                    <div class="header__cart-list header__cart-list--have-cart ">
-                                        <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
-                                        <ul class="header__cart-list-item">
-                                            <c:set var="o" value="${sessionScope.cart}"/>
-                                            <c:forEach items="${o.items}" var="i">
-                                                <li id="demo" class="header__cart-item" style="margin-bottom:20px ; cursor: pointer">
-                                                    <img class="header__cart-item-img"
-                                                         src="${i.product.images1}"
-                                                         alt="">
-                                                    <div class="header__cart-item-info">
-                                                        <div class="header__cart-item-head">
-                                                            <h5 class="header__cart-item-name">${i.product.productname}</h5>
-                                                            <div class="header__cart-item-atributes-list">
-                                                                <span
-                                                                    class="header__cart-item-atribute header__cart-item-price">${i.product.currentPrice}</span>
-                                                                <span
-                                                                    class="header__cart-item-atribute header__cart-item-multiply">x</span>
-                                                                <span
-                                                                    class="header__cart-item-atribute header__cart-item-qnt">${i.quantity}</span>
+                                    <c:if test="${sessionScope.size != null && sessionScope.size!=0}">
+                                        <span class="header__cart-notice">${sessionScope.size}</span>
+                                        <div class="header__cart-list header__cart-list--have-cart ">
+                                            <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
+                                            <ul class="header__cart-list-item">
+                                                <c:set var="o" value="${sessionScope.cart}"/>
+                                                <c:forEach items="${o.items}" var="i">
+                                                    <li id="demo" class="header__cart-item" style="margin-bottom:20px ; cursor: pointer">
+                                                        <img class="header__cart-item-img"
+                                                             src="${i.product.images1}"
+                                                             alt="">
+                                                        <div class="header__cart-item-info">
+                                                            <div class="header__cart-item-head">
+                                                                <h5 class="header__cart-item-name">${i.product.productname}</h5>
+                                                                <div class="header__cart-item-atributes-list">
+                                                                    <span
+                                                                        class="header__cart-item-atribute header__cart-item-price">${i.product.currentPrice}</span>
+                                                                    <span
+                                                                        class="header__cart-item-atribute header__cart-item-multiply">x</span>
+                                                                    <span
+                                                                        class="header__cart-item-atribute header__cart-item-qnt">${i.quantity}</span>
+                                                                </div>
+
                                                             </div>
-
+                                                            <div class="header__cart-item-body ">
+                                                            </div>
                                                         </div>
-                                                        <div class="header__cart-item-body ">
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </c:forEach>
+                                                    </li>
+                                                </c:forEach>
 
-                                        </ul>
-                                        <div class="auth-form__cart-btn" onclick="window.location.href = 'cart.jsp">
-                                            <button type="button" class="btn btn--primary btn--primary--viewcart" onclick="document.location.href = 'cart.jsp'">Xem giỏ hàng</button>
+                                            </ul>
+                                            <div class="auth-form__cart-btn" onclick="window.location.href = 'cart.jsp">
+                                                <button type="button" class="btn btn--primary btn--primary--viewcart" onclick="document.location.href = 'cart.jsp'">Xem giỏ hàng</button>
+                                            </div>
+
                                         </div>
+                                    </c:if>
 
-                                    </div>
-                                </c:if>
+                                </div>
 
                             </div>
-
-                        </div>
-                         </c:if>
+                        </c:if>
 
 
                     </nav>
@@ -404,8 +407,12 @@
                                             </div>
                                             <div class="home-product-item__action">
                                                 <span class="home-product-item__like home-product-item__like--liked">
-                                                    <i class="home-product-item__like-icon-empty far fa-heart"></i>
-                                                    <i class="home-product-item__like-icon-fill fas fa-heart"></i>
+                                                    <c:if test="${likedProductIds.contains(p.id)}">
+                                                        <i class="home-product-item__like-icon-fill fas fa-heart" style="color: red;"></i> 
+                                                    </c:if>
+                                                    <c:if test="${!likedProductIds.contains(p.id)}">
+                                                        <i class="home-product-item__like-icon-empty far fa-heart"></i>
+                                                    </c:if>
                                                 </span>
 
 

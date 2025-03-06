@@ -10,6 +10,10 @@
         <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LikeProductServlet</servlet-name>
+        <servlet-class>controller.LikeProductServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PayServlet</servlet-name>
         <servlet-class>controller.PayServlet</servlet-class>
     </servlet>
@@ -216,6 +220,10 @@
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LikeProductServlet</servlet-name>
+        <url-pattern>/like-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Manager_OrderServlet</servlet-name>
