@@ -271,7 +271,8 @@
                     <div class="grid__row">
 
                         <!--                   <form method="post" action="buy" id="order-product">-->
-                        <form method="post" action="checkout">
+                        <!--<form method="post" action="checkout">-->
+                            <form method="post" action="pay">
                             <!-- /* Home sort+filter  */ -->
                             <div  style="margin-bottom:20px">
                                 <div class="orderdetail--navbar">
@@ -556,8 +557,9 @@
                                                         <span>Tổng số tiền</span>
                                                     </div>
                                                     <div class="_2aXD4G">
-                                                        <div class="_1gMI9H">₫${totalPrice+requestScope.freight-10000-requestScope.discount}
-                                                            <input type="text" value="${totalPrice+requestScope.freight-10000-requestScope.discount}"  name="total" readonly style="display: none">    
+                                                        <div class="_1gMI9H">₫${totalPrice+requestScope.freight-requestScope.discount}
+                                                            <input type="text" value="${totalPrice+requestScope.freight-requestScope.discount}"  name="total" readonly style="display: none">   
+                                                            <input type="text" value="500000"  name="amount" readonly style="display: none">  
                                                         </div>
                                                     </div>
                                                 </div>

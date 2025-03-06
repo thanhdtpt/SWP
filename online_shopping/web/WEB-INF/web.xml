@@ -10,6 +10,10 @@
         <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PayServlet</servlet-name>
+        <servlet-class>controller.PayServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ManageProductServlet</servlet-name>
         <servlet-class>controller.ManageProductServlet</servlet-class>
     </servlet>
@@ -120,6 +124,10 @@
     <servlet>
         <servlet-name>BestOrder</servlet-name>
         <servlet-class>controller.BestOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReturnPayServlet</servlet-name>
+        <servlet-class>controller.ReturnPayServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyOTPServlet</servlet-name>
@@ -286,6 +294,14 @@
     <servlet-mapping>
         <servlet-name>UpdateAddressServlet</servlet-name>
         <url-pattern>/updateAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReturnPayServlet</servlet-name>
+        <url-pattern>/returnPay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PayServlet</servlet-name>
+        <url-pattern>/pay</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
