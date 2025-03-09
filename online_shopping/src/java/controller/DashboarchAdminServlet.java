@@ -31,17 +31,21 @@ public class DashboarchAdminServlet extends HttpServlet {
         // Get the data from the session or request
         AccountDAO accountDAO = new AccountDAO();
         int totalUsers = accountDAO.getTotalUsers();
+        int totalMoneys = accountDAO.getTotalMoneys();
         ShopDAO shopDAO = new ShopDAO();
         int totalShops = shopDAO.getTotalShops();
         ProductDAO productDAO = new ProductDAO();
         int totalProducts = productDAO.getTotalProducts();
         List<Product> topProducts = productDAO.getTopProductsByStatus("pending");
+        List<AccountDAO.AccountWithRole> topMembers = accountDAO.getTop5Members();
 
         // Set attributes to pass to the JSP
         request.setAttribute("totalUsers", totalUsers);
         request.setAttribute("totalShops", totalShops);
         request.setAttribute("totalProducts", totalProducts);
         request.setAttribute("topProducts", topProducts);
+        request.setAttribute("totalMoneys", totalMoneys);
+        request.setAttribute("topMembers", topMembers);
 
         // Forward to the admin home page
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin/home.jsp");

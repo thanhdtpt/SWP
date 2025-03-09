@@ -342,8 +342,8 @@
                                         <div class="_2LUhSC">Số tiền
 
                                         </div>
-                                        <div class="HHdkhO">Thao tác
-                                        </div>
+<!--                                        <div class="HHdkhO">Thao tác
+                                        </div>-->
                                     </div>
 
                                     <!--Item-->
@@ -480,7 +480,7 @@
                                                                             <span id="tienok">
                                                                                 ${(i.product.currentPrice)*(i.quantity)}</span>
                                                                         </div>
-                                                                        <div class="_1-z5aG _1AeN8q">
+<!--                                                                        <div class="_1-z5aG _1AeN8q">
                                                                             <form action="process" method="post">
                                                                                 <button class="Lur7Ey" type="submit">
                                                                                     Xóa
@@ -488,7 +488,7 @@
                                                                                 <input type="hidden" name="id" value="${i.product.id}"/>
                                                                             </form>   
 
-                                                                        </div>
+                                                                        </div>-->
                                                                     </div>
                                                                 </div>
                                                             </div>

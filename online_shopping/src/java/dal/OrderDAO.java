@@ -172,7 +172,7 @@ public class OrderDAO extends DBContext {
     }
 
     public Orders insertOrder(Orders o) {
-        String insertSQL = "INSERT INTO Orders (CustomerID, Shippervia, OrderDate, RequiredDate, Freight, AddressId, PostalCode, total, discount) "
+        String insertSQL = "INSERT INTO Orders (CustomerID, Shippervia, OrderDate, RequiredDate, Freight, ShipAddress, PostalCode, total, discount) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String getIdSQL = "SELECT MAX(OrderID) FROM Orders"; // Lấy ID mới nhất
 

@@ -86,6 +86,10 @@
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CDOServlet</servlet-name>
+        <servlet-class>controller.CDOServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Manager_OrderServlet</servlet-name>
         <servlet-class>controller.Manager_OrderServlet</servlet-class>
     </servlet>
@@ -306,6 +310,10 @@
     <servlet-mapping>
         <servlet-name>ReturnPayServlet</servlet-name>
         <url-pattern>/returnPay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CDOServlet</servlet-name>
+        <url-pattern>/cdoPay</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PayServlet</servlet-name>

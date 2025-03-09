@@ -15,15 +15,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import model.Account;
 import model.Cart;
 import model.Item;
 import model.Orders;
+import java.time.format.DateTimeFormatter;
 
-public class ReturnPayServlet extends HttpServlet {
+public class CDOServlet extends HttpServlet {
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -39,16 +38,6 @@ public class ReturnPayServlet extends HttpServlet {
             return;
         }
 
-        // Kiểm tra trạng thái thanh toán VNPay
-        String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
-        if (vnp_ResponseCode != null && !vnp_ResponseCode.equals("00")) {
-            String previousPage = (String) session.getAttribute("previousPage");
-            if (previousPage != null) {
-                response.sendRedirect(previousPage);
-                return;
-            }
-        }
-
         Cart finalCart = (Cart) session.getAttribute("finalCart");
         if (finalCart == null || finalCart.getItems().isEmpty()) {
             response.sendRedirect("cart.jsp");
@@ -56,8 +45,8 @@ public class ReturnPayServlet extends HttpServlet {
         }
 
         try {
-            // Lấy thông tin từ request
-           String shipperParam = request.getParameter("shipper");
+            // Lấy giá trị từ request, nếu null hoặc rỗng thì gán giá trị mặc định là 1
+            String shipperParam = request.getParameter("shipper");
             int shipvia = (shipperParam == null || shipperParam.trim().isEmpty()) ? 1 : Integer.parseInt(shipperParam);
 
             String freightParam = request.getParameter("freight");
@@ -65,7 +54,7 @@ public class ReturnPayServlet extends HttpServlet {
             String shipaddress = request.getParameter("address");
 //            float totalAmount = Float.parseFloat(request.getParameter("amount"));
 
-            // Lấy danh sách shop trong đơn hàng
+            // Lấy danh sách các shop trong đơn hàng
             List<String> shopUsernames = finalCart.getItems().stream()
                     .map(item -> item.getProduct().getShops().getUsername())
                     .distinct()
@@ -84,18 +73,18 @@ public class ReturnPayServlet extends HttpServlet {
                 Orders order = new Orders(user.getUsername(), shipvia, null, todayDate, null, freight, shipaddress, "16", shopTotal, 10);
                 Orders newOrder = orderDAO.insertOrder(order);
 
-                // Chia tiền: 80% vào shop, 20% vào admin
-                float shopAmount = shopTotal * 0.8f;
-                float adminAmount = shopTotal * 0.2f;
-                String adminUsername = "admin@gmail.com";
-
-                // Cập nhật số dư tài khoản
-                accountDAO.updateBalance(shopUsername, shopAmount);
-                accountDAO.updateBalance(adminUsername, adminAmount);
-
-                // Lưu lịch sử giao dịch vào Wallet
-                accountDAO.insertWalletTransaction(shopUsername, shopAmount, "Nhận tiền từ đơn hàng", newOrder.getId());
-                accountDAO.insertWalletTransaction(adminUsername, adminAmount, "Hoa hồng từ đơn hàng", newOrder.getId());
+//                // Chia tiền: 80% vào shop, 20% vào admin
+//                float shopAmount = shopTotal * 0.8f;
+//                float adminAmount = shopTotal * 0.2f;
+//                String adminUsername = "admin@gmail.com";
+//
+//                // Cập nhật số dư cho shop và admin
+//                accountDAO.updateBalance(shopUsername, shopAmount);
+//                accountDAO.updateBalance(adminUsername, adminAmount);
+//
+//                // Lưu lịch sử giao dịch vào Wallet
+//                accountDAO.insertWalletTransaction(shopUsername, shopAmount, "Nhận tiền từ đơn hàng", newOrder.getId());
+//                accountDAO.insertWalletTransaction(adminUsername, adminAmount, "Hoa hồng từ đơn hàng", newOrder.getId());
             }
 
             // Xóa giỏ hàng sau khi thanh toán thành công

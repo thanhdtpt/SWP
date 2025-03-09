@@ -42,7 +42,7 @@
                 <h3 style="color: red">${requestScope.error}</h3>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="email" class="auth-form__input" name="user" placeholder="Email của bạn"
+                        <input type="text" class="auth-form__input" name="user" placeholder="Email của bạn"
                                value="${enteredUser != null ? enteredUser : cookie.user.value}">
                     </div>
                     <div class="auth-form__group">

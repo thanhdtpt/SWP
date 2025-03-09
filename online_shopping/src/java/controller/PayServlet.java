@@ -74,7 +74,7 @@ public class PayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       processRequest(request,response);
+        processRequest(request, response);
     }
 
     /**
@@ -91,11 +91,11 @@ public class PayServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Account user = (Account) session.getAttribute("account");
 //        MenteeDAO menteeDAO = new MenteeDAO();
-        
-        if (user != null && ( user.getCusname() != null) ) {
-            
+
+        if (user != null && (user.getCusname() != null)) {
+
             int amount;
-            
+
             try {
                 amount = Integer.parseInt(request.getParameter("amount"));
             } catch (NumberFormatException e) {
@@ -103,7 +103,7 @@ public class PayServlet extends HttpServlet {
                 response.sendRedirect("recharge");
                 return;
             }
-            
+
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
             String orderType = "other";
@@ -114,9 +114,9 @@ public class PayServlet extends HttpServlet {
 //                String bankCode = req.getParameter("bankCode");
             String vnp_TxnRef = Config.getRandomNumber(8);
             String vnp_IpAddr = Config.getIpAddress(request);
-            
+
             String vnp_TmnCode = Config.vnp_TmnCode;
-            
+
             Map<String, String> vnp_Params = new HashMap<>();
             vnp_Params.put("vnp_Version", vnp_Version);
             vnp_Params.put("vnp_Command", vnp_Command);
@@ -130,30 +130,30 @@ public class PayServlet extends HttpServlet {
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
             vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
             vnp_Params.put("vnp_OrderType", orderType);
-            
+
             vnp_Params.put("vnp_Locale", "vn");
             String notEnought = (String) session.getAttribute("notEnought");
             session.removeAttribute("notEnought");
-            
+
             String returnUrlWithMenteeID = Config.vnp_ReturnUrl + "?menteeId=";
 //            if(user.getRole().equals(Role.MENTEE) && notEnought!=null){
 //                Mentee mentee = menteeDAO.getByUserId(user.getId());
 //                returnUrlWithMenteeID = returnUrlWithMenteeID + URLEncoder.encode(String.valueOf(mentee.getId()), StandardCharsets.UTF_8.toString());
 //                vnp_Params.put("vnp_ReturnUrl", returnUrlWithMenteeID);
 //            }else{
-                vnp_Params.put("vnp_ReturnUrl", returnUrlWithMenteeID);
+            vnp_Params.put("vnp_ReturnUrl", returnUrlWithMenteeID);
 //            }
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-            
+
             Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
             String vnp_CreateDate = formatter.format(cld.getTime());
             vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-            
+
             cld.add(Calendar.MINUTE, 15);
             String vnp_ExpireDate = formatter.format(cld.getTime());
             vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-            
+
             List fieldNames = new ArrayList(vnp_Params.keySet());
             Collections.sort(fieldNames);
             StringBuilder hashData = new StringBuilder();
@@ -184,6 +184,10 @@ public class PayServlet extends HttpServlet {
             request.setAttribute("code", "00");
             request.setAttribute("message", "success");
             request.setAttribute("data", paymentUrl);
+            String referer = request.getHeader("Referer");
+            if (referer != null) {
+                session.setAttribute("previousPage", referer);
+            }
             response.sendRedirect(paymentUrl);
         } else {
             session.setAttribute("notificationErr", "You must log in first!");

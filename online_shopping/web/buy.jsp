@@ -248,7 +248,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </li>
@@ -272,7 +272,7 @@
 
                         <!--                   <form method="post" action="buy" id="order-product">-->
                         <!--<form method="post" action="checkout">-->
-                            <form method="post" action="pay">
+                        <form method="post" action="pay">
                             <!-- /* Home sort+filter  */ -->
                             <div  style="margin-bottom:20px">
                                 <div class="orderdetail--navbar">
@@ -468,17 +468,17 @@
                                                     </defs>
                                                     </svg>
                                                     <div class="order-item order-item__action order-item__name">${requestScope.shop.name}</div>
-                                                    <a class="order-item order-item__action  order-item__action--viewshop">
-                                                        <button class="stardust-button">
-                                                            <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
-                                                                 y="0" class="shopee-svg-icon icon-btn-shop">
-                                                            <path
-                                                                d="m15 4.8c-.1-1-.8-2-1.6-2.9-.4-.3-.7-.5-1-.8-.1-.1-.7-.5-.7-.5h-8.5s-1.4 1.4-1.6 1.6c-.4.4-.8 1-1.1 1.4-.1.4-.4.8-.4 1.1-.3 1.4 0 2.3.6 3.3l.3.3v3.5c0 1.5 1.1 2.6 2.6 2.6h8c1.5 0 2.5-1.1 2.5-2.6v-3.7c.1-.1.1-.3.3-.3.4-.8.7-1.7.6-3zm-3 7c0 .4-.1.5-.4.5h-8c-.3 0-.5-.1-.5-.5v-3.1c.3 0 .5-.1.8-.4.1 0 .3-.1.3-.1.4.4 1 .7 1.5.7.7 0 1.2-.1 1.6-.5.5.3 1.1.4 1.6.4.7 0 1.2-.3 1.8-.7.1.1.3.3.5.4.3.1.5.3.8.3zm.5-5.2c0 .1-.4.7-.3.5l-.1.1c-.1 0-.3 0-.4-.1s-.3-.3-.5-.5l-.5-1.1-.5 1.1c-.4.4-.8.7-1.4.7-.5 0-.7 0-1-.5l-.6-1.1-.5 1.1c-.3.5-.6.6-1.1.6-.3 0-.6-.2-.9-.8l-.5-1-.7 1c-.1.3-.3.4-.4.6-.1 0-.3.1-.3.1s-.4-.4-.4-.5c-.4-.5-.5-.9-.4-1.5 0-.1.1-.4.3-.5.3-.5.4-.8.8-1.2.7-.8.8-1 1-1h7s .3.1.8.7c.5.5 1.1 1.2 1.1 1.8-.1.7-.2 1.2-.5 1.5z">
-                                                            </path>
-                                                            </svg>
-                                                            <span>xem shop</span>
-                                                        </button>
-                                                    </a>
+                                                    <!--                                                    <a class="order-item order-item__action  order-item__action--viewshop">
+                                                                                                            <button class="stardust-button">
+                                                                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
+                                                                                                                     y="0" class="shopee-svg-icon icon-btn-shop">
+                                                                                                                <path
+                                                                                                                    d="m15 4.8c-.1-1-.8-2-1.6-2.9-.4-.3-.7-.5-1-.8-.1-.1-.7-.5-.7-.5h-8.5s-1.4 1.4-1.6 1.6c-.4.4-.8 1-1.1 1.4-.1.4-.4.8-.4 1.1-.3 1.4 0 2.3.6 3.3l.3.3v3.5c0 1.5 1.1 2.6 2.6 2.6h8c1.5 0 2.5-1.1 2.5-2.6v-3.7c.1-.1.1-.3.3-.3.4-.8.7-1.7.6-3zm-3 7c0 .4-.1.5-.4.5h-8c-.3 0-.5-.1-.5-.5v-3.1c.3 0 .5-.1.8-.4.1 0 .3-.1.3-.1.4.4 1 .7 1.5.7.7 0 1.2-.1 1.6-.5.5.3 1.1.4 1.6.4.7 0 1.2-.3 1.8-.7.1.1.3.3.5.4.3.1.5.3.8.3zm.5-5.2c0 .1-.4.7-.3.5l-.1.1c-.1 0-.3 0-.4-.1s-.3-.3-.5-.5l-.5-1.1-.5 1.1c-.4.4-.8.7-1.4.7-.5 0-.7 0-1-.5l-.6-1.1-.5 1.1c-.3.5-.6.6-1.1.6-.3 0-.6-.2-.9-.8l-.5-1-.7 1c-.1.3-.3.4-.4.6-.1 0-.3.1-.3.1s-.4-.4-.4-.5c-.4-.5-.5-.9-.4-1.5 0-.1.1-.4.3-.5.3-.5.4-.8.8-1.2.7-.8.8-1 1-1h7s .3.1.8.7c.5.5 1.1 1.2 1.1 1.8-.1.7-.2 1.2-.5 1.5z">
+                                                                                                                </path>
+                                                                                                                </svg>
+                                                                                                                <span>xem shop</span>
+                                                                                                            </button>
+                                                                                                        </a>-->
                                                 </div>
                                             </div>
                                             <!--Body-->
@@ -486,39 +486,39 @@
                                                 <li>
                                                     <c:set var="totalPrice" value="0" />
                                                     <c:if test="${requestScope.cart != null and requestScope.cart.items != null and fn:length(requestScope.cart.items) > 0}">
-                                    <c:forEach items="${requestScope.cart.items}" var="i">
-                                                        <c:set var="totalPrice" value="${totalPrice + (i.product.currentPrice * i.quantity)}" />
-                                                        <div class="order-item-body" style="padding-left: 36px;">
-                                                            <div class="order-item order-item__product">
-                                                                <div class="order-item order-item__product-image"
-                                                                     style="background-image: url(${i.product.images1});">
-                                                                </div>
-                                                                <div class="order-item order-item__product-content" >
-                                                                    <div style="width: 100%">
-                                                                        <div class="order-item order-item__product-content order-item__product-content--name" >
-                                                                            <span class="_30COVM">
-                                                                                ${i.product.productname}
-                                                                                <input type="text" name="pid" value="${i.product.id}" style="display: none"/>
-                                                                            </span>
-                                                                        </div>
+                                                        <c:forEach items="${requestScope.cart.items}" var="i">
+                                                            <c:set var="totalPrice" value="${totalPrice + (i.product.currentPrice * i.quantity)}" />
+                                                            <div class="order-item-body" style="padding-left: 36px;">
+                                                                <div class="order-item order-item__product">
+                                                                    <div class="order-item order-item__product-image"
+                                                                         style="background-image: url(${i.product.images1});">
                                                                     </div>
-                                                                    <div class="order-item order-item__product-content order-item__product-content--attributes">
-                                                                        <div class="order-item__product-content--attributes order-item__product-content--type" style="height: 100%">
-                                                                            <div class="order-product-item order-product-type" style="margin-right: 139px;">Phân loại hàng: ${i.product.categories.name}</div>
-                                                                            <div class="order-product-item order-product-price">
-                                                                                <div class="order-product-item__oldprice">${i.product.oldPrice}đ</div>
-                                                                                <div class="order-item__product-content--price">${i.product.currentPrice}</div>
-                                                                                &nbsp; &nbsp; X ${i.quantity}
+                                                                    <div class="order-item order-item__product-content" >
+                                                                        <div style="width: 100%">
+                                                                            <div class="order-item order-item__product-content order-item__product-content--name" >
+                                                                                <span class="_30COVM">
+                                                                                    ${i.product.productname}
+                                                                                    <input type="text" name="pid" value="${i.product.id}" style="display: none"/>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
-                                                                        <input clas="input-quantity" type="text" value="${i.quantity}" name="quantity"style="display: none">
+                                                                        <div class="order-item order-item__product-content order-item__product-content--attributes">
+                                                                            <div class="order-item__product-content--attributes order-item__product-content--type" style="height: 100%">
+                                                                                <div class="order-product-item order-product-type" style="margin-right: 139px;">Phân loại hàng: ${i.product.categories.name}</div>
+                                                                                <div class="order-product-item order-product-price">
+                                                                                    <div class="order-product-item__oldprice">${i.product.oldPrice}đ</div>
+                                                                                    <div class="order-item__product-content--price">${i.product.currentPrice}</div>
+                                                                                    &nbsp; &nbsp; X ${i.quantity}
+                                                                                </div>
+                                                                            </div>
+                                                                            <input clas="input-quantity" type="text" value="${i.quantity}" name="quantity"style="display: none">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </c:forEach>
+                                                        </c:forEach>
                                                     </c:if>
-                                                    
+
                                                 </li>
                                             </ul> 
                                             <!--Bill-->
@@ -533,8 +533,10 @@
                                                 <div class="_1FDuJg">
                                                     <div class="_1bq31i"><span>Phí vận chuyển</span></div>
                                                     <div class="_2aXD4G">
-                                                        <div>₫${requestScope.freight}</div>
-                                                        <input type="text" name="freight" value="${requestScope.freight}" readonly style="display: none"/>
+<!--                                                        <div>₫${requestScope.freight}</div>
+                                                        <input type="text" name="freight" value="${requestScope.freight}" readonly style="display: none"/>-->
+                                                        <div>₫10.000</div>
+                                                        <input type="text" name="freight" value="10000" readonly style="display: none"/>
                                                     </div>
                                                 </div>
                                                 <div class="_1FDuJg">
@@ -550,15 +552,15 @@
                                                         </div>
                                                     </div>
                                                     <div class="_2aXD4G">
-                                                        <div>-₫10.000</div>
+                                                        <div style="text-decoration: line-through;" >-₫10.000</div>
                                                     </div></div>
                                                 <div class="_1FDuJg _3WktZ1">
                                                     <div class="_1bq31i _3zO_LL">
                                                         <span>Tổng số tiền</span>
                                                     </div>
                                                     <div class="_2aXD4G">
-                                                        <div class="_1gMI9H">₫${totalPrice+requestScope.freight-requestScope.discount}
-                                                            <input type="text" value="${totalPrice+requestScope.freight-requestScope.discount}"  name="total" readonly style="display: none">   
+                                                        <div class="_1gMI9H">₫${totalPrice}
+                                                            <!--<input type="text" value="${totalPrice}"  name="amount" readonly style="display: none">-->   
                                                             <input type="text" value="500000"  name="amount" readonly style="display: none">  
                                                         </div>
                                                     </div>
@@ -567,10 +569,16 @@
                                     </li>
                                 </ul>
                                 <div class="_2iv7q8">
-                                    <a href="your-payment-link" style="background-color: #428bca; text-decoration: none; padding: 13px 40px; color: white; display: inline-block; text-align: center;" class="stardust-button stardust-button--secondary">
-                                        Thanh toán ngay
+                                    <!--                                    <a href="/online_shopping/cdoPay" style="background-color: #428bca; text-decoration: none; padding: 13px 40px; color: white; display: inline-block; text-align: center;" class="stardust-button stardust-button--secondary">
+                                                                            Đặt Hàng
+                                                                        </a>-->
+                                    <a href="javascript:void(0);" onclick="submitOrder()"
+                                       style="background-color: #428bca; text-decoration: none; padding: 13px 40px; color: white; display: inline-block; text-align: center;"
+                                       class="stardust-button stardust-button--secondary">
+                                        Đặt Hàng
                                     </a>
-                                    <button class="stardust-button stardust-button--primary _2x5SvJ" type="submit" >Đặt Hàng</button>
+
+                                    <button class="stardust-button stardust-button--primary _2x5SvJ" type="submit" >Thanh toán ngay </button>
                                 </div>
 
                             </div>
@@ -582,5 +590,34 @@
     </div>
 </div>
 </body>
+<script>
+    function submitOrder() {
+        // Lấy dữ liệu từ form
+        var shipper = document.getElementById("shipperSelect").value;
+        var address = document.getElementById("addressSelect").value;
+        var amount = document.querySelector('input[name="amount"]').value;
+        var freight = document.querySelector('input[name="freight"]').value;
+
+        // Tạo URL với tham số GET
+        var url = "cdoPay?shipper=" + encodeURIComponent(shipper) +
+                "&address=" + encodeURIComponent(address) +
+                "&amount=" + encodeURIComponent(amount) +
+                "&freight=" + encodeURIComponent(freight);
+
+        fetch(url, {
+            method: "GET",
+        })
+                .then(response => response.text())
+                .then(data => {
+                    alert("Đặt hàng thành công!");
+                    window.location.href = "thankyou.jsp"; // Chuyển trang sau khi đặt hàng
+                })
+                .catch(error => {
+                    console.error("Lỗi khi đặt hàng:", error);
+                    alert("Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.");
+                });
+    }
+</script>
+
 <%@ include file="footer.jsp" %>
 </html>
