@@ -155,15 +155,6 @@ public class ProductDAO extends DBContext {
         return list;
     }
 
-//    public Product getProductById(int id) {
-//        List<Product> list = getAllProduct();
-//        for (Product product : list) {
-//            if (product.getId() == id) {
-//                return product;
-//            }
-//        }
-//        return null;
-//    }
     public Product getProductById(int id) {
         String sql = "SELECT * FROM Products WHERE ProductID = ?";
         try {
@@ -688,6 +679,68 @@ public class ProductDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;  // Trả về false nếu có lỗi
+        }
+    }
+
+    public void deleteProductCascade(int productId) {
+        PreparedStatement stmt1 = null;
+        PreparedStatement stmt2 = null;
+        PreparedStatement stmt3 = null;
+
+        try {
+
+            // 1. Xóa dữ liệu trong bảng LikedProducts
+            String sql1 = "DELETE FROM LikedProducts WHERE ProductID = ?";
+            stmt1 = connection.prepareStatement(sql1);
+            stmt1.setInt(1, productId);
+            stmt1.executeUpdate();
+
+            // 2. Xóa dữ liệu trong bảng OrderDetails
+            String sql2 = "DELETE FROM [Order Details] WHERE ProductID = ?";
+            stmt2 = connection.prepareStatement(sql2);
+            stmt2.setInt(1, productId);
+            stmt2.executeUpdate();
+
+            // 3. Xóa sản phẩm trong bảng Products
+            String sql3 = "DELETE FROM Products WHERE ProductID = ?";
+            stmt3 = connection.prepareStatement(sql3);
+            stmt3.setInt(1, productId);
+            int rowsAffected = stmt3.executeUpdate();
+
+            if (rowsAffected > 0) {
+                connection.commit(); // Xóa thành công, commit transaction
+                System.out.println("Xóa sản phẩm thành công!");
+            } else {
+                connection.rollback(); // Nếu không có sản phẩm nào bị xóa, rollback
+                System.out.println("Không tìm thấy sản phẩm!");
+            }
+
+        } catch (SQLException e) {
+            try {
+                if (connection != null) {
+                    connection.rollback(); // Nếu lỗi, rollback để tránh mất dữ liệu
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt1 != null) {
+                    stmt1.close();
+                }
+                if (stmt2 != null) {
+                    stmt2.close();
+                }
+                if (stmt3 != null) {
+                    stmt3.close();
+                }
+                if (connection != null) {
+                    connection.setAutoCommit(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

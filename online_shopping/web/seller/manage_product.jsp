@@ -19,8 +19,12 @@
         <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
         <!-- Theme style -->
         <link href="seller/css/style.css" rel="stylesheet" type="text/css" />
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -204,7 +208,9 @@
 
                                                         <!--<td><a href="<%= request.getContextPath() %>/update-product?id=${product.id}">Update</a></td>-->
                                                         <td><a href="<%= request.getContextPath() %>/create-product?id=${product.id}">Update</a></td>
-                                                        <td><a href="<%= request.getContextPath() %>/delete-product?id=${product.id}">Delete</a></td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-danger btn-sm" onclick="showDeleteModal(${product.id})">Delete</a>
+                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -230,17 +236,50 @@
                             </div>
                         </div>
                     </section><!-- /.content -->
+
                 </aside><!-- /.right-side -->
             </div><!-- ./wrapper -->
 
+            <!-- Modal xác nhận xóa -->
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmDeleteLabel">Xác nhận xóa sản phẩm</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc chắn muốn xóa sản phẩm này không? Hành động này không thể hoàn tác!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
 
-            <!-- jQuery 2.0.2 -->
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-            <script src="js/jquery.min.js" type="text/javascript"></script>
 
-            <!-- Bootstrap -->
-            <script src="js/bootstrap.min.js" type="text/javascript"></script>
-            <!-- Director App -->
-            <script src="js/Director/app.js" type="text/javascript"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JavaScript xử lý modal -->
+            <script>
+                let deleteProductId = null;
+
+                function showDeleteModal(productId) {
+                    deleteProductId = productId; // Lưu ID sản phẩm cần xóa
+                    $('#confirmDeleteModal').modal('show'); // Hiển thị modal
+                }
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+                        if (deleteProductId) {
+                            window.location.href = '<%= request.getContextPath() %>/delete-product?id=' + deleteProductId;
+                        }
+                    });
+                });
+            </script>
+
         </body>
     </html>
