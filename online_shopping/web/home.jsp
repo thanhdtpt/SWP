@@ -42,83 +42,7 @@
                     <ul class="header__navbar-list">
                     </ul>
                     <ul class="header__navbar-list">
-                        <!--                        <li class="header__navbar-item header__navbar-item--has-notify">
-                                                    <a href="" class="header__navbar-item-link"><i
-                                                            class="header__navbar-icon fa-solid fa-bell"></i>
-                                                        Thông báo</a>
-                                                    <div class="header__notify">
-                                                        <header class="header__notify-header">
-                                                            <h3>Thông báo mới nhận</h3>
-                                                        </header>
-                                                        <ul class="header__notify-list">
-                                                            <li class="header__notify-item header__notify-item--viewed">
-                                                                <a href="" class="header__notify-link">
-                        
-                                                                    <img src="https://cdn.chanhtuoi.com/uploads/2021/06/w400/my-pham-truesky.jpg.webp"
-                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                                    <div class="header__notify-info">
-                                                                        <span class="header__notify-name">Mỹ phẩm Ohui Chính Hãng</span>
-                                                                        <span class="header__notify-description">Mô tả mỹ phẩm Ohui Chính
-                                                                            Hãng</span>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li class="header__notify-item">
-                                                                <a href="" class="header__notify-link header__notify-item--viewed">
-                        
-                                                                    <img src="	https://cf.shopee.vn/file/6e28e2c12b39294ecfd4adcdfd03985d"
-                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                                    <div class="header__notify-info">
-                                                                        <span class="header__notify-name">[FreeShip] [Giá hủy diệt] Giá đỡ
-                                                                            Laptop - Giá kê laptop / MacBook / Ultrabook điều chỉnh độ cao - đế
-                                                                            tản nhiệt</span>
-                                                                        <span class="header__notify-description">Giá đỡ laptop dành cho Macbook
-                                                                            Ipad Surface và các máy tính xách tay khác
-                                                                            Chất liệu: Nhựa ABS</span>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li class="header__notify-item header__notify-item--viewed">
-                                                                <a href="" class="header__notify-link">
-                        
-                                                                    <img src="https://cf.shopee.vn/file/f85c05df4b8c46cf5205d72055c766ff"
-                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                                    <div class="header__notify-info">
-                                                                        <span class="header__notify-name">(HOT) 🌻 ĐẤT TRỘN TRỒNG SEN ĐÁ - XƯƠNG
-                                                                            RỒNG 🌻 15K/ 1KG - S30</span>
-                                                                        <span class="header__notify-description">
-                                                                            Đất trộn chuyên trồng sen đá - xương rồng</span>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li class="header__notify-item header__notify-item--viewed">
-                                                                <a href="" class="header__notify-link">
-                        
-                                                                    <img src="https://cf.shopee.vn/file/673f4dbfdd17548b58eab822a0d18ab3"
-                                                                         alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                                    <div class="header__notify-info">
-                                                                        <span class="header__notify-name">[Chính hãng] Đồng hồ decor ELEKSTUBE
-                                                                            V6 - Đồng hồ NIXIE phát sáng - có thể setup thay đổi hình ảnh tùy
-                                                                            ý</span>
-                                                                        <span class="header__notify-description">Elekstube IPs là sản phẩm đồng
-                                                                            hồ cao cấp chạy trên nền Led chuyên nghiệp đang là một trong những
-                                                                            đồng hồ hot nhất trên thế giới hiện nay.</span>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <footer class="header__notify-footer">
-                                                            <a href="" class="header__notify-footer-btn">Xem tất cả</a>
-                                                        </footer>
-                                                    </div>
-                                                </li>
-                                                <li class="header__navbar-item">
-                                                    <a href="" class="header__navbar-item-link"><i
-                                                            class="header__navbar-icon fa-solid fa-circle-question"></i>
-                                                        Trợ giúp</a>
-                        
-                                                </li>-->
-                        <!--does not loggin-->
+                       
                         <c:if test="${sessionScope.account==null}">
                             <li class="header__navbar-item  header__navbar-item--strong register-item" >
                                 <a href="register.jsp" 
@@ -145,7 +69,7 @@
                                         <a href="address?action=view">Địa chỉ của tôi</a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="order">Đơn mua </a>
+                                        <a href="order-history">Đơn mua </a>
                                     </li>
                                     <li class="header__navbar-user-item">
                                         <a href="like-product">yêu thích </a>

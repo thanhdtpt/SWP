@@ -178,7 +178,7 @@ public class OrderDAO extends DBContext {
 
         int generatedID = -1; // ID của đơn hàng vừa tạo
 
-        try (PreparedStatement stInsert = connection.prepareStatement(insertSQL); PreparedStatement stGetId = connection.prepareStatement(getIdSQL)) {
+        try ( PreparedStatement stInsert = connection.prepareStatement(insertSQL);  PreparedStatement stGetId = connection.prepareStatement(getIdSQL)) {
 
             // Lấy thời gian hiện tại cho OrderDate
             LocalDateTime now = LocalDateTime.now();
@@ -200,7 +200,7 @@ public class OrderDAO extends DBContext {
 
             if (affectedRows > 0) {
                 // Lấy OrderID mới nhất
-                try (ResultSet rs = stGetId.executeQuery()) {
+                try ( ResultSet rs = stGetId.executeQuery()) {
                     if (rs.next()) {
                         generatedID = rs.getInt(1);
                     }
@@ -379,4 +379,94 @@ public class OrderDAO extends DBContext {
             System.out.println(i);
         }
     }
+
+    public List<Orders> getOrdersByUser(String userName) {
+        List<Orders> orders = new ArrayList<>();
+        String sql = "SELECT * FROM Orders WHERE CustomerID = ? ORDER BY OrderDate DESC";
+
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, userName);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Orders order = new Orders();
+                order.setId(rs.getInt("OrderID"));
+                order.setCustomerID(rs.getString("CustomerID"));
+                order.setShipvia(rs.getInt("Shippervia"));
+                order.setOrderDate(rs.getString("OrderDate") != null ? rs.getString("OrderDate") : "Chưa xác định");
+                order.setRequiredDate(rs.getString("RequiredDate") != null ? rs.getString("RequiredDate") : "Chưa xác định");
+                order.setShippedDate(rs.getString("ShippedDate") != null ? rs.getString("ShippedDate") : "Chưa giao");
+                order.setFreight(rs.getFloat("Freight"));
+                order.setShipaddress(rs.getString("ShipAddress"));
+                order.setShipCity(rs.getString("ShipCity"));
+                order.setPostalCode(rs.getString("PostalCode"));
+                order.setTotal(rs.getFloat("total"));
+                order.setDiscount(rs.getFloat("discount"));
+//                order.setStatus(getOrderStatus(rs.getInt("OrderID"))); // Lấy trạng thái từ OrderDetails
+
+                orders.add(order);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    // Lấy danh sách sản phẩm trong đơn hàng
+    public List<OrderDetail> getOrderDetails(int orderId) {
+        List<OrderDetail> details = new ArrayList<>();
+        String sql = "SELECT od.*, p.ProductID, p.productname, p.quantityPerUnit, p.currentPrice, p.brand, p.origin "
+                + "FROM [Order Details] od "
+                + "JOIN Products p ON od.ProductID = p.ProductID "
+                + "WHERE od.OrderID = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int productId = rs.getInt("ProductID");
+
+                // Tạo Product với constructor mới
+                Product product = new Product(
+                        productId,
+                        rs.getString("productname"),
+                        rs.getInt("quantityPerUnit"),
+                        rs.getFloat("currentPrice"),
+                        rs.getString("brand"),
+                        rs.getString("origin")
+                );
+
+                OrderDetail detail = new OrderDetail(
+                        rs.getInt("ID"),
+                        rs.getInt("OrderID"),
+                        productId, // Giữ lại ProductID
+                        product, // Lưu Product object
+                        rs.getInt("Quantity"),
+                        rs.getBoolean("status")
+                );
+
+                details.add(detail);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return details;
+    }
+
+    // Xác định trạng thái đơn hàng dựa trên trạng thái của OrderDetails
+    private String getOrderStatus(int orderId) {
+        String sql = "SELECT TOP 1 status FROM [Order Details] WHERE OrderID = ?";
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("status") ? "Đã xử lý" : "Chưa xử lý";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Chưa xác định";
+    }
+
 }

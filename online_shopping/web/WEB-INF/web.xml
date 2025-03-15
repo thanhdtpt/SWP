@@ -327,6 +327,24 @@
         <servlet-name>DeleteProductController</servlet-name>
         <url-pattern>/delete-product</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>OrderHistoryController</servlet-name>
+        <servlet-class>controller.OrderHistoryController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderHistoryController</servlet-name>
+        <url-pattern>/order-history</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>OrderDetailsController</servlet-name>
+        <servlet-class>controller.OrderDetailsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderDetailsController</servlet-name>
+        <url-pattern>/order-details</url-pattern>
+    </servlet-mapping>
 
     <session-config>
         <session-timeout>

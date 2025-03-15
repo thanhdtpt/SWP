@@ -72,19 +72,6 @@ public class CDOServlet extends HttpServlet {
                 // Tạo đơn hàng
                 Orders order = new Orders(user.getUsername(), shipvia, null, todayDate, null, freight, shipaddress, "16", shopTotal, 10);
                 Orders newOrder = orderDAO.insertOrder(order);
-
-//                // Chia tiền: 80% vào shop, 20% vào admin
-//                float shopAmount = shopTotal * 0.8f;
-//                float adminAmount = shopTotal * 0.2f;
-//                String adminUsername = "admin@gmail.com";
-//
-//                // Cập nhật số dư cho shop và admin
-//                accountDAO.updateBalance(shopUsername, shopAmount);
-//                accountDAO.updateBalance(adminUsername, adminAmount);
-//
-//                // Lưu lịch sử giao dịch vào Wallet
-//                accountDAO.insertWalletTransaction(shopUsername, shopAmount, "Nhận tiền từ đơn hàng", newOrder.getId());
-//                accountDAO.insertWalletTransaction(adminUsername, adminAmount, "Hoa hồng từ đơn hàng", newOrder.getId());
             }
 
             // Xóa giỏ hàng sau khi thanh toán thành công

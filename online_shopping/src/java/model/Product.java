@@ -105,6 +105,16 @@ public class Product {
         this.unitOnOrder = unitOnOrder;
         this.isContinued = isContinued;
     }
+    
+    public Product(int id, String productname, int quantityPerUnit, float currentPrice, String brand, String origin) {
+    this.id = id;
+    this.productname = productname;
+    this.quantityPerUnit = quantityPerUnit;
+    this.currentPrice = currentPrice;
+    this.brand = brand;
+    this.origin = origin;
+}
+
 
     public int getId() {
         return id;

@@ -1,35 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-/**
- *
- * @author win
- */
 public class OrderDetail {
     int id;
     int oid;
-    int pid;
+    int pid; // Giữ lại ProductID
     int quantity;
     boolean status;
-    
+    Product product; // Thêm đối tượng Product
+
     public OrderDetail() {
     }
 
-    public OrderDetail(int oid, int pid, int quantity, boolean status) {
+    public OrderDetail(int id, int oid, int pid, int quantity, boolean status) {
+        this.id = id;
         this.oid = oid;
         this.pid = pid;
         this.quantity = quantity;
         this.status = status;
     }
-    
-    public OrderDetail(int id, int oid, int pid, int quantity, boolean status) {
+
+    public OrderDetail(int id, int oid, int pid, Product product, int quantity, boolean status) {
         this.id = id;
         this.oid = oid;
-        this.pid = pid;
+        this.pid = pid; // Giữ lại ProductID
+        this.product = product;
         this.quantity = quantity;
         this.status = status;
     }
@@ -58,6 +52,14 @@ public class OrderDetail {
         this.pid = pid;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -76,10 +78,6 @@ public class OrderDetail {
 
     @Override
     public String toString() {
-        return "OrderDetail{" + "id=" + id + ", oid=" + oid + ", pid=" + pid + ", quantity=" + quantity + ", status=" + status + '}';
+        return "OrderDetail{" + "id=" + id + ", oid=" + oid + ", pid=" + pid + ", product=" + product + ", quantity=" + quantity + ", status=" + status + '}';
     }
-    
-   
-   
-
 }
