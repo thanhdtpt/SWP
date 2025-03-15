@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import model.Account;
 import model.Orders;
 
-public class OrderHistoryController extends HttpServlet {
+public class OrderHistoryServlet extends HttpServlet {
     private final OrderDAO orderDAO = new OrderDAO();
 
     @Override

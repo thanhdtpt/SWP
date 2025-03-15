@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-//@WebServlet(name = "DeleteProductController", urlPatterns = {"/delete-product"})
-public class DeleteProductController extends HttpServlet {
+//@WebServlet(name = "DeleteProductServlet", urlPatterns = {"/delete-product"})
+public class DeleteProductServlet extends HttpServlet {
     private final ProductDAO productDAO = new ProductDAO();
 
     @Override

@@ -320,32 +320,37 @@
         <url-pattern>/pay</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>DeleteProductController</servlet-name>
-        <servlet-class>controller.DeleteProductController</servlet-class>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>controller.DeleteProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DeleteProductController</servlet-name>
+        <servlet-name>DeleteProductServlet</servlet-name>
         <url-pattern>/delete-product</url-pattern>
     </servlet-mapping>
-    
     <servlet>
-        <servlet-name>OrderHistoryController</servlet-name>
-        <servlet-class>controller.OrderHistoryController</servlet-class>
+        <servlet-name>OrderHistoryServlet</servlet-name>
+        <servlet-class>controller.OrderHistoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>OrderHistoryController</servlet-name>
+        <servlet-name>OrderHistoryServlet</servlet-name>
         <url-pattern>/order-history</url-pattern>
     </servlet-mapping>
-    
     <servlet>
-        <servlet-name>OrderDetailsController</servlet-name>
-        <servlet-class>controller.OrderDetailsController</servlet-class>
+        <servlet-name>OrderDetailsServlet</servlet-name>
+        <servlet-class>controller.OrderDetailsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>OrderDetailsController</servlet-name>
+        <servlet-name>OrderDetailsServlet</servlet-name>
         <url-pattern>/order-details</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>controller.FeedbackServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/feedback</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

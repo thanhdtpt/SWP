@@ -19,7 +19,11 @@
         <link rel="stylesheet" href="./asserts/css/product.css">
         <link rel="stylesheet" href="./asserts/css/checkbox.css">
         <link rel="stylesheet" href="./asserts/fonts/fontawesome-free-6.0.0/css/all.min.css">
-        <<script src="./asserts/js/product.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="./asserts/js/product.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
         <style>
             .heart-icon {
                 display: inline-flex;
@@ -55,6 +59,84 @@
                 color: gray; /* Trái tim xám khi chưa thích */
             }
 
+            /* CSS cho modal */
+            .modal {
+                display: none; /* Mặc định ẩn modal */
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Nội dung modal */
+            .modal-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                width: 350px; /* Thu nhỏ modal */
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                animation: fadeIn 0.3s ease-in-out;
+            }
+
+            /* Chỉnh lại phần nhập mô tả */
+            .modal textarea {
+                width: 100%;
+                height: 60px; /* Giảm chiều cao */
+                padding: 5px;
+                resize: none; /* Không cho kéo thả */
+                font-size: 14px;
+            }
+
+            /* Nút đóng modal */
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 24px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .close:hover {
+                color: black;
+            }
+
+            /* Nút gửi đánh giá */
+            .modal button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+                font-size: 16px;
+                transition: 0.3s;
+            }
+
+            .modal button:hover {
+                background-color: #0056b3;
+            }
+
+            /* Animation xuất hiện */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+
         </style>
     </head>
 
@@ -74,122 +156,8 @@
                 <div class="grid">
                     <nav class="header__navbar">
                         <ul class="header__navbar-list">
-                            <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate"onclick="window.location.href = 'seller-product'">
-                                Kênh người bán
-                                <!-- head qr code -->
-                                <div class="header_qr">
-                                    <img src="./asserts/img/Qr_code.png" alt="Qr code" class="header_qr-img">
-                                    <div class="header__qr-apps">
-                                        <a href="" class="header_qr-link">
-                                            <img src="/asserts/img/GooglePlay.png" alt="Google Play"
-                                                 class="header_qr-dowload-img">
-                                        </a>
-                                        <a href="" class="header_qr-link">
-                                            <img src="/asserts/img/Appstore.png" alt="App Store"
-                                                 class="header_qr-dowload-img">
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="header__navbar-item">
-                                <span class="header__navbar-title--no-pointer">Kết nối</span>
-                                <a style="color:var(--white-color); text-decoration:none;" href=""
-                                   class="header__navbar-icon-link">
-                                    <i class="header__navbar-icon fa-brands fa-facebook"></i>
-                                    <i class="header__navbar-icon fa-brands fa-instagram"></i>
-                                </a>
-                            </li>
                         </ul>
                         <ul class="header__navbar-list">
-                            <li class="header__navbar-item header__navbar-item--has-notify">
-                                <a style="color:var(--white-color); text-decoration:none;" href=""
-                                   class="header__navbar-item-link"><i class="header__navbar-icon fa-solid fa-bell"></i>
-                                    Thông báo</a>
-                                <div class="header__notify">
-                                    <header class="header__notify-header">
-                                        <h3>Thông báo mới nhận</h3>
-                                    </header>
-                                    <ul class="header__notify-list">
-                                        <li class="header__notify-item header__notify-item--viewed">
-                                            <a href="" class="header__notify-link">
-
-                                                <img src="https://cdn.chanhtuoi.com/uploads/2021/06/w400/my-pham-truesky.jpg.webp"
-                                                     alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                <div class="header__notify-info">
-                                                    <span class="header__notify-name">Mỹ phẩm Ohui Chính Hãng</span>
-                                                    <span class="header__notify-description">Mô tả mỹ phẩm Ohui Chính
-                                                        Hãng</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="header__notify-item">
-                                            <a href="" class="header__notify-link header__notify-item--viewed">
-
-                                                <img src="	https://cf.shopee.vn/file/6e28e2c12b39294ecfd4adcdfd03985d"
-                                                     alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                <div class="header__notify-info">
-                                                    <span class="header__notify-name">[FreeShip] [Giá hủy diệt] Giá đỡ
-                                                        Laptop - Giá kê laptop / MacBook / Ultrabook điều chỉnh độ cao - đế
-                                                        tản nhiệt</span>
-                                                    <span class="header__notify-description">Giá đỡ laptop dành cho Macbook
-                                                        Ipad Surface và các máy tính xách tay khác
-                                                        Chất liệu: Nhựa ABS</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="header__notify-item header__notify-item--viewed">
-                                            <a href="" class="header__notify-link">
-
-                                                <img src="https://cf.shopee.vn/file/f85c05df4b8c46cf5205d72055c766ff"
-                                                     alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                <div class="header__notify-info">
-                                                    <span class="header__notify-name">(HOT) 🌻 ĐẤT TRỘN TRỒNG SEN ĐÁ - XƯƠNG
-                                                        RỒNG 🌻 15K/ 1KG - S30</span>
-                                                    <span class="header__notify-description">
-                                                        Đất trộn chuyên trồng sen đá - xương rồng</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="header__notify-item header__notify-item--viewed">
-                                            <a href="" class="header__notify-link">
-
-                                                <img src="https://cf.shopee.vn/file/673f4dbfdd17548b58eab822a0d18ab3"
-                                                     alt="Mỹ phâm Ohui" class="header__notify-img">
-                                                <div class="header__notify-info">
-                                                    <span class="header__notify-name">[Chính hãng] Đồng hồ decor ELEKSTUBE
-                                                        V6 - Đồng hồ NIXIE phát sáng - có thể setup thay đổi hình ảnh tùy
-                                                        ý</span>
-                                                    <span class="header__notify-description">Elekstube IPs là sản phẩm đồng
-                                                        hồ cao cấp chạy trên nền Led chuyên nghiệp đang là một trong những
-                                                        đồng hồ hot nhất trên thế giới hiện nay.</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <footer class="header__notify-footer">
-                                        <a href="" class="header__notify-footer-btn">Xem tất cả</a>
-                                    </footer>
-                                </div>
-                            </li>
-                            <li class="header__navbar-item">
-                                <a style="color:var(--white-color); text-decoration:none;" href=""
-                                   class="header__navbar-item-link"><i
-                                        class="header__navbar-icon fa-solid fa-circle-question"></i>
-                                    Trợ giúp</a>
-
-                            </li>
-                            <!-- <li class="header__navbar-item  header__navbar-item--strong register-item">
-                                <h3 href="" onclick="registerform()"
-                                    class="header__navbar-item-link header__navbar-item--separate header__navbar-item--strong">
-                                    Đăng
-                                    kí</h3>
-                            </li>
-                            <li class="header__navbar-item header__navbar-item--strong login-item" onclick="loginform()">
-                                <a href="" class="header__navbar-item-link header__navbar-item--strong">Đăng nhập</a>
-                            </li> -->
-
-
                             <!--LOGED-->
                             <li class="header__navbar-item header__navbar-user">
                                 <img src="
@@ -624,6 +592,15 @@
                                         <div class="describe--container ">
                                             <div class="_1Qm7yD">
                                                 Đánh giá sản phẩm</div>
+                                                <%-- Kiểm tra nếu user đã mua hàng và chưa feedback --%>
+                                                <c:if test="${sessionScope.account != null}">
+                                                    <c:set var="hasPurchased" value="${requestScope.hasPurchased}" />
+                                                    <c:set var="hasFeedback" value="${requestScope.hasFeedback}" />
+
+                                                <c:if test="${hasPurchased && !hasFeedback}">
+                                                    <button class="btn-feedback" onclick="openFeedbackModal()">📝 Thêm đánh giá</button>
+                                                </c:if>
+                                            </c:if>
                                             <div class="Fo12Im">
                                                 <div class="shopee-product-rating">
                                                     <a class="shopee-product-rating__avatar" href="/shop/616362665">
@@ -819,142 +796,175 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="shopee-product-rating__actions"
-                                                             style="justify-content: space-between;">
-                                                            <div style="display: flex;">
-                                                                <div class="shopee-product-rating__like-button">
-                                                                    <svg width="14px" height="13px" viewBox="0 0 14 13"
-                                                                         version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                                                    <defs>
+                                                        <div style="display: flex;">
+                                                            <div class="shopee-product-rating__report-menu-button">
+                                                                <div class="stardust-dropdown">
+                                                                    <div class="stardust-dropdown__item-header">
+                                                                        <div>
+                                                                            <svg width="4px" height="16px"
+                                                                                 viewBox="0 0 4 16" version="1.1"
+                                                                                 xmlns="http://www.w3.org/2000/svg">
+                                                                            <defs>
 
-                                                                    </defs>
-                                                                    <g stroke="none" stroke-width="1" fill-rule="evenodd">
-                                                                    <g id="Product-Ratings-Working"
-                                                                       transform="translate(-245.000000, -855.000000)"
-                                                                       fill-rule="nonzero">
-                                                                    <g transform="translate(155.000000, 92.000000)">
-                                                                    <g
-                                                                        transform="translate(40.000000, 184.000000)">
-                                                                    <g
-                                                                        transform="translate(0.000000, 326.000000)">
-                                                                    <g
-                                                                        transform="translate(50.000000, 253.000000)">
-                                                                    <g>
-                                                                    <path
-                                                                        d="M0,12.7272727 L2.54545455,12.7272727 L2.54545455,5.09090909 L0,5.09090909 L0,12.7272727 Z M14,5.72727273 C14,5.02727273 13.4272727,4.45454545 12.7272727,4.45454545 L8.71818182,4.45454545 L9.35454545,1.52727273 L9.35454545,1.33636364 C9.35454545,1.08181818 9.22727273,0.827272727 9.1,0.636363636 L8.4,0 L4.2,4.2 C3.94545455,4.39090909 3.81818182,4.70909091 3.81818182,5.09090909 L3.81818182,11.4545455 C3.81818182,12.1545455 4.39090909,12.7272727 5.09090909,12.7272727 L10.8181818,12.7272727 C11.3272727,12.7272727 11.7727273,12.4090909 11.9636364,11.9636364 L13.8727273,7.44545455 C13.9363636,7.31818182 13.9363636,7.12727273 13.9363636,7 L13.9363636,5.72727273 L14,5.72727273 C14,5.79090909 14,5.72727273 14,5.72727273 Z">
+                                                                            </defs>
+                                                                            <g stroke="none" stroke-width="1"
+                                                                               fill-rule="evenodd">
+                                                                            <g transform="translate(-1301.000000, -550.000000)"
+                                                                               fill="#CCCCCC">
+                                                                            <g
+                                                                                transform="translate(155.000000, 92.000000)">
+                                                                            <g
+                                                                                transform="translate(40.000000, 184.000000)">
+                                                                            <g
+                                                                                transform="translate(0.000000, 161.000000)">
+                                                                            <g>
+                                                                            <g
+                                                                                transform="translate(50.000000, 2.000000)">
+                                                                            <path
+                                                                                d="M1058,122.2 C1056.895,122.2 1056,123.096 1056,124.2 C1056,125.306 1056.895,126.202 1058,126.202 C1059.104,126.202 1060,125.306 1060,124.2 C1060,123.096 1059.104,122.2 1058,122.2 M1058,116.6 C1056.895,116.6 1056,117.496 1056,118.6 C1056,119.706 1056.895,120.602 1058,120.602 C1059.104,120.602 1060,119.706 1060,118.6 C1060,117.496 1059.104,116.6 1058,116.6 M1058,111 C1056.895,111 1056,111.896 1056,113 C1056,114.106 1056.895,115.002 1058,115.002 C1059.104,115.002 1060,114.106 1060,113 C1060,111.896 1059.104,111 1058,111">
 
-                                                                    </path>
-                                                                    </g>
-                                                                    </g>
-                                                                    </g>
-                                                                    </g>
-                                                                    </g>
-                                                                    </g>
-                                                                    </g>
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="shopee-product-rating__like-count">
-                                                                    hữu ích?</div>
-                                                            </div>
-                                                            <div style="display: flex;">
-                                                                <div class="shopee-product-rating__report-menu-button">
-                                                                    <div class="stardust-dropdown">
-                                                                        <div class="stardust-dropdown__item-header">
-                                                                            <div>
-                                                                                <svg width="4px" height="16px"
-                                                                                     viewBox="0 0 4 16" version="1.1"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                <defs>
-
-                                                                                </defs>
-                                                                                <g stroke="none" stroke-width="1"
-                                                                                   fill-rule="evenodd">
-                                                                                <g transform="translate(-1301.000000, -550.000000)"
-                                                                                   fill="#CCCCCC">
-                                                                                <g
-                                                                                    transform="translate(155.000000, 92.000000)">
-                                                                                <g
-                                                                                    transform="translate(40.000000, 184.000000)">
-                                                                                <g
-                                                                                    transform="translate(0.000000, 161.000000)">
-                                                                                <g>
-                                                                                <g
-                                                                                    transform="translate(50.000000, 2.000000)">
-                                                                                <path
-                                                                                    d="M1058,122.2 C1056.895,122.2 1056,123.096 1056,124.2 C1056,125.306 1056.895,126.202 1058,126.202 C1059.104,126.202 1060,125.306 1060,124.2 C1060,123.096 1059.104,122.2 1058,122.2 M1058,116.6 C1056.895,116.6 1056,117.496 1056,118.6 C1056,119.706 1056.895,120.602 1058,120.602 C1059.104,120.602 1060,119.706 1060,118.6 C1060,117.496 1059.104,116.6 1058,116.6 M1058,111 C1056.895,111 1056,111.896 1056,113 C1056,114.106 1056.895,115.002 1058,115.002 C1059.104,115.002 1060,114.106 1060,113 C1060,111.896 1059.104,111 1058,111">
-
-                                                                                </path>
-                                                                                </g>
-                                                                                </g>
-                                                                                </g>
-                                                                                </g>
-                                                                                </g>
-                                                                                </g>
-                                                                                </g>
-                                                                                </svg>
-                                                                            </div>
+                                                                            </path>
+                                                                            </g>
+                                                                            </g>
+                                                                            </g>
+                                                                            </g>
+                                                                            </g>
+                                                                            </g>
+                                                                            </g>
+                                                                            </svg>
                                                                         </div>
-                                                                        <div class="stardust-dropdown__item-body">
-                                                                            <div
-                                                                                class="shopee-product-rating__report-menu-dropdown">
-                                                                                báo cáo</div>
-                                                                        </div>
+                                                                    </div>
+                                                                    <div class="stardust-dropdown__item-body">
+                                                                        <div
+                                                                            class="shopee-product-rating__report-menu-dropdown">
+                                                                            báo cáo</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
 
                                         </div>
 
-
                                     </div>
+
 
                                 </div>
 
-                            </form>
+                        </div>
+
+                        </form>
+
+                        <!-- Modal đánh giá -->
+                        <div id="feedbackModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeFeedbackModal()">&times;</span>
+                                <h2>Thêm đánh giá</h2>
+
+                                <form action="/online_shopping/feedback" method="POST">
+                                    <input type="hidden" id="productId" name="productId" value="${p.id}">
+
+                                    <label>Chọn số sao:</label>
+                                    <select id="rating" name="rating">
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="1">⭐</option>
+                                    </select>
+
+                                    <br><br>
+
+                                    <label>Mô tả:</label><br>
+                                    <textarea id="description" name="description"></textarea>
+
+                                    <br><br>
+
+                                    <button type="submit">Gửi</button>
+                                </form>
+
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
 
         </div>
 
-        <%@ include file="footer.jsp" %>
     </div>
-    <!--modal layout-->
-    <script>
-        function toggleLike(productId) {
-            fetch(`/online_shopping/like-product`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({productId: productId})
-            })
-                    .then(response => response.text()) // Đọc dữ liệu dưới dạng text trước
-                    .then(text => {
-                        console.log("Server response:", text); // In response ra console
-                        return JSON.parse(text); // Chuyển đổi sang JSON nếu có thể
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            let likeButton = document.getElementById('likeButton');
-                            likeButton.innerHTML = data.isLiked ? "❤️" : "🤍";
-                        } else {
-                            alert("Lỗi khi thích/bỏ thích sản phẩm!");
-                        }
-                    })
-                    .catch(error => console.error("Lỗi:", error));
+
+
+
+
+    <%@ include file="footer.jsp" %>
+</div>
+<!--modal layout-->
+<script>
+    function toggleLike(productId) {
+        fetch(`/online_shopping/like-product`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({productId: productId})
+        })
+                .then(response => response.text()) // Đọc dữ liệu dưới dạng text trước
+                .then(text => {
+                    console.log("Server response:", text); // In response ra console
+                    return JSON.parse(text); // Chuyển đổi sang JSON nếu có thể
+                })
+                .then(data => {
+                    if (data.success) {
+                        let likeButton = document.getElementById('likeButton');
+                        likeButton.innerHTML = data.isLiked ? "❤️" : "🤍";
+                    } else {
+                        alert("Lỗi khi thích/bỏ thích sản phẩm!");
+                    }
+                })
+                .catch(error => console.error("Lỗi:", error));
+    }
+
+    // Mở modal
+    function openFeedbackModal() {
+        document.getElementById("feedbackModal").style.display = "flex";
+    }
+
+// Đóng modal
+    function closeFeedbackModal() {
+        document.getElementById("feedbackModal").style.display = "none";
+    }
+
+// Đóng modal khi nhấp ra ngoài
+    window.onclick = function (event) {
+        let modal = document.getElementById("feedbackModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
         }
+    }
+
+//// Xử lý gửi đánh giá
+//    document.getElementById("feedbackForm").addEventListener("submit", function (event) {
+//        event.preventDefault();
+//
+//        fetch("/online_shopping/feedback", {
+//            method: "POST",
+//            body: new FormData(this)
+//        }).then(response => response.json()).then(data => {
+//            if (data.success) {
+//                alert("Đánh giá thành công!");
+//                closeFeedbackModal();
+//                location.reload();
+//            } else {
+//                alert(data.message);
+//            }
+//        });
+//    });
 
 
-    </script>
+</script>
 </body>
 
 </html>

@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class OrderDetailsController extends HttpServlet {
+public class OrderDetailsServlet extends HttpServlet {
     private final OrderDAO orderDAO = new OrderDAO();
 
     @Override

@@ -7,6 +7,7 @@ package controller;
 
 import dal.AccountDAO;
 import dal.CategoryDAO;
+import dal.FeedbackDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -99,6 +100,18 @@ request.setCharacterEncoding("utf-8");
              boolean isLiked = pd.isProductLiked(a.getEmail(), p.getId());
 
             request.setAttribute("isLiked", isLiked);
+            
+            ProductDAO productDAO = new ProductDAO();
+            FeedbackDAO feedbackDAO = new FeedbackDAO();
+            // Kiểm tra xem user đã mua sản phẩm chưa
+            boolean hasPurchased = feedbackDAO.hasPurchasedProduct(a.getUsername(), id);
+
+            // Kiểm tra xem user đã đánh giá sản phẩm chưa
+            boolean hasFeedback = feedbackDAO.hasFeedback(a.getUsername(), id);
+            
+            request.setAttribute("hasPurchased", hasPurchased);
+            request.setAttribute("hasFeedback", hasFeedback);
+            
             
             request.setAttribute("shop", shop);
             request.getRequestDispatcher("product.jsp").forward(request, response);
