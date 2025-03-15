@@ -155,14 +155,56 @@ public class ProductDAO extends DBContext {
         return list;
     }
 
+//    public Product getProductById(int id) {
+//        List<Product> list = getAllProduct();
+//        for (Product product : list) {
+//            if (product.getId() == id) {
+//                return product;
+//            }
+//        }
+//        return null;
+//    }
     public Product getProductById(int id) {
-        List<Product> list = getAllProduct();
-        for (Product product : list) {
-            if (product.getId() == id) {
-                return product;
+        String sql = "SELECT * FROM Products WHERE ProductID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Lấy thông tin từ kết quả truy vấn
+                String shopId = rs.getString("ShopID");
+                int categoryID = rs.getInt("CategoryID");
+                String productName = rs.getString("ProductName");
+                String origin = rs.getString("Origin");
+                String brand = rs.getString("Brand");
+                String images1 = rs.getString("Images1");
+                String describe = rs.getString("Describe");
+                float oldPrice = rs.getFloat("OldPrice");
+                float currentPrice = rs.getFloat("CurrentPrice");
+                int quantityPerUnit = rs.getInt("QuantityPerUnit");
+                int unitInstock = rs.getInt("UnitInstock");
+                int unitOnOrder = rs.getInt("UnitOnOrder");
+                boolean isContinued = rs.getBoolean("IsContinued");
+                String status = rs.getString("Status");
+                String createdDate = rs.getString("CreatedDate");
+                String updatedDate = rs.getString("UpdatedDate");
+
+                // Lấy thông tin Shop và Category
+                Shop shop = new Shop();
+                shop.setUsername(shopId);
+
+                CategoryDAO categoryDAO = new CategoryDAO();
+                Categories category = categoryDAO.getCategoryById(categoryID);
+
+                // Trả về đối tượng Product đã được khởi tạo đầy đủ
+                return new Product(id, shop, category, productName, origin, brand, images1, describe,
+                        oldPrice, currentPrice, quantityPerUnit, unitInstock, unitOnOrder, isContinued, status, createdDate, updatedDate);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+        return null; // Trả về null nếu không tìm thấy sản phẩm
     }
 
     public boolean createProduct(Product product) {
@@ -618,6 +660,35 @@ public class ProductDAO extends DBContext {
             e.printStackTrace();
         }
         return likedProductIds;
+    }
+
+    public boolean updateProduct(Product product) {
+        String sql = "UPDATE Products SET CategoryID=?, ProductName=?, Brand=?, Origin=?, Images1=?, Describe=?, "
+                + "OldPrice=?, CurrentPrice=?, QuantityPerUnit=?, UnitInstock=?, UnitOnOrder=?, "
+                + "IsContinued=?, Status=?, UpdatedDate=GETDATE() WHERE ProductID=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, product.getCategories().getId());
+            ps.setString(2, product.getProductname());
+            ps.setString(3, product.getBrand());
+            ps.setString(4, product.getOrigin());
+            ps.setString(5, product.getImages1());
+            ps.setString(6, product.getDescribe());
+            ps.setFloat(7, product.getOldPrice());
+            ps.setFloat(8, product.getCurrentPrice());
+            ps.setInt(9, product.getQuantityPerUnit());
+            ps.setInt(10, product.getUnitInstock());
+            ps.setInt(11, product.getUnitOnOrder());
+            ps.setBoolean(12, product.isIsContinued());
+            ps.setString(13, product.getStatus());
+            ps.setInt(14, product.getId());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;  // Trả về true nếu cập nhật thành công
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;  // Trả về false nếu có lỗi
+        }
     }
 
 }

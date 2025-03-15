@@ -202,7 +202,8 @@
                                                               </span>
                                                         </td>
 
-                                                        <td><a href="<%= request.getContextPath() %>/update-product?id=${product.id}">Update</a></td>
+                                                        <!--<td><a href="<%= request.getContextPath() %>/update-product?id=${product.id}">Update</a></td>-->
+                                                        <td><a href="<%= request.getContextPath() %>/create-product?id=${product.id}">Update</a></td>
                                                         <td><a href="<%= request.getContextPath() %>/delete-product?id=${product.id}">Delete</a></td>
                                                     </tr>
                                                 </c:forEach>

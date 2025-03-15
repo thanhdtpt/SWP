@@ -127,24 +127,6 @@
                                 <i class="fa fa-gavel"></i> <span>Manage Product</span>
                             </a>
                         </li>
-<!--                        <li>
-                            <a href="general.html">
-                                <i class="fa fa-gavel"></i> <span>General</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="basic_form.html">
-                                <i class="fa fa-globe"></i> <span>Basic Elements</span>
-                            </a>
-                        </li>
-
-                        <li >
-                            <a href="simple.jsp">
-                                <i class="fa fa-glass"></i> <span>Simple tables</span>
-                            </a>
-                        </li>-->
-
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -164,12 +146,16 @@
                                     Form Elements
                                 </header>
                                 <div class="panel-body">
-                                    <form class="form-horizontal tasi-form" method="POST" action="create-product" onsubmit="return validateForm()" enctype="multipart/form-data">
+                                    <form class="form-horizontal tasi-form" method="POST" action="create-product" onsubmit="return validateForm()" >
                                         <!-- Tên sản phẩm -->
+                                        <c:if test="${not empty product}">
+                                            <input type="hidden" name="id" value="${product.id}">
+                                        </c:if> 
+
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Name</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" name="productname">
+                                                <input type="text" class="form-control" name="productname" value="${product.productname}">
                                                 <span id="nameError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -181,7 +167,7 @@
                                                 <select class="form-control m-b-4" name="category">
                                                     <option value="">Chọn danh mục</option>
                                                     <c:forEach var="category" items="${listC}">
-                                                        <option value="${category.id}">${category.name}</option>
+                                                        <option value="${category.id}" ${product.categories.id == category.id ? 'selected' : ''}>${category.name}</option>
                                                     </c:forEach>
                                                 </select>
                                                 <span id="categoryError" class="text-danger"></span>
@@ -192,7 +178,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Origin</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control round-input" name="origin">
+                                                <input type="text" class="form-control" name="origin" value="${product.origin}">
                                                 <span id="originError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -201,7 +187,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Brand</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="focusedInput" type="text" name="brand">
+                                                <input type="text" class="form-control" name="brand" value="${product.brand}">
                                                 <span id="brandError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -211,6 +197,9 @@
                                             <label class="col-lg-2 col-sm-2 control-label">Images</label>
                                             <div class="col-lg-4">
                                                 <input type="file" id="imageInput" name="images1" accept="image/png, image/jpeg, image/jpg" onchange="validateImage()">
+                                                <c:if test="${not empty product.images1}">
+                                                    <img src="${product.images1}" alt="Product Image" width="100">
+                                                </c:if>
                                                 <span id="imageError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -219,7 +208,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Describe</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" placeholder="describe" name="describe">
+                                                <input type="text" class="form-control" name="describe" value="${product.describe}">
                                                 <span id="describeError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -228,7 +217,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Old Price</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" name="oldPrice">
+                                                <input type="number" class="form-control" name="oldPrice" value="${product.oldPrice}">
                                                 <span id="oldPriceError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -237,7 +226,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Current Price</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1000" min="0" name="currentPrice">
+                                                <input type="number" class="form-control" name="currentPrice" value="${product.currentPrice}">
                                                 <span id="currentPriceError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -246,7 +235,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-2 col-sm-2 control-label">Quantity Per Unit</label>
                                             <div class="col-lg-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="quantityPerUnit">
+                                                <input type="number" class="form-control" name="quantityPerUnit" value="${product.quantityPerUnit}">
                                                 <span id="quantityPerUnitError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -255,7 +244,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Unit In Stock</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitInStock">
+                                                <input type="number" class="form-control" name="unitInStock" value="${product.unitInstock}">
                                                 <span id="unitInStockError" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -264,15 +253,21 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Unit On Order</label>
                                             <div class="col-sm-4">
-                                                <input type="number" class="form-control" placeholder="0" step="1" min="0" name="unitOnOrder">
+                                                <input type="number" class="form-control" name="unitOnOrder" value="${product.unitOnOrder}">
                                                 <span id="unitOnOrderError" class="text-danger"></span>
                                             </div>
                                         </div>
 
                                         <!-- Nút Submit -->
                                         <div class="form-actions">
-                                            <button type="submit" class="btn btn-info">Tạo</button>
+                                            <button type="submit" class="btn btn-info">
+                                                <c:choose>
+                                                    <c:when test="${not empty product}">Cập Nhật</c:when>
+                                                    <c:otherwise>Tạo</c:otherwise>
+                                                </c:choose>
+                                            </button>
                                         </div>
+
                                     </form>
 
                                     <c:if test="${not empty message}">
