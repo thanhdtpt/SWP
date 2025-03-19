@@ -1,7 +1,3 @@
 /online_shopping/nbproject/private/
 /online_shopping/build/
-online_shopping/nbproject/ant-deploy.xml
-online_shopping/nbproject/build-impl.xml
-online_shopping/nbproject/genfiles.properties
-online_shopping/nbproject/project.properties
-online_shopping/nbproject/project.xml
+/online_shopping/dist/

@@ -90,6 +90,12 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("enteredUser", u); // Giữ lại user nhập
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
+            if(a.getStatus().equals("Deactive")){
+                String er = "tài khoản của bạn đã bị vô hiệu hóa";
+                request.setAttribute("error", er);
+                request.setAttribute("enteredUser", u); // Giữ lại user nhập
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
             HttpSession session = request.getSession(true);
             session.setAttribute("account", a);
             Cookie cu = new Cookie("user", u);

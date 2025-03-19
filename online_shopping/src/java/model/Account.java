@@ -9,7 +9,10 @@ import dal.AccountDAO;
 
 
 public class Account {
-      private String username,password,email;
+      private String username,password,email, status;
+       private Shop shop;
+    private Customer customer;
+
 
     public Account() {
     }
@@ -24,6 +27,12 @@ public class Account {
         this.password = password;
         this.email = email;
     }
+    public Account(String username, String password, String email, String status) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.status = status;
+    }
 
     public String getEmail() {
         return email;
@@ -33,7 +42,13 @@ public class Account {
         this.email = email;
     }
     
-    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getUsername() {
         return username;
@@ -60,4 +75,32 @@ public class Account {
           Shop shop = ad.getShop(username);
           return shop.getName();
     }
+    // Thêm phương thức setShop()
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    // Thêm phương thức setCustomer()
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    // Phương thức này có thể lấy tên của khách hàng hoặc cửa hàng
+    public String getUserNameDisplay() {
+        if (shop != null) {
+            return shop.getName(); // Trả về tên shop nếu có
+        } else if (customer != null) {
+            return customer.getName(); // Trả về tên customer nếu có
+        }
+        return username; // Trả về username nếu không có shop hoặc customer
+    }
+    
 }

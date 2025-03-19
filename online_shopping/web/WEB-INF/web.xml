@@ -351,6 +351,23 @@
         <servlet-name>FeedbackServlet</servlet-name>
         <url-pattern>/feedback</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <servlet-class>controller.ManageUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <url-pattern>/manage-user</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ChangeStatusServlet</servlet-name>
+        <servlet-class>controller.ChangeStatusServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusServlet</servlet-name>
+        <url-pattern>/changeStatus</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30

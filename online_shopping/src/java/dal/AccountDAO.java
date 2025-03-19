@@ -22,7 +22,7 @@ public class AccountDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getString("username"),
-                        rs.getString("password"), rs.getString("email"));
+                        rs.getString("password"), rs.getString("email"), rs.getString("status"));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -396,6 +396,116 @@ public class AccountDAO extends DBContext {
 
         public String getRoleName() {
             return roleName;
+        }
+    }
+    
+    public List<Account> getAllUsers() {
+        List<Account> users = new ArrayList<>();
+        
+        String query = "SELECT * FROM account";  // Giả sử bảng 'users' chứa cả shop và customer
+        
+        try ( 
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String status = rs.getString("status");
+
+                Account account = new Account(username, password, email, status);
+
+                // Lấy thông tin Shop hoặc Customer
+                if (isShop(username)) {
+                    Shop shop = getShopInfo(username);
+                    account.setShop(shop);
+                } else {
+                    Customer customer = getCustomerInfo(username);
+                    account.setCustomer(customer);
+                }
+                
+                users.add(account);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return users;
+    }
+
+    // Kiểm tra xem người dùng có phải là shop không
+    private boolean isShop(String username) {
+        // Kiểm tra trong bảng Shop hoặc sử dụng phương thức khác để xác định nếu người dùng là Shop
+        // Ví dụ:
+        String query = "SELECT COUNT(*) FROM shops WHERE username = ?";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Lấy thông tin shop
+    private Shop getShopInfo(String username) {
+        Shop shop = null;
+        String query = "SELECT * FROM shops WHERE username = ?";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                shop = new Shop(username, rs.getString("ShopName"), rs.getString("city"), rs.getString("address"), rs.getString("phone"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shop;
+    }
+
+    // Lấy thông tin customer
+    private Customer getCustomerInfo(String username) {
+        Customer customer = null;
+        String query = "SELECT * FROM customers WHERE username = ?";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                customer = new Customer(username, rs.getString("CustomerName"), rs.getString("address"), rs.getString("city"), rs.getString("dob"), rs.getString("mail"), rs.getString("phone"), rs.getString("image"), rs.getBoolean("gender"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
+
+    public Account getAccountByUsername(String username) {
+        String query = "SELECT * FROM account WHERE username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("status"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void updateAccountStatus(Account account) {
+        String query = "UPDATE account SET status = ? WHERE username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, account.getStatus());
+            stmt.setString(2, account.getUsername());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
