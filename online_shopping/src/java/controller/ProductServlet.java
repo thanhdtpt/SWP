@@ -16,8 +16,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Account;
 import model.Categories;
+import model.Feedback;
 import model.Product;
 import model.Shop;
 
@@ -40,27 +42,27 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-request.setCharacterEncoding("utf-8");
-        try (PrintWriter out = response.getWriter()) {
+        request.setCharacterEncoding("utf-8");
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductServlet</title>");            
+            out.println("<title>Servlet ProductServlet</title>");
             out.println("</head>");
             out.println("<body>");
-             HttpSession session = request.getSession(true);
-        Account a = (Account) session.getAttribute("account");
-        if(a==null){
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('access denied');");
-            out.println("window.location.href = \"login.jsp\";");
-            out.println("</script>");
-            request.getRequestDispatcher("login.jsp");
-            out.println("<h1>Servlet ProductServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            HttpSession session = request.getSession(true);
+            Account a = (Account) session.getAttribute("account");
+            if (a == null) {
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('access denied');");
+                out.println("window.location.href = \"login.jsp\";");
+                out.println("</script>");
+                request.getRequestDispatcher("login.jsp");
+                out.println("<h1>Servlet ProductServlet at " + request.getContextPath() + "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
     }
 
@@ -77,49 +79,55 @@ request.setCharacterEncoding("utf-8");
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-request.setCharacterEncoding("utf-8");
-                HttpSession session = request.getSession(true);
+        request.setCharacterEncoding("utf-8");
+        HttpSession session = request.getSession(true);
         Account a = (Account) session.getAttribute("account");
-        if(a==null){
-        processRequest(request, response);
-        }else
-        {
-     
-        String id_raw = request.getParameter("id");
-            System.out.println("ID------------------------------TESTTT--------------"+id_raw);
-        ProductDAO pd=new ProductDAO();
-        CategoryDAO cd=new CategoryDAO();
-        AccountDAO ad=new AccountDAO();
-        try {
-            int id=Integer.parseInt(id_raw);
-            Product p = pd.getProductById(id);
-            Categories c = cd.getCategoryById(p.getId());
-                    Shop shop = ad.getShop(a.getUsername());
-            request.setAttribute("pro", p);
-            request.setAttribute("ca", c); 
-             boolean isLiked = pd.isProductLiked(a.getEmail(), p.getId());
+        if (a == null) {
+            processRequest(request, response);
+        } else {
 
-            request.setAttribute("isLiked", isLiked);
-            
-            ProductDAO productDAO = new ProductDAO();
-            FeedbackDAO feedbackDAO = new FeedbackDAO();
-            // Kiểm tra xem user đã mua sản phẩm chưa
-            boolean hasPurchased = feedbackDAO.hasPurchasedProduct(a.getUsername(), id);
+            String id_raw = request.getParameter("id");
+            System.out.println("ID------------------------------TESTTT--------------" + id_raw);
+            ProductDAO pd = new ProductDAO();
+            CategoryDAO cd = new CategoryDAO();
+            AccountDAO ad = new AccountDAO();
+            try {
+                int id = Integer.parseInt(id_raw);
+                Product p = pd.getProductById(id);
+                Categories c = cd.getCategoryById(p.getId());
+                Shop shop = ad.getShop(a.getUsername());
+                request.setAttribute("pro", p);
+                request.setAttribute("ca", c);
+                boolean isLiked = pd.isProductLiked(a.getEmail(), p.getId());
 
-            // Kiểm tra xem user đã đánh giá sản phẩm chưa
-            boolean hasFeedback = feedbackDAO.hasFeedback(a.getUsername(), id);
-            
-            request.setAttribute("hasPurchased", hasPurchased);
-            request.setAttribute("hasFeedback", hasFeedback);
-            
-            
-            request.setAttribute("shop", shop);
-            request.getRequestDispatcher("product.jsp").forward(request, response);
-        } catch (Exception e) {
-            System.out.println(e);
+                request.setAttribute("isLiked", isLiked);
+
+                ProductDAO productDAO = new ProductDAO();
+                FeedbackDAO feedbackDAO = new FeedbackDAO();
+                // Kiểm tra xem user đã mua sản phẩm chưa
+                boolean hasPurchased = feedbackDAO.hasPurchasedProduct(a.getUsername(), id);
+
+                // Kiểm tra xem user đã đánh giá sản phẩm chưa
+                boolean hasFeedback = feedbackDAO.hasFeedback(a.getUsername(), id);
+
+                request.setAttribute("hasPurchased", hasPurchased);
+                request.setAttribute("hasFeedback", hasFeedback);
+//            FeedbackDAO feedbackDAO = new FeedbackDAO();
+                List<Feedback> feedbackList = feedbackDAO.getFeedbackByProductId(id);
+                request.setAttribute("feedbackList", feedbackList);
+
+                // Feedback của user hiện tại (nếu có)
+                Feedback myFeedback = feedbackDAO.getFeedbackByUserAndProduct(a.getUsername(), id);
+                request.setAttribute("myFeedback", myFeedback);
+
+                request.setAttribute("shop", shop);
+                request.getRequestDispatcher("product.jsp").forward(request, response);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
-    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -132,7 +140,7 @@ request.setCharacterEncoding("utf-8");
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-request.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("utf-8");
         processRequest(request, response);
     }
 

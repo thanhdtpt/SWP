@@ -61,7 +61,7 @@
 
             /* CSS cho modal */
             .modal {
-                display: none; /* Mặc định ẩn modal */
+                display: none ;/* Mặc định ẩn modal */
                 position: fixed;
                 z-index: 1000;
                 left: 0;
@@ -594,255 +594,60 @@
                                                 Đánh giá sản phẩm</div>
                                                 <%-- Kiểm tra nếu user đã mua hàng và chưa feedback --%>
                                                 <c:if test="${sessionScope.account != null}">
-                                                    <c:set var="hasPurchased" value="${requestScope.hasPurchased}" />
-                                                    <c:set var="hasFeedback" value="${requestScope.hasFeedback}" />
-
-                                                <c:if test="${hasPurchased && !hasFeedback}">
-                                                    <button class="btn-feedback" onclick="openFeedbackModal()">📝 Thêm đánh giá</button>
+                                                    <c:if test="${hasPurchased}">
+                                                    <!-- Kiểm tra có feedback chưa -->
+                                                    <c:choose>
+                                                        <c:when test="${myFeedback != null}">
+                                                            <!-- Đã có feedback => nút cập nhật -->
+                                                            <button class="btn-feedback" 
+                                                                    onclick="openFeedbackModalForUpdate('${myFeedback.id}', '${myFeedback.rating}', '${myFeedback.description}')">
+                                                                📝 Cập nhật đánh giá
+                                                            </button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <!-- Chưa có feedback => nút thêm -->
+                                                            <button class="btn-feedback" onclick="openFeedbackModalForAdd()">📝 Thêm đánh giá</button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:if>
                                             </c:if>
+
                                             <div class="Fo12Im">
                                                 <div class="shopee-product-rating">
-                                                    <a class="shopee-product-rating__avatar" href="/shop/616362665">
-                                                        <div class="shopee-avatar">
-                                                            <div class="shopee-avatar__placeholder">
-                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
-                                                                     y="0" class="shopee-svg-icon icon-headshot">
-                                                                <g>
-                                                                <circle cx="7.5" cy="4.5" fill="none" r="3.8"
-                                                                        stroke-miterlimit="10">
+                                                    <div class="feedback-list">
+                                                        <c:forEach items="${feedbackList}" var="fb">
+                                                            <div class="feedback-item"
+                                                                 style="
+                                                                 display: flex;
+                                                                 align-items: center;
+                                                                 justify-content: space-between;  /* chia 2 cột: trái - phải */
+                                                                 margin-bottom: 10px;             /* khoảng cách giữa các feedback */
+                                                                 ">
 
-                                                                </circle>
-                                                                <path d="m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6"
-                                                                      fill="none" stroke-linecap="round"
-                                                                      stroke-miterlimit="10">
+                                                                <!-- Khối bên trái: userName, rating (sao), description -->
+                                                                <div>
+                                                                    <strong>${fb.userName}</strong>
+                                                                    <!-- In ra fb.rating ngôi sao -->
+                                                                    <c:forEach var="i" begin="1" end="${fb.rating}">
+                                                                        <i class="fa fa-star" style="color: gold;"></i>
+                                                                    </c:forEach>
 
-                                                                </path>
-                                                                </g>
-                                                                </svg>
-                                                            </div>
-                                                            <img class="shopee-avatar__img"
-                                                                 src="https://cf.shopee.vn/file/0640b218223302dd5fa3297e108b82b7_tn">
-                                                        </div>
-                                                    </a>
-                                                    <div class="shopee-product-rating__main">
-                                                        <a class="shopee-product-rating__author-name" href="/shop/616362665">
-                                                            namun612</a>
-                                                        <div class="repeat-purchase-con">
-                                                            <div class="shopee-product-rating__rating">
-                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
-                                                                     y="0"
-                                                                     class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
-                                                                <polygon
-                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-miterlimit="10">
-
-                                                                </polygon>
-                                                                </svg>
-                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
-                                                                     y="0"
-                                                                     class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
-                                                                <polygon
-                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-miterlimit="10">
-
-                                                                </polygon>
-                                                                </svg>
-                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
-                                                                     y="0"
-                                                                     class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
-                                                                <polygon
-                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-miterlimit="10">
-
-                                                                </polygon>
-                                                                </svg>
-                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
-                                                                     y="0"
-                                                                     class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
-                                                                <polygon
-                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-miterlimit="10">
-
-                                                                </polygon>
-                                                                </svg>
-                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0"
-                                                                     y="0"
-                                                                     class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
-                                                                <polygon
-                                                                    points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-miterlimit="10">
-
-                                                                </polygon>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                        <div class="shopee-product-rating__time">
-                                                            2022-03-04 10:01 </div>
-                                                        <div class="_3NrdYc">
-                                                            Ok</div>
-                                                        <div class="shopee-product-rating__image-list-wrapper">
-                                                            <div class="rating-media-list">
-                                                                <div class="rating-media-list__container">
-                                                                    <div
-                                                                        class="rating-media-list__image-wrapper rating-media-list__image-wrapper--inactive">
-                                                                        <div class="shopee-rating-media-list-image__wrapper">
-                                                                            <div
-                                                                                class="shopee-rating-media-list-image__place-holder">
-                                                                                <svg enable-background="new 0 0 15 15"
-                                                                                     viewBox="0 0 15 15" x="0" y="0"
-                                                                                     class="shopee-svg-icon icon-loading-image">
-                                                                                <g>
-                                                                                <rect fill="none" height="8"
-                                                                                      stroke-linecap="round"
-                                                                                      stroke-linejoin="round"
-                                                                                      stroke-miterlimit="10" width="10"
-                                                                                      x="1" y="4.5">
-
-                                                                                </rect>
-                                                                                <line fill="none" stroke-linecap="round"
-                                                                                      stroke-linejoin="round"
-                                                                                      stroke-miterlimit="10" x1="1"
-                                                                                      x2="11" y1="6.5" y2="6.5">
-
-                                                                                </line>
-                                                                                <rect fill="none" height="3"
-                                                                                      stroke-linecap="round"
-                                                                                      stroke-linejoin="round"
-                                                                                      stroke-miterlimit="10" width="3"
-                                                                                      x="11" y="6.5">
-
-                                                                                </rect>
-                                                                                <line fill="none" stroke-linecap="round"
-                                                                                      stroke-linejoin="round"
-                                                                                      stroke-miterlimit="10" x1="1"
-                                                                                      x2="11" y1="14.5" y2="14.5">
-
-                                                                                </line>
-                                                                                <line fill="none" stroke-linecap="round"
-                                                                                      stroke-linejoin="round"
-                                                                                      stroke-miterlimit="10" x1="6" x2="6"
-                                                                                      y1=".5" y2="3">
-
-                                                                                </line>
-                                                                                <line fill="none" stroke-linecap="round"
-                                                                                      stroke-linejoin="round"
-                                                                                      stroke-miterlimit="10" x1="3.5"
-                                                                                      x2="3.5" y1="1" y2="3">
-
-                                                                                </line>
-                                                                                <line fill="none" stroke-linecap="round"
-                                                                                      stroke-linejoin="round"
-                                                                                      stroke-miterlimit="10" x1="8.5"
-                                                                                      x2="8.5" y1="1" y2="3">
-
-                                                                                </line>
-                                                                                </g>
-                                                                                </svg>
-                                                                            </div>
-                                                                            <div class="shopee-rating-media-list-image__content"
-                                                                                 style="background-image: url(&quot;https://cf.shopee.vn/file/819b65930a5026759e3e4d1e2f6f42f0_tn&quot;);">
-                                                                                <div
-                                                                                    class="shopee-rating-media-list-image__content--blur">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                    <p style="margin: 4px 0 0 0;">${fb.description}</p>
                                                                 </div>
-                                                                <div class="rating-media-list__zoomed-image">
-                                                                    <div class="rating-media-list-image-carousel"
-                                                                         style="transition: all 0ms ease 0s;">
-                                                                        <div
-                                                                            class="rating-media-list-image-carousel__item-list-wrapper">
-                                                                            <ul
-                                                                                class="rating-media-list-image-carousel__item-list">
-                                                                                <li class="rating-media-list-image-carousel__item rating-media-list-image-carousel__item--fluid"
-                                                                                    style="padding: 0px 0.625rem;">
-                                                                                    <img class="rating-media-list__zoomed-image-item"
-                                                                                         src="https://cf.shopee.vn/file/819b65930a5026759e3e4d1e2f6f42f0">
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="rating-media-list-carousel-arrow rating-media-list-carousel-arrow--prev rating-media-list-carousel-arrow--hint rating-media-list-carousel-arrow--hidden"
-                                                                             role="button" tabindex="0"
-                                                                             style="opacity: 1; visibility: hidden; transform: translateX(calc(-50% + 0px));">
-                                                                            <svg enable-background="new 0 0 13 20"
-                                                                                 viewBox="0 0 13 20" x="0" y="0"
-                                                                                 class="shopee-svg-icon icon-arrow-left-bold">
-                                                                            <polygon
-                                                                                points="4.2 10 12.1 2.1 10 -.1 1 8.9 -.1 10 1 11 10 20 12.1 17.9">
 
-                                                                            </polygon>
-                                                                            </svg>
-                                                                        </div>
-                                                                        <div class="rating-media-list-carousel-arrow rating-media-list-carousel-arrow--next rating-media-list-carousel-arrow--hint rating-media-list-carousel-arrow--hidden"
-                                                                             role="button" tabindex="0"
-                                                                             style="opacity: 1; visibility: hidden; transform: translateX(calc(50% - 0px));">
-                                                                            <svg enable-background="new 0 0 13 21"
-                                                                                 viewBox="0 0 13 21" x="0" y="0"
-                                                                                 class="shopee-svg-icon icon-arrow-right-bold">
-                                                                            <polygon
-                                                                                points="11.1 9.9 2.1 .9 -.1 3.1 7.9 11 -.1 18.9 2.1 21 11.1 12 12.1 11">
-
-                                                                            </polygon>
-                                                                            </svg>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <!-- Khối bên phải: icon xóa (chỉ hiển thị nếu user hiện tại == fb.userName) -->
+                                                                <c:if test="${fb.userName == sessionScope.account.username}">
+                                                                    <span style="cursor:pointer; color:red; margin-left:90px;"
+                                                                          onclick="deleteFeedback(${fb.id})"
+                                                                          title="Xóa feedback">
+                                                                        <i class="fa fa-trash"></i> Xóa
+                                                                    </span>
+                                                                </c:if>
                                                             </div>
-                                                        </div>
-                                                        <div style="display: flex;">
-                                                            <div class="shopee-product-rating__report-menu-button">
-                                                                <div class="stardust-dropdown">
-                                                                    <div class="stardust-dropdown__item-header">
-                                                                        <div>
-                                                                            <svg width="4px" height="16px"
-                                                                                 viewBox="0 0 4 16" version="1.1"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                            <defs>
+                                                        </c:forEach>
 
-                                                                            </defs>
-                                                                            <g stroke="none" stroke-width="1"
-                                                                               fill-rule="evenodd">
-                                                                            <g transform="translate(-1301.000000, -550.000000)"
-                                                                               fill="#CCCCCC">
-                                                                            <g
-                                                                                transform="translate(155.000000, 92.000000)">
-                                                                            <g
-                                                                                transform="translate(40.000000, 184.000000)">
-                                                                            <g
-                                                                                transform="translate(0.000000, 161.000000)">
-                                                                            <g>
-                                                                            <g
-                                                                                transform="translate(50.000000, 2.000000)">
-                                                                            <path
-                                                                                d="M1058,122.2 C1056.895,122.2 1056,123.096 1056,124.2 C1056,125.306 1056.895,126.202 1058,126.202 C1059.104,126.202 1060,125.306 1060,124.2 C1060,123.096 1059.104,122.2 1058,122.2 M1058,116.6 C1056.895,116.6 1056,117.496 1056,118.6 C1056,119.706 1056.895,120.602 1058,120.602 C1059.104,120.602 1060,119.706 1060,118.6 C1060,117.496 1059.104,116.6 1058,116.6 M1058,111 C1056.895,111 1056,111.896 1056,113 C1056,114.106 1056.895,115.002 1058,115.002 C1059.104,115.002 1060,114.106 1060,113 C1060,111.896 1059.104,111 1058,111">
-
-                                                                            </path>
-                                                                            </g>
-                                                                            </g>
-                                                                            </g>
-                                                                            </g>
-                                                                            </g>
-                                                                            </g>
-                                                                            </g>
-                                                                            </svg>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="stardust-dropdown__item-body">
-                                                                        <div
-                                                                            class="shopee-product-rating__report-menu-dropdown">
-                                                                            báo cáo</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
 
@@ -858,13 +663,19 @@
                         </form>
 
                         <!-- Modal đánh giá -->
+                        <!-- Modal đánh giá -->
+                        <!-- Modal đánh giá -->
                         <div id="feedbackModal" class="modal">
                             <div class="modal-content">
                                 <span class="close" onclick="closeFeedbackModal()">&times;</span>
-                                <h2>Thêm đánh giá</h2>
+                                <h2>Đánh giá sản phẩm</h2>
 
-                                <form action="/online_shopping/feedback" method="POST">
+                                <form id="feedbackForm" action="${pageContext.request.contextPath}/feedback" method="POST">
+                                    <!-- Ẩn -->
                                     <input type="hidden" id="productId" name="productId" value="${p.id}">
+                                    <input type="hidden" id="feedbackAction" name="feedbackAction" value="add">
+
+                                    <input type="hidden" id="feedbackId" name="feedbackId" value="">
 
                                     <label>Chọn số sao:</label>
                                     <select id="rating" name="rating">
@@ -883,10 +694,12 @@
                                     <br><br>
 
                                     <button type="submit">Gửi</button>
+                                    <div id="feedbackError" style="color:red;"></div>
                                 </form>
-
                             </div>
                         </div>
+
+
                     </div>
                 </div>
 
@@ -929,6 +742,7 @@
 
     // Mở modal
     function openFeedbackModal() {
+        console.log("Modal is opening");
         document.getElementById("feedbackModal").style.display = "flex";
     }
 
@@ -945,26 +759,87 @@
         }
     }
 
-//// Xử lý gửi đánh giá
-//    document.getElementById("feedbackForm").addEventListener("submit", function (event) {
-//        event.preventDefault();
-//
-//        fetch("/online_shopping/feedback", {
-//            method: "POST",
-//            body: new FormData(this)
-//        }).then(response => response.json()).then(data => {
-//            if (data.success) {
-//                alert("Đánh giá thành công!");
-//                closeFeedbackModal();
-//                location.reload();
-//            } else {
-//                alert(data.message);
-//            }
-//        });
-//    });
+    document.getElementById("feedbackForm").addEventListener("submit", function (event) {
+        event.preventDefault();  // Chặn submit mặc định
+        let form = this;
 
+        // Lấy dữ liệu
+        let formData = new FormData(form);
+        // Convert sang URLSearchParams để gửi dạng application/x-www-form-urlencoded
+        let urlParams = new URLSearchParams(formData);
 
+        // Gửi request
+        fetch(form.action, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: urlParams
+        })
+                .then(response => {
+                    // Kiểm tra HTTP status
+                    if (!response.ok) {
+                        // 400, 404, 500,...
+                        throw new Error("HTTP status " + response.status);
+                    }
+                    return response.json(); // parse JSON
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert("Đánh giá thành công!");
+                        closeFeedbackModal();
+                        location.reload();
+                    } else {
+                        // Hiển thị lỗi từ backend
+                        document.getElementById("feedbackError").innerText = data.message;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("feedbackError").innerText = "Có lỗi xảy ra!";
+                });
+    });
 </script>
+<script>
+    function openFeedbackModalForAdd() {
+        document.getElementById("feedbackForm").reset();
+        // Gán value
+        document.getElementById("feedbackAction").value = "add";
+        document.getElementById("feedbackModal").style.display = "flex";
+    }
+</script>
+<script>
+    function openFeedbackModalForUpdate(feedbackId, rating, description) {
+        document.getElementById("feedbackAction").value = "update";
+        document.getElementById("feedbackId").value = feedbackId;
+        document.getElementById("rating").value = rating;
+        document.getElementById("description").value = description;
+        document.getElementById("feedbackModal").style.display = "flex";
+    }
+</script>
+<script>
+    function deleteFeedback(fbId) {
+        if (confirm("Bạn có muốn xóa comment này không?")) {
+            // Gửi request xóa
+            fetch('${pageContext.request.contextPath}/feedback?action=delete&feedbackId=' + fbId)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Xóa thành công!");
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Có lỗi khi xóa feedback!");
+                    });
+        }
+    }
+</script>
+
+
 </body>
 
 </html>
