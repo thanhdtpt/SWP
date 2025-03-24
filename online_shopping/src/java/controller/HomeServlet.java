@@ -70,7 +70,7 @@ public class HomeServlet extends HttpServlet {
         ProductDAO pdb = new ProductDAO();
         CategoryDAO cd = new CategoryDAO();
         List<Categories> listC = cd.getAllCategory();
-        List<Product> listP = pdb.getAllProduct();
+        List<Product> listP = pdb.getAllApprovedProduct();
         request.setAttribute("listC", listC);
         request.setAttribute("listP", listP);
         Cart cart = (Cart) session.getAttribute("cart");

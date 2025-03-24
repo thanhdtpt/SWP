@@ -6,6 +6,7 @@ package controller;
 
 import dal.AccountDAO;
 import dal.CartDAO;
+import dal.CustomerDAO;
 import dal.ProductDAO;
 import dal.ShopDAO;
 import jakarta.servlet.RequestDispatcher;
@@ -21,6 +22,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
 import model.Cart;
+import model.Customer;
 import model.Product;
 import model.Shop;
 
@@ -131,6 +133,9 @@ public class LoginServlet extends HttpServlet {
                     Cart cart = cartDAO.getCartByAccount(a);
                     session.setAttribute("cart", cart);
                     session.setAttribute("size", cart.getItems()!= null?cart.getItems().size():0);
+                    CustomerDAO customerDAO = new CustomerDAO();
+                    Customer customer = customerDAO.getCustomerByUsername(a.getUsername());
+                    session.setAttribute("profile", customer);
                     session.setAttribute(role, r);
                     response.sendRedirect(request.getContextPath() + "/home");
                 } else if ("SELLER".equals(role)) {

@@ -139,9 +139,9 @@
                             <c:if test="${sessionScope.account!=null}">
                                 <!--LOGED-->
                                 <li class="header__navbar-item header__navbar-user">
-                                    <img src="
-                                         https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
+                                    <img src="./${profile.image}"
                                          alt="" class="header__navbar-user-img">
+                                    
                                     <span class="header__navbar-user-name">${sessionScope.account.cusname}</span>
                                     <ul class="header__navbar-user-menu">
                                         <li class="header__navbar-user-item">
@@ -278,7 +278,7 @@
                         <div class="profile">
                             <div class="profile__heading">
                                 <div class="profile__heading profile__heading-avatar">
-                                    <img src="https://cf.shopee.vn/file/e4b8614be265b210727bdef25190db23_tn" alt="avatar">
+                                    <img src="./${profile.image}" alt="avatar">
                                 </div>
                                 <div class="profile__heading profile__heading-content">
                                     <div class="profile__heading profile__heading-content profile__heading-content-acount">
@@ -364,7 +364,6 @@
                                             <label for="dob">Ngày sinh</label>
                                             <input type="date" id="dob" name="dob" value="${profile.dob}">
                                         </div>
-                                        <div>${profile.gender}</div>
                                         <div class="form-group">
                                             <label for="gender">Giới tính</label>
                                             <select id="gender" name="gender">

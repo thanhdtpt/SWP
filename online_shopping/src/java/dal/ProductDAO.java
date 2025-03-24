@@ -81,6 +81,57 @@ public class ProductDAO extends DBContext {
         return list;
     }
 
+    public List<Product> getAllApprovedProduct() {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Products WHERE status = 'approved'"; // Thêm điều kiện WHERE
+        int id;
+        Shop shop;
+        String shopid;
+        Categories categories;
+        int categoryID;
+        String productname;
+        String origin;
+        String brand;
+        String images1;
+        String describe;
+        float oldPrice;
+        float currentPrice;
+        int quantityPerUnit;
+        int unitInstock;
+        int unitOnOrder;
+        boolean isContinued;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("ProductID");
+                CategoryDAO cd = new CategoryDAO();
+                AccountDAO ad = new AccountDAO();
+                shopid = rs.getString("ShopID");
+                shop = ad.getShop(shopid);
+                categoryID = rs.getInt("CategoryID");
+                categories = cd.getCategoryById(categoryID);
+                productname = rs.getString("ProductName");
+                origin = rs.getString("origin");
+                brand = rs.getString("Brand");
+                describe = rs.getString("describe");
+                images1 = rs.getString("images1");
+                oldPrice = rs.getFloat("oldPrice");
+                currentPrice = rs.getFloat("currentPrice");
+                quantityPerUnit = rs.getInt("QuantityPerUnit");
+                unitInstock = rs.getInt("unitInstock");
+                unitOnOrder = rs.getInt("unitOnOrder");
+                isContinued = rs.getBoolean("isContinued");
+                list.add(new Product(id, shop, categories, productname, origin,
+                        brand, images1, describe, oldPrice, currentPrice,
+                        quantityPerUnit, unitInstock, unitOnOrder, isContinued));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<Product> getListPerPage(List<Product> list, int start, int end) {
         List<Product> arr = new ArrayList<>();
         for (int i = start; i < end; i++) {

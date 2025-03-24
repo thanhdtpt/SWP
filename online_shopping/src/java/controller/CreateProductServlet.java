@@ -42,6 +42,9 @@ public class CreateProductServlet extends HttpServlet {
             String origin = request.getParameter("origin");
             String brand = request.getParameter("brand");
             String images1 = request.getParameter("images1");
+            if(null!= images1){
+                images1 = "img/"+images1;
+            }
             String describe = request.getParameter("describe");
 
             float oldPrice = parseFloatOrDefault(request.getParameter("oldPrice"), 0);

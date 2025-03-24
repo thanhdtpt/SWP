@@ -136,8 +136,7 @@
                         </li>
                         <!--LOGED-->
                         <li class="header__navbar-item header__navbar-user">
-                            <img src="
-                            https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
+                            <img src="./${sessionScope.profile.image}"
                                 alt="" class="header__navbar-user-img">
                             <span class="header__navbar-user-name">Dũng Bùi</span>
                             <ul class="header__navbar-user-menu">

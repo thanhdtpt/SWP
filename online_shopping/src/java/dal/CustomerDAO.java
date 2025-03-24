@@ -58,4 +58,34 @@ public class CustomerDAO extends DBContext {
         return 1;
     }
 
+    public Customer getCustomerByUsername(String username) {
+        Customer customer = null;
+        String sql = "SELECT * FROM Customers WHERE UserName = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                // Extracting data from the result set
+                String userName = rs.getString("UserName");
+                String customerName = rs.getString("CustomerName");
+                String address = rs.getString("Address");
+                String city = rs.getString("City");
+                String phone = rs.getString("Phone");
+                String mail = rs.getString("Mail");
+                boolean gender = rs.getBoolean("Gender");
+                String dob = rs.getString("dob");
+                String image = rs.getString("Image");
+
+                customer = new Customer(userName, customerName, address, city, dob, mail, phone,image, gender);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting customer: " + e.getMessage());
+        }
+
+        return customer;
+    }
+
 }

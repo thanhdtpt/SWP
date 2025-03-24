@@ -3,6 +3,7 @@
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
     <head>
@@ -410,8 +411,12 @@
                                                                             <div class="order-item__product-content--attributes order-item__product-content--type" style="height: 100%">
                                                                                 <div class="order-product-item order-product-type" style="margin-right: 139px;">Phân loại hàng: ${i.product.categories.name}</div>
                                                                                 <div class="order-product-item order-product-price">
-                                                                                    <div class="order-product-item__oldprice">${i.product.oldPrice}đ</div>
-                                                                                    <div class="order-item__product-content--price">${i.product.currentPrice}</div>
+                                                                                    <div class="order-product-item__oldprice">
+                                                                                    <fmt:formatNumber value="${i.product.oldPrice}" type="number" groupingUsed="true"/> đ
+                                                                                    </div>
+                                                                                    <div class="order-item__product-content--price">
+                                                                                    <fmt:formatNumber value="${i.product.currentPrice}" type="number" groupingUsed="true"/> đ</div>
+                                                                                    
                                                                                     &nbsp; &nbsp; X ${i.quantity}
                                                                                 </div>
                                                                             </div>
@@ -430,7 +435,8 @@
                                                 <div class="_1FDuJg">
                                                     <div class="_1bq31i"><span>Tổng tiền hàng</span></div>
                                                     <div class="_2aXD4G">
-                                                        <div>${totalPrice}
+                                                        <div>
+                                                            <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> đ
                                                         </div>
                                                     </div>
                                                 </div>
@@ -439,7 +445,7 @@
                                                     <div class="_2aXD4G">
 <!--                                                        <div>₫${requestScope.freight}</div>
                                                         <input type="text" name="freight" value="${requestScope.freight}" readonly style="display: none"/>-->
-                                                        <div>₫10.000</div>
+                                                        <div>10.000 đ</div>
                                                         <input type="text" name="freight" value="10000" readonly style="display: none"/>
                                                     </div>
                                                 </div>
@@ -456,16 +462,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="_2aXD4G">
-                                                        <div style="text-decoration: line-through;" >-₫10.000</div>
+                                                        <div style="text-decoration: line-through;" >-10.000 đ</div>
                                                     </div></div>
                                                 <div class="_1FDuJg _3WktZ1">
                                                     <div class="_1bq31i _3zO_LL">
                                                         <span>Tổng số tiền</span>
                                                     </div>
                                                     <div class="_2aXD4G">
-                                                        <div class="_1gMI9H">₫${totalPrice}
-                                                            <!--<input type="text" value="${totalPrice}"  name="amount" readonly style="display: none">-->   
-                                                            <input type="text" value="500000"  name="amount" readonly style="display: none">  
+<!--                                                        <div class="_1gMI9H">₫${totalPrice}
+                                                            <input type="text" value="${totalPrice}"  name="amount" readonly style="display: none">   
+                                                            <input type="text" value="500000"  name="amount" readonly style="display: none">
+                                                        </div>-->
+                                                        <div class="_1gMI9H">
+                                                            <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> đ
+                                                            <input type="text" value="500000"  name="amount" readonly style="display: none">
                                                         </div>
                                                     </div>
                                                 </div>

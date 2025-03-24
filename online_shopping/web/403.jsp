@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>403 - Không có quy?n</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #e3f2fd; /* Màu n?n xanh nh?t */
+            font-family: 'Roboto', sans-serif; /* Using Roboto font for better Vietnamese support */
+            background-color: #e3f2fd;
             text-align: center;
             padding: 50px;
         }
@@ -20,7 +21,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
         h2 {
-            color: #0d47a1; /* Màu xanh ??m */
+            color: #0d47a1;
         }
         p {
             color: #555;
@@ -30,14 +31,14 @@
             display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #1976d2; /* Màu xanh ch? ??o */
+            background-color: #1976d2;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: 0.3s;
         }
         .btn:hover {
-            background-color: #0d47a1; /* Màu xanh ??m khi hover */
+            background-color: #0d47a1;
         }
     </style>
 </head>
