@@ -59,12 +59,6 @@
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
                 <div class="navbar-right" style="z-index: 10000">
                     <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
@@ -92,7 +86,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a href="<%= request.getContextPath() %>/logout"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                    <a href="<%= request.getContextPath()%>/logout"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
                                 </li>
                             </ul>
                         </li>
@@ -111,40 +105,40 @@
                             <img src="admin/img/26115.jpg" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, Admin</p>
+                            <p>Hi, Admin</p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
                     <!-- search form -->
-<!--                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                            <span class="input-group-btn">
-                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>-->
+                    <!--                    <form action="#" method="get" class="sidebar-form">
+                                            <div class="input-group">
+                                                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                                                <span class="input-group-btn">
+                                                    <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </form>-->
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="<%= request.getContextPath() %>/DashboarchAdminServlet">
+                            <a href="<%= request.getContextPath()%>/DashboarchAdminServlet">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<%= request.getContextPath() %>/admin-manage-product">
+                            <a href="<%= request.getContextPath()%>/admin-manage-product">
                                 <i class="fa fa-gavel"></i> <span>Manage Product</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<%= request.getContextPath() %>/manage-user">
+                            <a href="<%= request.getContextPath()%>/manage-user">
                                 <i class="fa fa-gavel"></i> <span>Manage User</span>
                             </a>
                         </li>
 
-                        <li><a href="<%= request.getContextPath() %>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
+                        <li><a href="<%= request.getContextPath()%>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
 
                     </ul>
                 </section>
@@ -264,9 +258,12 @@
                                     </div>
                                     <div class="panel-footer bg-white">
                                         <!-- <span class="pull-right badge badge-info">32</span> -->
-                                        <button class="btn btn-primary btn-addon btn-sm">
-                                            view all
-                                        </button>
+                                        <a href="<%= request.getContextPath()%>/admin-manage-product">
+                                            <button class="btn btn-primary btn-addon btn-sm">
+                                                view all
+                                            </button>
+                                        </a>
+
                                     </div>
                                     <div class="panel-body" id="noti-box">
                                         <c:if test="${not empty statusMessage}">
@@ -305,9 +302,10 @@
 
                                         <div class="panel-footer bg-white">
                                             <!-- <span class="pull-right badge badge-info">32</span> -->
-                                            <button class="btn btn-primary btn-addon btn-sm">
-                                                view all
-                                            </button>
+                                            <a href="<%= request.getContextPath()%>/manage-user"><button class="btn btn-primary btn-addon btn-sm">
+                                                    view all
+                                                </button></a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -420,11 +418,11 @@
                                                     </div>-->
                             <!-- row end -->
                         </section><!-- /.content -->
-                        <div class="footer-main">
-                            Copyright &copy Director, 2014
-                        </div>
-                    </aside><!-- /.right-side -->
 
+                    </aside><!-- /.right-side -->
+<!--                    <div class="footer-main">
+                        Copyright &copy Director, 2014
+                    </div>-->
                 </div><!-- ./wrapper -->
 
 

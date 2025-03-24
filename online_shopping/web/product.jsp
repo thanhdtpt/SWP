@@ -61,7 +61,7 @@
 
             /* CSS cho modal */
             .modal {
-                display: none ;/* Mặc định ẩn modal */
+                display: none ; 
                 position: fixed;
                 z-index: 1000;
                 left: 0;
@@ -739,16 +739,16 @@
                 .catch(error => console.error("Lỗi:", error));
     }
 
-    // Mở modal
-    function openFeedbackModal() {
-        console.log("Modal is opening");
-        document.getElementById("feedbackModal").style.display = "flex";
-    }
-
-// Đóng modal
-    function closeFeedbackModal() {
-        document.getElementById("feedbackModal").style.display = "none";
-    }
+//    // Mở modal
+//    function openFeedbackModal() {
+//        console.log("Modal is opening");
+//        document.getElementById("feedbackModal").style.display = "flex";
+//    }
+//
+//// Đóng modal
+//    function closeFeedbackModal() {
+//        document.getElementById("feedbackModal").style.display = "none";
+//    }
 
 // Đóng modal khi nhấp ra ngoài
     window.onclick = function (event) {

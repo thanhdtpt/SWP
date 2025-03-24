@@ -135,7 +135,7 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="seller/home.jsp">
+                            <a href="home.jsp">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -146,25 +146,6 @@
                             </a>
                         </li>
                         <li><a href="<%= request.getContextPath() %>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
-
-
-<!--                        <li>
-                            <a href="general.jsp">
-                                <i class="fa fa-gavel"></i> <span>General</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="basic_form.jsp">
-                                <i class="fa fa-globe"></i> <span>Basic Elements</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="simple.jsp">
-                                <i class="fa fa-glass"></i> <span>Simple tables</span>
-                            </a>
-                        </li>-->
 
 
                     </ul>

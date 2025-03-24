@@ -554,9 +554,6 @@ public class ProductDAO extends DBContext {
 
     public List<Product> getTopProductsByStatus(String status) {
         List<Product> list = new ArrayList<>();
-//        String sql = "SELECT TOP 8 * FROM Products \n"
-//                + "WHERE status = ? \n"
-//                + "ORDER BY UpdatedDate DESC;";  // Fetch top 8 products with 'pending' status
         String sql = "SELECT TOP 8 * FROM Products \n"
                 + "ORDER BY CASE WHEN status = 'pending' THEN 0 ELSE 1 END, UpdatedDate DESC;";
 
@@ -594,6 +591,102 @@ public class ProductDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return list;
+    }
+//    public List<Product> getAllProductsByStatus(String status) {
+//        List<Product> list = new ArrayList<>();
+//        String sql = "SELECT * FROM Products \n"
+//                + "ORDER BY CASE WHEN status = 'pending' THEN 0 ELSE 1 END, UpdatedDate DESC;";
+//
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+////            st.setString(1, status);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("ProductID");
+//                String shopIdFromDB = rs.getString("ShopID");
+//                Shop shop = new Shop();
+//                shop.setUsername(shopIdFromDB);
+//                int categoryID = rs.getInt("CategoryID");
+//                CategoryDAO cd = new CategoryDAO();
+//                Categories categories = cd.getCategoryById(categoryID);
+//                String productname = rs.getString("ProductName");
+//                String origin = rs.getString("Origin");
+//                String brand = rs.getString("Brand");
+//                String images1 = rs.getString("Images1");
+//                String describe = rs.getString("Describe");
+//                float oldPrice = rs.getFloat("OldPrice");
+//                float currentPrice = rs.getFloat("CurrentPrice");
+//                int quantityPerUnit = rs.getInt("QuantityPerUnit");
+//                int unitInstock = rs.getInt("UnitInstock");
+//                int unitOnOrder = rs.getInt("UnitOnOrder");
+//                boolean isContinued = rs.getBoolean("IsContinued");
+//                String status1 = rs.getString("status");
+//                String createdDate = rs.getString("CreatedDate");
+//                String updatedDate = rs.getString("UpdatedDate");
+//
+//                // Add the product to the list
+//                list.add(new Product(id, shop, categories, productname, origin, brand, images1, describe,
+//                        oldPrice, currentPrice, quantityPerUnit, unitInstock, unitOnOrder, isContinued, status1, createdDate, updatedDate));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
+
+    public List<Product> getAllProductsByStatus(String status, int page, int pageSize) {
+        List<Product> list = new ArrayList<>();
+        // Tính toán OFFSET để lấy dữ liệu theo trang
+        int offset = (page - 1) * pageSize;
+
+        String sql = "WITH Product_CTE AS ("
+                + "    SELECT *, "
+                + "        ROW_NUMBER() OVER (ORDER BY CASE WHEN status = 'pending' THEN 0 ELSE 1 END, UpdatedDate DESC) AS RowNum "
+                + "    FROM Products "
+                + ") "
+                + "SELECT * FROM Product_CTE "
+                + "WHERE RowNum BETWEEN ? AND ?";  // Phân trang dựa trên RowNum
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(2, pageSize);    // Số lượng sản phẩm trên mỗi trang
+            st.setInt(1, offset);      // Vị trí bắt đầu dữ liệu
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("ProductID");
+                String shopIdFromDB = rs.getString("ShopID");
+                Shop shop = new Shop();
+                shop.setUsername(shopIdFromDB);
+
+                int categoryID = rs.getInt("CategoryID");
+                CategoryDAO cd = new CategoryDAO();
+                Categories categories = cd.getCategoryById(categoryID);
+
+                String productname = rs.getString("ProductName");
+                String origin = rs.getString("origin");
+                String brand = rs.getString("Brand");
+                String images1 = rs.getString("images1");
+                String describe = rs.getString("describe");
+                float oldPrice = rs.getFloat("oldPrice");
+                float currentPrice = rs.getFloat("currentPrice");
+                int quantityPerUnit = rs.getInt("QuantityPerUnit");
+                int unitInstock = rs.getInt("UnitInstock");
+                int unitOnOrder = rs.getInt("UnitOnOrder");
+                boolean isContinued = rs.getBoolean("IsContinued");
+                String status1 = rs.getString("status");
+                String createdDate = rs.getString("CreatedDate");
+                String updatedDate = rs.getString("UpdatedDate");
+
+                // Add the product to the list
+                list.add(new Product(id, shop, categories, productname, origin, brand, images1, describe,
+                        oldPrice, currentPrice, quantityPerUnit, unitInstock, unitOnOrder, isContinued, status1, createdDate, updatedDate));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return list;
     }
 

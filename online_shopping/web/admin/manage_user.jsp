@@ -52,8 +52,8 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li><a href="<%= request.getContextPath()%>/DashboarchAdminServlet"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-                        <li><a href="<%= request.getContextPath()%>/manage-product"><i class="fa fa-gavel"></i> <span>Manage Product</span></a></li>
-                        <li><a href="manage_user.jsp"><i class="fa fa-users"></i> <span>Manage User</span></a></li>
+                        <li><a href="<%= request.getContextPath() %>/admin-manage-product""><i class="fa fa-gavel"></i> <span>Manage Product</span></a></li>
+                        <li><a href="<%= request.getContextPath()%>/manage-user"><i class="fa fa-users"></i> <span>Manage User</span></a></li>
                         <li><a href="<%= request.getContextPath()%>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
                     </ul>
                 </section>
