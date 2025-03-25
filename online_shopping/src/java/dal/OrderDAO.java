@@ -472,9 +472,10 @@ public class OrderDAO extends DBContext {
     public List<OrderDetail> GetAllOrderByShopID(String username) {
         List<OrderDetail> list = new ArrayList<>();
         String sql = "SELECT od.* FROM Orders o "
-                + "INNER JOIN [Order Details] od ON o.OrderID = od.OrderID "
-                + "INNER JOIN Products p ON p.ProductID = od.ProductID "
-                + "WHERE p.ShopID = (SELECT ShopID FROM Shops WHERE UserName = ?)";
+            + "INNER JOIN [Order Details] od ON o.OrderID = od.OrderID "
+            + "INNER JOIN Products p ON p.ProductID = od.ProductID "
+            + "INNER JOIN Shops s ON s.UserName = p.ShopID "
+            + "WHERE s.UserName = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);

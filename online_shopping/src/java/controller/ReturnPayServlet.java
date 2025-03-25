@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import model.Account;
 import model.Cart;
 import model.Item;
+import model.OrderDetail;
 import model.Orders;
 
 public class ReturnPayServlet extends HttpServlet {
@@ -83,6 +84,21 @@ public class ReturnPayServlet extends HttpServlet {
                 // Tạo đơn hàng
                 Orders order = new Orders(user.getUsername(), shipvia, null, todayDate, null, freight, shipaddress, "16", shopTotal, 10);
                 Orders newOrder = orderDAO.insertOrder(order);
+                for (Item item : finalCart.getItems()) {
+                    if (item.getProduct().getShops().getUsername().equalsIgnoreCase(shopUsername)) {
+                        // Tạo OrderDetail cho từng sản phẩm trong đơn hàng
+                        OrderDetail orderDetail = new OrderDetail(
+                                0, // ID sẽ tự động tạo trong cơ sở dữ liệu
+                                newOrder.getId(), // OrderID của đơn hàng vừa tạo
+                                item.getProduct().getId(), // ProductID của sản phẩm trong giỏ
+                                item.getQuantity(), // Số lượng sản phẩm
+                                false // Trạng thái mặc định là chưa xử lý
+                        );
+
+                        // Chèn chi tiết đơn hàng vào OrderDetails
+                        orderDAO.InsertOrderDetail(newOrder.getId(), item.getProduct().getId(), item.getQuantity());
+                    }
+                }
 
                 // Chia tiền: 80% vào shop, 20% vào admin
                 float shopAmount = shopTotal * 0.8f;
