@@ -469,4 +469,37 @@ public class OrderDAO extends DBContext {
         return "Chưa xác định";
     }
 
+    public List<OrderDetail> GetAllOrderByShopID(String username) {
+        List<OrderDetail> list = new ArrayList<>();
+        String sql = "SELECT od.* FROM Orders o "
+                + "INNER JOIN [Order Details] od ON o.OrderID = od.OrderID "
+                + "INNER JOIN Products p ON p.ProductID = od.ProductID "
+                + "WHERE p.ShopID = (SELECT ShopID FROM Shops WHERE UserName = ?)";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int orderid = rs.getInt("orderid");
+                int productid = rs.getInt("productid");
+                int quantity = rs.getInt("quantity");
+                boolean status = rs.getBoolean("status");
+
+                // Lấy thông tin sản phẩm từ ProductDAO
+                Product product = new ProductDAO().getProductById(productid);
+
+                // Tạo OrderDetail với sản phẩm liên quan
+                OrderDetail orderDetail = new OrderDetail(id, orderid, productid, product, quantity, status);
+                list.add(orderDetail);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
 }

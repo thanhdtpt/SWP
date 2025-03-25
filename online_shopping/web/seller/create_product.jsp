@@ -117,6 +117,11 @@
                                 <i class="fa fa-user"></i> <span>Shop Profile</span>
                             </a>
                         </li>
+                        <li >
+                            <a href="<%= request.getContextPath() %>/manage-orders">
+                                <i class="fa fa-user"></i> <span>List Order</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
