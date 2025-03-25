@@ -508,5 +508,20 @@ public class AccountDAO extends DBContext {
             e.printStackTrace();
         }
     }
+     public int getTotalProducts(String shopId) {
+        String sql = "SELECT COUNT(*) FROM Products WHERE ShopID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, shopId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);  // Trả về tổng số sản phẩm
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    
 
 }

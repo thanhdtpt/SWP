@@ -143,7 +143,8 @@ public class LoginServlet extends HttpServlet {
                     ShopDAO shopDao = new ShopDAO();
                     Shop shop = shopDao.getShop(email);
                     session.setAttribute("shop", shop);
-                    response.sendRedirect("seller/home.jsp");
+//                    response.sendRedirect("seller/home.jsp");
+                    response.sendRedirect(request.getContextPath() + "/DashboarchSellerServlet");
                 }
             } else {
                 String er = "account không có role!";

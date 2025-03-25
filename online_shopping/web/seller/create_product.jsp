@@ -48,13 +48,6 @@
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="dropdown user user-menu">
@@ -99,7 +92,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="seller/img/26115.jpg" class="img-circle" alt="User Image" />
+                            <img src="${sessionScope.shop.avatar}" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Hi, </p> <span>${sessionScope.shop.name}</span>
@@ -107,16 +100,7 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                    <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                            <span class="input-group-btn">
-                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <ul class="sidebar-menu">
+                     <ul class="sidebar-menu">
                         <li>
                             <a href="seller/home.jsp">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -125,6 +109,12 @@
                         <li class="active">
                             <a href="<%= request.getContextPath() %>/manage-product">
                                 <i class="fa fa-gavel"></i> <span>Manage Product</span>
+                            </a>
+                        </li>
+                        <li><a href="<%= request.getContextPath() %>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
+                        <li >
+                            <a href="<%= request.getContextPath() %>/shop-profile">
+                                <i class="fa fa-user"></i> <span>Shop Profile</span>
                             </a>
                         </li>
                     </ul>

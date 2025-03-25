@@ -650,8 +650,8 @@ public class ProductDAO extends DBContext {
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(2, pageSize);    // Số lượng sản phẩm trên mỗi trang
-            st.setInt(1, offset);      // Vị trí bắt đầu dữ liệu
+            st.setInt(1, offset + 1);    // Số lượng sản phẩm trên mỗi trang
+            st.setInt(2, offset + pageSize);      // Vị trí bắt đầu dữ liệu
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {

@@ -15,6 +15,7 @@ public class Shop {
     private String city;
     private String address;
     private String phone;
+    private String avatar;
     public Shop() {
     }
 
@@ -24,6 +25,15 @@ public class Shop {
         this.city = city;
         this.address = address;
         this.phone = phone;
+    }
+    
+    public Shop(String username, String name, String city, String address, String phone, String avatar) {
+        this.username = username;
+        this.name = name;
+        this.city = city;
+        this.address = address;
+        this.phone = phone;
+        this.avatar = avatar;
     }
 
     public String getUsername() {
@@ -65,6 +75,14 @@ public class Shop {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    
 
     @Override
     public String toString() {

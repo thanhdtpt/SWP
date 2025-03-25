@@ -46,7 +46,7 @@
             <section class="sidebar">
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="seller/img/26115.jpg" class="img-circle" alt="User Image" />
+                        <img src="${sessionScope.shop.avatar}" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
                         <p>Hi, </p> <span>${sessionScope.shop.name}</span>
@@ -55,9 +55,14 @@
                 </div>
 
                 <ul class="sidebar-menu">
-                    <li><a href="seller/home.jsp"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                    <li><a href="<%= request.getContextPath() %>/DashboarchSellerServlet"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                     <li><a href="<%= request.getContextPath() %>/manage-product"><i class="fa fa-gavel"></i> <span>Manage Product</span></a></li>
                     <li class="active"><a href="<%= request.getContextPath() %>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
+                    <li >
+                            <a href="<%= request.getContextPath() %>/shop-profile">
+                                <i class="fa fa-user"></i> <span>Shop Profile</span>
+                            </a>
+                        </li>
                 </ul>
             </section>
         </aside>
