@@ -745,10 +745,10 @@
 //        document.getElementById("feedbackModal").style.display = "flex";
 //    }
 //
-//// Đóng modal
-//    function closeFeedbackModal() {
-//        document.getElementById("feedbackModal").style.display = "none";
-//    }
+    // Đóng modal
+    function closeFeedbackModal() {
+        document.getElementById("feedbackModal").style.display = "none";
+    }
 
 // Đóng modal khi nhấp ra ngoài
     window.onclick = function (event) {
