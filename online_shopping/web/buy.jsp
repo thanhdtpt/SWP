@@ -287,7 +287,7 @@
                                                         <label class="form-label">Chọn địa chỉ:</label>
                                                         <select class="form-select" name="address" id="addressSelect" onchange="updateAddressDetails()">
                                                             <c:forEach items="${requestScope.addresses}" var="addr">
-                                                                <option value="${addr.id}" data-name="${addr.name}" data-phone="${addr.phone}" data-address="${addr.address}">
+                                                                <option value="${addr.address}" data-name="${addr.name}" data-phone="${addr.phone}" data-address="${addr.address}">
                                                                     ${addr.address}
                                                                 </option>
                                                             </c:forEach>
@@ -446,7 +446,7 @@
 <!--                                                        <div>₫${requestScope.freight}</div>
                                                         <input type="text" name="freight" value="${requestScope.freight}" readonly style="display: none"/>-->
                                                         <div>10.000 đ</div>
-                                                        <input type="text" name="freight" value="10000" readonly style="display: none"/>
+                                                        <input type="text" name="freight" value="1" readonly style="display: none"/>
                                                     </div>
                                                 </div>
                                                 <div class="_1FDuJg">
@@ -475,7 +475,7 @@
                                                         </div>-->
                                                         <div class="_1gMI9H">
                                                             <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> đ
-                                                            <input type="text" value="500000"  name="amount" readonly style="display: none">
+                                                            <input type="text" value="${totalPrice}"  name="amount" readonly style="display: none">
                                                         </div>
                                                     </div>
                                                 </div>

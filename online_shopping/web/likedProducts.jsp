@@ -197,15 +197,33 @@
                                 <img src="./${sessionScope.profile.image}"
                                      alt="" class="header__navbar-user-img">
                                 <span class="header__navbar-user-name">${sessionScope.account.cusname}</span>
+                                <!--                                <ul class="header__navbar-user-menu">
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="profile">Tài khoản của tôi</a>
+                                                                    </li>
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="address">Địa chỉ của tôi</a>
+                                                                    </li>
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="order">Đơn mua </a>
+                                                                    </li>
+                                
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="logout">Đăng xuất</a>
+                                                                    </li>
+                                                                </ul>-->
                                 <ul class="header__navbar-user-menu">
                                     <li class="header__navbar-user-item">
                                         <a href="profile">Tài khoản của tôi</a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="address">Địa chỉ của tôi</a>
+                                        <a href="address?action=view">Địa chỉ của tôi</a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="order">Đơn mua </a>
+                                        <a href="order-history">Đơn mua </a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="like-product">yêu thích </a>
                                     </li>
 
                                     <li class="header__navbar-user-item">

@@ -21,7 +21,8 @@ import java.time.format.DateTimeFormatter;
 public class ShopProfileServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -90,6 +91,12 @@ public class ShopProfileServlet extends HttpServlet {
             String city = request.getParameter("city");
             String address = request.getParameter("address");
 
+            if (!phone.matches("^0\\d{9}$")) {
+                request.setAttribute("error", "Số điện thoại phải bắt đầu bằng số 0 và gồm 10 chữ số.");
+                request.getRequestDispatcher("seller/shopProfile.jsp").forward(request, response);
+                return;
+            }
+
             // Xử lý ảnh đại diện (avatar)
             Part filePart = request.getPart("avatar");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -104,7 +111,7 @@ public class ShopProfileServlet extends HttpServlet {
                 }
 
                 File file = new File(uploadPath + File.separator + fileName);
-                try (InputStream fileContent = filePart.getInputStream(); FileOutputStream fos = new FileOutputStream(file)) {
+                try ( InputStream fileContent = filePart.getInputStream();  FileOutputStream fos = new FileOutputStream(file)) {
                     byte[] buffer = new byte[1024];
                     int bytesRead;
                     while ((bytesRead = fileContent.read(buffer)) != -1) {

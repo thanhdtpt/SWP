@@ -51,7 +51,7 @@ public class CDOServlet extends HttpServlet {
             int shipvia = (shipperParam == null || shipperParam.trim().isEmpty()) ? 1 : Integer.parseInt(shipperParam);
 
             String freightParam = request.getParameter("freight");
-            float freight = (freightParam == null || freightParam.trim().isEmpty()) ? 10000 : Float.parseFloat(freightParam);
+            float freight = (freightParam == null || freightParam.trim().isEmpty()) ? 1 : Float.parseFloat(freightParam);
             String shipaddress = request.getParameter("address");
 //            float totalAmount = Float.parseFloat(request.getParameter("amount"));
 

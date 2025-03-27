@@ -93,11 +93,13 @@ public class PayServlet extends HttpServlet {
 //        MenteeDAO menteeDAO = new MenteeDAO();
 
         if (user != null && (user.getCusname() != null)) {
-
+            double amountDouble;
             int amount;
 
             try {
-                amount = Integer.parseInt(request.getParameter("amount"));
+                amountDouble = Double.parseDouble(request.getParameter("amount"));
+                amount = (int) Math.round(amountDouble); // Làm tròn thành số nguyên
+//                amount = Integer.parseInt(request.getParameter("amount"));
             } catch (NumberFormatException e) {
                 session.setAttribute("notificationErr", "Invalid amount entered. Please try again.");
                 response.sendRedirect("recharge");

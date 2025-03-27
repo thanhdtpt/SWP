@@ -18,7 +18,7 @@
         <meta name="keywords" content="">
         <meta name="description" content="">
         <meta name="author" content="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="./asserts/css/base.css">
         <!--<link rel="stylesheet" href="./asserts/css/main.css">-->
@@ -42,7 +42,7 @@
     <body>
 
 
- <header class="header">
+        <header class="header">
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
@@ -167,15 +167,33 @@
                                 <img src="./${sessionScope.profile.image}"
                                      alt="" class="header__navbar-user-img">
                                 <span class="header__navbar-user-name">${sessionScope.account.cusname}</span>
+                                <!--                                <ul class="header__navbar-user-menu">
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="profile">Tài khoản của tôi</a>
+                                                                    </li>
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="address">Địa chỉ của tôi</a>
+                                                                    </li>
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="order">Đơn mua </a>
+                                                                    </li>
+                                
+                                                                    <li class="header__navbar-user-item">
+                                                                        <a href="logout">Đăng xuất</a>
+                                                                    </li>
+                                                                </ul>-->
                                 <ul class="header__navbar-user-menu">
                                     <li class="header__navbar-user-item">
                                         <a href="profile">Tài khoản của tôi</a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="address">Địa chỉ của tôi</a>
+                                        <a href="address?action=view">Địa chỉ của tôi</a>
                                     </li>
                                     <li class="header__navbar-user-item">
-                                        <a href="order">Đơn mua </a>
+                                        <a href="order-history">Đơn mua </a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="like-product">yêu thích </a>
                                     </li>
 
                                     <li class="header__navbar-user-item">
@@ -277,7 +295,7 @@
 
                                                         </div>
                                                         <div class="header__cart-item-body ">
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </li>
@@ -511,7 +529,7 @@
 
 
 
-       <!-- ALL JS FILES -->
+        <!-- ALL JS FILES -->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

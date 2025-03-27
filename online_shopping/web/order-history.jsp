@@ -290,7 +290,6 @@
                                         <th>📍 Địa Chỉ</th>
                                         <th>⚖ Cân Nặng</th>
                                         <th>💰 Tổng Tiền</th>
-                                        <th>🎉 Giảm Giá</th>
                                         <th>🔍 Chi Tiết</th>
                                     </tr>
                                 </thead>
@@ -303,7 +302,6 @@
                                             <td>${order.shipaddress}</td>
                                             <td>${order.freight} KG</td>
                                             <td><b style="color: green;"><fmt:formatNumber value="${order.total}" type="number" groupingUsed="true"/> đ</b></td>
-                                            <td><span style="color: red;">-${order.discount}%</span></td>
                                             <td>
                                                 <a href="order-details?orderId=${order.id}" class="btn-info">Xem</a>
                                             </td>

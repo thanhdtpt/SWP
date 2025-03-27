@@ -75,7 +75,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a href="<%= request.getContextPath() %>/logout"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                    <a href="<%= request.getContextPath()%>/logout"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
                                 </li>
                             </ul>
 
@@ -100,25 +100,25 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                     <ul class="sidebar-menu">
+                    <ul class="sidebar-menu">
                         <li>
                             <a href="seller/home.jsp">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="<%= request.getContextPath() %>/manage-product">
+                            <a href="<%= request.getContextPath()%>/manage-product">
                                 <i class="fa fa-gavel"></i> <span>Manage Product</span>
                             </a>
                         </li>
-                        <li><a href="<%= request.getContextPath() %>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
+                        <li><a href="<%= request.getContextPath()%>/manage-wallet"><i class="fa fa-money"></i> <span>Manage Wallet</span></a></li>
                         <li >
-                            <a href="<%= request.getContextPath() %>/shop-profile">
+                            <a href="<%= request.getContextPath()%>/shop-profile">
                                 <i class="fa fa-user"></i> <span>Shop Profile</span>
                             </a>
                         </li>
                         <li >
-                            <a href="<%= request.getContextPath() %>/manage-orders">
+                            <a href="<%= request.getContextPath()%>/manage-orders">
                                 <i class="fa fa-user"></i> <span>List Order</span>
                             </a>
                         </li>
@@ -141,10 +141,11 @@
                                     Form Elements
                                 </header>
                                 <div class="panel-body">
-                                    <form class="form-horizontal tasi-form" method="POST" action="create-product" onsubmit="return validateForm()" >
+                                    <form class="form-horizontal tasi-form" method="POST" action="create-product" enctype="multipart/form-data" onsubmit="return validateForm()" >
                                         <!-- Tên sản phẩm -->
                                         <c:if test="${not empty product}">
                                             <input type="hidden" name="id" value="${product.id}">
+                                            <input type="hidden" name="currentImage" value="${product.images1}" />
                                         </c:if> 
 
                                         <div class="form-group">
@@ -188,6 +189,16 @@
                                         </div>
 
                                         <!-- Ảnh sản phẩm -->
+                                        <!--                                        <div class="form-group">
+                                                                                    <label class="col-lg-2 col-sm-2 control-label">Images</label>
+                                                                                    <div class="col-lg-4">
+                                                                                        <input type="file" id="imageInput" name="images1" accept="image/png, image/jpeg, image/jpg" onchange="validateImage()">
+                                        <c:if test="${not empty product.images1}">
+                                            <img src="${product.images1}" alt="Product Image" width="100">
+                                        </c:if>
+                                        <span id="imageError" class="text-danger"></span>
+                                    </div>
+                                </div>-->
                                         <div class="form-group">
                                             <label class="col-lg-2 col-sm-2 control-label">Images</label>
                                             <div class="col-lg-4">
