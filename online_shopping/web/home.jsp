@@ -42,7 +42,7 @@
                     <ul class="header__navbar-list">
                     </ul>
                     <ul class="header__navbar-list">
-                       
+
                         <c:if test="${sessionScope.account==null}">
                             <li class="header__navbar-item  header__navbar-item--strong register-item" >
                                 <a href="register.jsp" 
@@ -339,13 +339,27 @@
                                                 </span>
 
 
+                                                <!--                                                <div class="home-product-item__rating">
+                                                                                                    <i class="fas fa-star home-product-item__stargold"></i>
+                                                                                                    <i class="fas fa-star home-product-item__stargold"></i>
+                                                                                                    <i class="fas fa-star home-product-item__stargold"></i>
+                                                                                                    <i class="fas fa-star home-product-item__stargold"></i>
+                                                                                                    <i class="fas fa-star home-product-item__stargold"></i>
+                                                                                                </div>-->
                                                 <div class="home-product-item__rating">
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
-                                                    <i class="fas fa-star home-product-item__stargold"></i>
+                                                    <c:set var="avgRating" value="${avgRatings[p.id]}" />
+                                                    <c:if test="${avgRating != null}">
+                                                        <c:forEach begin="1" end="5" var="star">
+                                                            <i class="fas fa-star ${star <= avgRating ? 'home-product-item__stargold' : 'home-product-item__stargray'}"></i>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${avgRating == null}">
+                                                        <c:forEach begin="1" end="5" var="star">
+                                                            <i class="fas fa-star home-product-item__stargray"></i>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
+
                                                 <span class="home-product-item__sold">${p.unitOnOrder}</span>
                                             </div>
                                             <div class="home-product-item__origin">

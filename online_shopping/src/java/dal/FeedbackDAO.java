@@ -3,7 +3,9 @@ package dal;
 import model.Feedback;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FeedbackDAO extends DBContext {
 
@@ -167,6 +169,22 @@ public class FeedbackDAO extends DBContext {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Map<Integer, Double> getAverageRatings() {
+        Map<Integer, Double> avgRatings = new HashMap<>();
+        String query = "SELECT ProductID, AVG(Rating) AS avgRating FROM Feedback GROUP BY ProductID";
+
+        try ( PreparedStatement ps = connection.prepareStatement(query);  ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int productId = rs.getInt("ProductID");
+                double avgRating = rs.getDouble("avgRating");
+                avgRatings.put(productId, avgRating);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return avgRatings;
     }
 
 }

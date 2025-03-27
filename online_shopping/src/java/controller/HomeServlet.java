@@ -6,6 +6,7 @@
 package controller;
 
 import dal.CategoryDAO;
+import dal.FeedbackDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Map;
 import model.Account;
 import model.Cart;
 import model.Categories;
@@ -75,6 +77,11 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("listP", listP);
         Cart cart = (Cart) session.getAttribute("cart");
         List<Integer> likedProductIds = null;
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        // Lấy danh sách ID sản phẩm đã được đánh giá
+        Map<Integer, Double> avgRatings = feedbackDAO.getAverageRatings(); // Sử dụng DAO để lấy trung bình sao từ Feedback
+        request.setAttribute("avgRatings", avgRatings);
+
         
         if (account != null) {
             likedProductIds = pdb.getLikedProductIds(account.getEmail()); // Lấy danh sách ID sản phẩm đã thích
