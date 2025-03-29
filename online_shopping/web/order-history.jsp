@@ -288,7 +288,7 @@
                                         <th>📅 Ngày Đặt</th>
                                         <th>🚚 Ngày Giao</th>
                                         <th>📍 Địa Chỉ</th>
-                                        <th>⚖ Cân Nặng</th>
+                                        <!--<th>⚖ Cân Nặng</th>-->
                                         <th>💰 Tổng Tiền</th>
                                         <th>🔍 Chi Tiết</th>
                                     </tr>
@@ -300,7 +300,6 @@
                                             <td>${order.orderDate}</td>
                                             <td>${order.shippedDate}</td>
                                             <td>${order.shipaddress}</td>
-                                            <td>${order.freight} KG</td>
                                             <td><b style="color: green;"><fmt:formatNumber value="${order.total}" type="number" groupingUsed="true"/> đ</b></td>
                                             <td>
                                                 <a href="order-details?orderId=${order.id}" class="btn-info">Xem</a>

@@ -58,10 +58,6 @@
                                         <i class="fa fa-user fa-fw pull-right"></i>
                                         Profile
                                     </a>
-                                    <a data-toggle="modal" href="#modal-user-settings">
-                                        <i class="fa fa-cog fa-fw pull-right"></i>
-                                        Settings
-                                    </a>
                                 </li>
 
                                 <li class="divider"></li>
