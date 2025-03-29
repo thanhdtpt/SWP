@@ -1,0 +1,6 @@
+projectKey=SWt3
+serverUrl=http://localhost:9000
+serverVersion=25.2.0.102705
+dashboardUrl=http://localhost:9000/dashboard?id=SWt3
+ceTaskId=6470e969-0fa8-4d67-b04e-14f3423a462e
+ceTaskUrl=http://localhost:9000/api/ce/task?id=6470e969-0fa8-4d67-b04e-14f3423a462e
